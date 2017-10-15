@@ -8,10 +8,8 @@ StateId   smallint    unsigned not null auto_increment comment 'PK: State ID',
 StateName varchar(32) not null comment 'State name with first letter capital',
 StateAbbr varchar(8)  comment 'Optional state abbreviation (US 2 cap letters)',
 primary key (StateId)
-)
-charset utf8
-collate utf8_unicode_ci
-;
+);
+
  
 insert into States
 values
