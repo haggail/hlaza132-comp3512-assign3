@@ -1,28 +1,28 @@
-1. Assignment 1 functionality: Recheck A1 requirements
+1. Assignment 1 functionality: Recheck A1 requirements just in case
 2. Class based infrastructure: Done, clean up functions if possible
-3. Navigation
+3. Navigation: Done
     - User profile link: Done
     - Logout on header: Done
     - Analytics link: Done
-4. About us: Update what each of us did, Github link
-5. Single Book
+4. About us: Update what each of us did
+5. Single Book: Done
     - University name links: Done
     - Imprint/Subcategory links: Done
     - Larger image of book when clicked: Done
 6. Login
 7. Logout
-8. Browse Employees
+8. Browse Employees: Done
     - Show/hide filter: Done
     - Filter functionality: Done
 9. Employee search on header: Done
-10. Git/Github
+10. Git/Github: Done
     - Got it working: https://github.com/haggail/hlaza132-comp3512-assign2
 
 To do:
 - Error checking
-    - Incorrect query strings from manually typing should be fixed
+    - Incorrect query strings from manually typing is (should be) fixed
 - Clean up old/bad code
-    -Probably don't need EmployeeScripts.js; haven't deleted it yet just in case, but it doesn't look like any of our pages use this file.
+    - Probably don't need EmployeeScripts.js; haven't deleted it yet just in case, but it doesn't look like any of our pages use this file.
 - Make it look better
     - It looks way better
 

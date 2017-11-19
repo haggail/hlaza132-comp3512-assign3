@@ -1,12 +1,6 @@
 <?php
-if (isset($_GET['subid']) && isset($_GET['imprintid'])) {
-    $allfilter = true;
-} else {
     if (!isset($_GET['subid']) && !isset($_GET['imprintid'])) {
         header("Location:browse-books.php?subid=&imprintid=");
-    } else {
-    $allfilter = false;
-    }
 }
 
 include 'includes/book-config.inc.php';
@@ -65,20 +59,13 @@ $bookDb2 = new BookGatewaySubcat($connection);
                 <div class="mdl-card__supporting-text">
                    
                     <ul class="demo-list-item mdl-list">
-                        <?php
                         
+                        <?php
                         $imprints = $imprintDb->getAll(null, "Imprint");
                         
-                        if ($allfilter) {
-                            echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=>All Imprints</li>';
-                            foreach ($imprints as $row) {
-                                echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=' . $row['ImprintID'] . '>' . $row['Imprint'] . '</a></li>';
-                            }
-                        } else {
-                            echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Imprints</li>';
-                            foreach ($imprints as $row) {
-                                echo '<li><a href=?subid=&imprintid=' . $row['ImprintID'] . '>' . $row['Imprint'] . '</a></li>';
-                            }
+                        echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=>All Imprints</li>';
+                        foreach ($imprints as $row) {
+                            echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=' . $row['ImprintID'] . '>' . $row['Imprint'] . '</a></li>';
                         }
                         ?>
                 
@@ -93,22 +80,12 @@ $bookDb2 = new BookGatewaySubcat($connection);
     
                     <ul class="demo-list-item mdl-list">
                         <?php  
-                        
                         $subcategories = $subcatDb->getAll(null, "SubcategoryName");
                         
-                        if ($allfilter) {
-                            echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Subcategories</li>';
-                            foreach ($subcategories as $row) {
-                                echo '<li><a href=?subid=' . $row['SubcategoryID'] . '&imprintid=' . $_GET['imprintid'] . '>' . $row['SubcategoryName'] . '</a></li>';
-                            }
-                        } else {
-                            echo '<li><a href=?subid=&imprintid=>All Subcategories</li>';
-                            foreach ($subcategories as $row) {
-                                echo '<li><a href=?subid=' . $_GET['subid'] . '>' . $row['SubcategoryName'] . '</a></li>';
-                            }
+                        echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Subcategories</li>';
+                        foreach ($subcategories as $row) {
+                            echo '<li><a href=?subid=' . $row['SubcategoryID'] . '&imprintid=' . $_GET['imprintid'] . '>' . $row['SubcategoryName'] . '</a></li>';
                         }
-                        
-                        
                         ?>
                 
                     </ul>

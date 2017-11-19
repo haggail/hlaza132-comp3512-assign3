@@ -90,10 +90,10 @@ $singleB = new SingleBookUniversityGateway($connection);
   </div>
                  
               </div>  
-            <div class="mdl-cell mdl-cell--3-col">
+            <div class="mdl-cell mdl-cell--4-col">
 
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">Authors</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -121,8 +121,8 @@ $singleB = new SingleBookUniversityGateway($connection);
                     </div>
               </div> 
               
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--yellow">
                   <h2 class="mdl-card__title-text">Adopted by Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">

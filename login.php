@@ -23,7 +23,7 @@ if(isset($_COOKIE["philosopher"])){
 
 include 'includes/book-config.inc.php';
 
-// function to check session can be put in an include file
+// code to check session can be put in the functions include file
 
 // if isset($_COOKIE['']) {
 // else { 
