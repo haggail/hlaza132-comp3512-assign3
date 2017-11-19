@@ -1,5 +1,0 @@
-<?
-class BooksGateway extends AbstractTableGateway {
-    
-}
-?>
