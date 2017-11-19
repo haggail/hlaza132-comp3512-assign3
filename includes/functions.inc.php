@@ -8,10 +8,4 @@ function checkSession() {
         }
     return $goodSession;
 }
-
-function destroySession(){
-session_unset();
-session_destroy();
-//header("Location:login.php");
-}
 ?>

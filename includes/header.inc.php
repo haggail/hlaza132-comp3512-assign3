@@ -21,7 +21,7 @@
  
  <script>
  $("#tt4").click(function() {
-    window.location.replace("login.php/action=logout");
+    window.location.replace("session_destroyer.php");
  });
  </script>
         <label id="tt5" class="mdl-button mdl-js-button mdl-button--icon"

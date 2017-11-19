@@ -3,11 +3,6 @@
 include 'includes/book-config.inc.php';
 include 'includes/functions.inc.php';
 
-if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'logout') {
-        destroySession();
-    }
-}
 session_start();
 
 $badUser=false;$badPass=false;
@@ -30,8 +25,6 @@ if ($check) {
         if (empty($passCheck)) {
             $badPass=true;
         } else {
-            //session_start();
-
             $userDb=new UsersGateway($connection);
             
             $userCred=$userDb->matchData2($userCheck['UserID'], null, "1");
