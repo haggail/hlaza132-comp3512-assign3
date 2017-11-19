@@ -34,7 +34,7 @@
             <div class="mdl-grid">
 
               <div class="mdl-layout-spacer"></div>
-              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--red-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Disclaimer</h2>
                 </div>
@@ -45,7 +45,7 @@
             </div>  
             </div>
               
-              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">About Us</h2>
                 </div>
@@ -55,13 +55,19 @@
                         <li>Haggai Lazaro</li>
                         <li>Brandon Lazurko</li>
                         <li>Robert Rosica</li>
+                        <br>
                         <li>Course: COMP 3512</li>
+                        <br>
                         <li>Current Date: <?php echo date("M d, Y"); ?></li>
+                        <br>
+                        <li>Github: </li>
+                        <li>https://github.com/haggail/hlaza132-comp3512-assign2</li>
+
                     </ul>
                 </div>
               </div>  
               
-              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Resources</h2>
                 </div>
