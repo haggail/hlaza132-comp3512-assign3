@@ -14,14 +14,15 @@ header h1 span {
     flex-wrap: wrap;
     padding: 10px;
 }
+
 .profile span {
    font-size: 90%;   
 }
+
 .avatar {
   width: 96px;
   height: 96px;  
     border-radius: 50%;
-    
     display: block;
 }
 
@@ -37,8 +38,7 @@ main header {
 }
 main header h4 {
   margin: 0; 
-    
-    font-size: 18px;
+  font-size: 18px;
 }
 
 
@@ -80,7 +80,7 @@ main header h4 {
   display:none;
   position:absolute;
   top:45px;
-  right:10px;
+  right:5px;
 }
 
 .overflow {

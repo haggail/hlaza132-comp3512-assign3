@@ -47,11 +47,16 @@
     </div>
         <div id="searchBox" class="searchBtn">
             <form action="/browse-employees.php?city=&" method="get">
-                <input type="text" name="lastName" id="dropDown" placeholder="Search Employees...">
-                <button type="submit">Search</button>
+            <div class="mdl-textfield mdl-js-textfield">
+                <input class="mdl-textfield__input" type="text" name="lastName"/>
+                <label class="mdl-textfield__label" for="sample1">Search Employees...</label>
+            </div>
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit">
+                  Search</button>
             </form>
             
         </div>
+        
   </header>
    <script>
         var click = false;

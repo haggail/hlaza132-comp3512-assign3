@@ -24,26 +24,28 @@ if(isset($_COOKIE["philosopher"])){
 include 'includes/book-config.inc.php';
 
 // code to check session can be put in the functions include file
+$badUser=false;$badPass=false;
 
-// if isset($_COOKIE['']) {
-// else { 
+//if username/password is set:
+if (!isset($_POST['username']) && !isset($_POST['password'])) {
+    
+} else {
     $userLogDb=new UsersLoginGateway($connection);
     
     $userCheck=$userLogDb->getByKey($_POST['username']);
-    $test = $userCheck['Salt'];
     
     if (empty($userCheck)) {
-    echo "Incorrect Username. Please try again.";
+    $badUser=true;
     } else {
         $passCheck=$userLogDb->matchData(md5($_POST['password'] . $userCheck['Salt']));
         if (empty($passCheck)) {
-            echo "Incorrect Password. Please try again";
+            $badPass=true;
         } else {
-            //if statement: redirect to index or previous page
+            //redirect to index or previous page
             header("Location:index.php");
         }
     }
-//}
+}
 ?>
 
 <!DOCTYPE html>
@@ -82,20 +84,34 @@ include 'includes/book-config.inc.php';
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-grid mdl-cell--8-col">
-                    <form action="login.php" method="post">
+                    <form action="login.php" method="post" id="mainForm">
+                        
+                        <!--focus event: hide the error message -->
+                        
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input" type="text" id="username" name="username"/>
                             <label class="mdl-textfield__label" for="username">Username</label>
                         </div>
-        
+                        <?php
+                        if ($badUser) {
+                            echo '<div>Incorrect Username</div>';
+                        }
+                        ?>
+
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input" type="password" id="password" name="password"/>
                             <label class="mdl-textfield__label" for="password">Password</label>
                         </div>
+                        <?php
+                        if ($badPass) {
+                            echo '<div>Incorrect Password</div>';
+                        }
+                        ?>
+                        <br>
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Login</button>
+                        
                     </form>
                 </div>
-                
 
               </div>  <!-- / mdl-cell + mdl-card -->
 

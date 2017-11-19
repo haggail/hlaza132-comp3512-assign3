@@ -1,8 +1,8 @@
   <div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--blue-grey-50">
        <div class="profile">
-           <img src="images/M&M.png" class="avatar">
-           <h4>Haggai Lazaro</h4>           
-           <span>hlaza132@mtroyal.ca</span>
+           <img src="images/avatar.jpg" class="avatar">
+           <h4>User First/Last name</h4>           
+           <span>User Email</span>
        </div>
 
     <nav class="mdl-navigation mdl-color-text--blue-grey-300">
