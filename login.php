@@ -16,14 +16,34 @@ if(isset($_COOKIE["philosopher"])){
 */
 //for the cookies - via javascriot
 /*
-    document.cookie = "username=John Doe; expires=Thu, 18 Dec 2013 12:00:00 UTC"; //to create
+    document.cookie = "username=John Doe; expires=Thu, 18 Dec 2017 12:00:00 UTC"; //to create
     var x = document.cookie; //to read
     document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; //to delete, set time in past
 */
 
+include 'includes/book-config.inc.php';
 
+// function to check session can be put in an include file
 
-
+// if isset($_COOKIE['']) {
+// else { 
+    $userLogDb=new UsersLoginGateway($connection);
+    
+    $userCheck=$userLogDb->getByKey($_POST['username']);
+    $test = $userCheck['Salt'];
+    
+    if (empty($userCheck)) {
+    echo "Incorrect Username. Please try again.";
+    } else {
+        $passCheck=$userLogDb->matchData(md5($_POST['password'] . $userCheck['Salt']));
+        if (empty($passCheck)) {
+            echo "Incorrect Password. Please try again";
+        } else {
+            //if statement: redirect to index or previous page
+            header("Location:index.php");
+        }
+    }
+//}
 ?>
 
 <!DOCTYPE html>
@@ -62,14 +82,14 @@ if(isset($_COOKIE["philosopher"])){
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-grid mdl-cell--8-col">
-                    <form action="#" method="">
+                    <form action="login.php" method="post">
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="username" />
+                            <input class="mdl-textfield__input" type="text" id="username" name="username"/>
                             <label class="mdl-textfield__label" for="username">Username</label>
                         </div>
         
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="password" id="password" />
+                            <input class="mdl-textfield__input" type="password" id="password" name="password"/>
                             <label class="mdl-textfield__label" for="password">Password</label>
                         </div>
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Login</button>

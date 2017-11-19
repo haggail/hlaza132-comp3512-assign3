@@ -1,5 +1,5 @@
 <?php
-class LoginGateway extends AbstractTableGateway {
+class UsersLoginGateway extends AbstractTableGateway {
     public function __construct($connect) {
         parent::__construct($connect);
     }
@@ -8,11 +8,11 @@ class LoginGateway extends AbstractTableGateway {
     }
     
     protected function getPrimaryKeyName() {
-        return "UserID";
+        return "UserName";
     }
     
     protected function getTableID() {
-        return null;
+        return "Password";
     }
     
     protected function getJoinStatement(){
@@ -20,7 +20,7 @@ class LoginGateway extends AbstractTableGateway {
     }
     
     protected function addToWhere(){
-        return null;
+        return;
     }
 }
 ?>
