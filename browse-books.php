@@ -1,5 +1,13 @@
 <?php
-    if (!isset($_GET['subid']) && !isset($_GET['imprintid'])) {
+include 'includes/functions.inc.php';
+session_start();
+$check = checkSession();
+
+if (!$check) {
+    header("Location:login.php?prevurl=browse-books.php");
+}
+
+if (!isset($_GET['subid']) && !isset($_GET['imprintid'])) {
         header("Location:browse-books.php?subid=&imprintid=");
 }
 
@@ -43,7 +51,6 @@ $bookDb2 = new BookGatewaySubcat($connection);
             
     <?php include 'includes/header.inc.php'; ?>
     <?php include 'includes/left-nav.inc.php'; ?>
-    <?php include 'includes/functions.inc.php'; ?>
     
     <main class="mdl-layout__content mdl-color--grey-50">
         <section class="page-content">

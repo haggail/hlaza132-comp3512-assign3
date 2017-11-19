@@ -1,4 +1,12 @@
 <?php
+include 'includes/functions.inc.php';
+session_start();
+$check = checkSession();
+
+if (!$check) {
+    header("Location:login.php?prevurl=single-book.php");
+}
+
 if (isset($_GET['isbn10'])) {
     $nobook = false;
 } else {
@@ -45,8 +53,7 @@ $singleB = new SingleBookUniversityGateway($connection);
             
     <?php include 'includes/header.inc.php'; ?>
     <?php include 'includes/left-nav.inc.php'; ?>
-    <?php include 'includes/functions.inc.php'; ?>
-    
+
     
     
     <main class="mdl-layout__content mdl-color--grey-50" >

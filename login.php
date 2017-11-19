@@ -1,34 +1,23 @@
 <?php
-//for the cookies - via php
-//adding
-/*
-if(isset($_POST["theme"])){
-        $expiryTime = time()+60*60*24;
-        setcookie("theme", $_POST["theme"],$expiryTime);
-    }
-*/
-//removing
-/*
-if(isset($_COOKIE["philosopher"])){
-        unset($_COOKIE["philosopher"]);
-        setcookie("philosopher", "", time()-60*60*24);
-    }
-*/
-//for the cookies - via javascriot
-/*
-    document.cookie = "username=John Doe; expires=Thu, 18 Dec 2017 12:00:00 UTC"; //to create
-    var x = document.cookie; //to read
-    document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; //to delete, set time in past
-*/
 
 include 'includes/book-config.inc.php';
+include 'includes/functions.inc.php';
 
-// code to check session can be put in the functions include file
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'logout') {
+        destroySession();
+    }
+}
+session_start();
+
 $badUser=false;$badPass=false;
 
-//if username/password is set:
-if (!isset($_POST['username']) && !isset($_POST['password'])) {
-    
+$check = checkSession();
+
+if ($check) {
+    header("Location:index.php");
+} else if (!isset($_POST['username']) || !isset($_POST['password'])) {
+    //continue
 } else {
     $userLogDb=new UsersLoginGateway($connection);
     
@@ -41,8 +30,27 @@ if (!isset($_POST['username']) && !isset($_POST['password'])) {
         if (empty($passCheck)) {
             $badPass=true;
         } else {
-            //redirect to index or previous page
-            header("Location:index.php");
+            //session_start();
+
+            $userDb=new UsersGateway($connection);
+            
+            $userCred=$userDb->matchData2($userCheck['UserID'], null, "1");
+            
+            foreach ($userCred as $row) {
+                $expiryTime = time()+60*60;
+
+                $_SESSION["FirstName"] = $row["UserID"];
+                $_SESSION["FirstName"] = $row["FirstName"]; 
+                $_SESSION["LastName"] = $row["LastName"]; 
+                $_SESSION["Email"] = $row["Email"]; 
+            }
+            
+            if (isset($_GET['prevurl'])) {
+                header("Location:" . $_GET['prevurl']);
+            } else {
+                header("Location:index.php");
+            }
+            
         }
     }
 }
@@ -84,8 +92,13 @@ if (!isset($_POST['username']) && !isset($_POST['password'])) {
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-grid mdl-cell--8-col">
-                    <form action="login.php" method="post" id="mainForm">
-                        
+                <?php
+                if (!isset($_GET['prevurl'])) {
+                    echo '<form action="login.php" method="post" id="mainForm">';
+                } else {
+                    echo '<form action="login.php?prevurl=' . $_GET['prevurl'] . '" method="post" id="mainForm">';
+                }
+                ?>
                         <!--focus event: hide the error message -->
                         
                         <div class="mdl-textfield mdl-js-textfield">
@@ -94,7 +107,7 @@ if (!isset($_POST['username']) && !isset($_POST['password'])) {
                         </div>
                         <?php
                         if ($badUser) {
-                            echo '<div>Incorrect Username</div>';
+                            echo '<div id="error" style="color: red">Incorrect Username</div>';
                         }
                         ?>
 
@@ -104,7 +117,7 @@ if (!isset($_POST['username']) && !isset($_POST['password'])) {
                         </div>
                         <?php
                         if ($badPass) {
-                            echo '<div>Incorrect Password</div>';
+                            echo '<div id="error" style="color: red">Incorrect Password</div>';
                         }
                         ?>
                         <br>
@@ -118,6 +131,11 @@ if (!isset($_POST['username']) && !isset($_POST['password'])) {
         </section>
     </main>    
 </div>    <!-- / mdl-layout --> 
-          
+    
 </body>
+<script>
+     $("form input").on("input", function() {
+       $("#error").css("visibility", "hidden");
+    });
+</script>
 </html>

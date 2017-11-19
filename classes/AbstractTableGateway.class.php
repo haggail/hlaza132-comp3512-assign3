@@ -77,8 +77,12 @@ abstract class AbstractTableGateway {
         for later use, remember fetchAll may be the problem compared to fetch(), here's to ~5hours of debugging later.... fml */
     }
             
-    public function matchData2($param, $sortFields=null, $limit=null) {
+    public function matchData2($param, $sortFields=null, $limit=null, $group=null) {
         $sql = $this->getSelectStatement() . ' WHERE ' . $this->addToWhere() . '=:ID';
+        
+        if (! is_null($group)) {
+            $sql.= ' GROUP BY ' . $group;
+        }
         
         if (! is_null($sortFields)) {
             $sql.= ' ORDER BY ' . $sortFields;

@@ -16,27 +16,14 @@
 <label id="tt3" class="material-icons mdl-badge mdl-badge--overlap" data-badge="4">notifications</label> 
  <div class="mdl-tooltip" for="tt3">Notifications</div>
  
- <label id="tt4" class="material-icons mdl-badge mdl-badge--overlap">power_settings_new</label> 
+ <label id="tt4" class="material-icons mdl-badge mdl-badge--overlap">power_settings_new</label>
  <div class="mdl-tooltip" for="tt4">Logout</div>
  
  <script>
-     document.querySelector("#tt4").addEventListener("click", function () {
-        window.location.replace("login.php"); 
-     });
+ $("#tt4").click(function() {
+    window.location.replace("login.php/action=logout");
+ });
  </script>
-
- <!-- for badges for the icon 
- https://icons8.com/icon/set/logout/all 
- https://material.io/icons/#ic_power_settings_new
- -->
-    
-    <!-- failed attempts at the icon
-    <label class="mdl-button mdl-js-button mdl-button--icon" for="">
-    <i class="material-icons" id="#ic_power_settings_new" >Lougout</i></label>
-    
-    <a href="https://material.io/icons/#ic_power_settings_new" class="mdl-button mdl-js-button mdl-button--badge">
-    <i class="mdl-button mdl-js-button mdl-button--badge">Logout</i></a></label> -->
-                  
         <label id="tt5" class="mdl-button mdl-js-button mdl-button--icon"
                for="fixed-header-drawer-exp">
           <i class="material-icons" id="expandSearch">search</i>
@@ -48,8 +35,8 @@
         <div id="searchBox" class="searchBtn">
             <form action="/browse-employees.php?city=&" method="get">
             <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" name="lastName"/>
-                <label class="mdl-textfield__label" for="sample1">Search Employees...</label>
+                <input class="mdl-textfield__input" type="text" name="lastName" id="search" style="color: black"/>
+                <label class="mdl-textfield__label" for="search">Search Employees...</label>
             </div>
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit">
                   Search</button>
@@ -60,7 +47,7 @@
   </header>
    <script>
         var click = false;
-            $("#expandSearch").click(function () {
+            $("#expandSearch").click(function () { //shows and hides the search bar on click.
                 if (click) {
                     $("#searchBox").css("display", "none");
                     click = false;

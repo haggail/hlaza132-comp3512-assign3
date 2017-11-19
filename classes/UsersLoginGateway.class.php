@@ -20,7 +20,7 @@ class UsersLoginGateway extends AbstractTableGateway {
     }
     
     protected function addToWhere(){
-        return;
+        return null;
     }
 }
 ?>

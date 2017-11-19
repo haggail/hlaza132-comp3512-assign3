@@ -1,4 +1,15 @@
 <?php
+session_start();
+
+include 'includes/functions.inc.php';
+
+$check = checkSession();
+
+if (!$check) {
+    header("Location:login.php?prevurl=browse-employees.php");
+}
+
+
 $noFilter = false; $nameFilter = false; $cityFilter = false; $bothFilter = false;
 
 if (isset($_GET['lastName']) && !isset($_GET['city'])) {
@@ -8,6 +19,7 @@ if (isset($_GET['lastName']) && !isset($_GET['city'])) {
 } else {
     header("Location:browse-employees.php?lastName=&city=");
 }
+
 
 include 'includes/book-config.inc.php';
 
@@ -35,7 +47,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
        
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     
-    <script src="js/EmployeeScripts.js"></script>
+    <!--<script src="js/EmployeeScripts.js"></script>-->
     
 </head>
 
@@ -45,8 +57,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
             
     <?php include 'includes/header.inc.php'; ?>
     <?php include 'includes/left-nav.inc.php'; ?>
-    <?php include 'includes/functions.inc.php'; ?>
-    
+
     <main class="mdl-layout__content mdl-color--grey-50">
         <section class="page-content">
             

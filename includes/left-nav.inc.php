@@ -1,8 +1,25 @@
   <div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--blue-grey-50">
        <div class="profile">
            <img src="images/avatar.jpg" class="avatar">
-           <h4>User First/Last name</h4>           
-           <span>User Email</span>
+           <h4> <!--User First/Last name -->
+               <?php
+                    //if($login = true) {do below} else redirect
+                    if(isset($_SESSION["FirstName"]) && isset($_SESSION["LastName"])){
+                        echo $_SESSION["FirstName"] . " " . $_SESSION["LastName"];
+                    }else{
+                        echo "Currently Unavailable";
+                    }
+               ?>
+           </h4>           
+           <span> <!-- User Email -->
+               <?php 
+                     if(isset($_SESSION["Email"])){
+                        echo $_SESSION["Email"];
+                    }else{
+                       echo "Currently Unavailable"; 
+                    }
+               ?>
+           </span>
        </div>
 
     <nav class="mdl-navigation mdl-color-text--blue-grey-300">
