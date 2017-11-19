@@ -17,7 +17,15 @@ class EmployeeGateway extends AbstractTableGateway {
     }
     
     protected function getTableID(){
-        return "EmployeeID";
+        return "LastName";
+    }
+    
+    protected function getJoinStatement(){
+        return null;
+    }
+    
+    protected function addToWhere(){
+        return "City";
     }
 }
 ?>

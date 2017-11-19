@@ -55,8 +55,9 @@ $statesDb = new StatesGateway($connection);
 
             <div class="mdl-grid">
                 
-                <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--yellow">
+            <div class="mdl-cell mdl-cell--3-col">
+                <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">Filter by State</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -65,18 +66,10 @@ $statesDb = new StatesGateway($connection);
                         <select name="state">
                             <option value="nofilter"> Remove Filter </option>
                             <?php
-                            
-                            
-                              //$result = getDatabaseData("SELECT StateId, StateName FROM States ORDER BY StateName");
-                              //while ($row=$result->fetch()) {
-                                 // echo '<option value="' . $row['StateId'] . '">' . $row['StateName'] . '</option>';
-                              //}
-                              
-                              $filter = $statesDb->getAll("StateName");
-                              foreach ($filter as $row) {
+                              $states = $statesDb->getAll(null, "StateName");
+                              foreach ($states as $row) {
                                   echo '<option value="' . $row['StateId'] . '">' . $row['StateName'] . '</option>';
                               }
-                               
                             ?>
                             
                         </select>
@@ -86,32 +79,30 @@ $statesDb = new StatesGateway($connection);
               </div>  <!-- / mdl-cell + mdl-card -->
 
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--orange">
+              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--yellow">
                   <h2 class="mdl-card__title-text">Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
                     
                     <ul class="demo-list-item mdl-list">
 
-                         <?php  
-                         /*
+                         <?php
+                         
                          if (!$filter) {
-                              $result = getDatabaseData("SELECT UniversityID, Name FROM Universities ORDER BY Name LIMIT 20");
-                              while ($row=$result->fetch()) {
-                                  echo '<li><a href=?universityid=' . $row['UniversityID'] . '>' . $row['Name'] . '</a></li>';
-                              }
+                            $universities = $uniDb->getAll(null, "Name", "20");
+                            foreach ($universities as $row) {
+                                echo '<li><a href=?universityid=' . $row['UniversityID'] . '>' . $row['Name'] . '</a></li>';
+                            }
                          } else {
-                             $result = getDatabaseData("SELECT UniversityID, Name FROM Universities JOIN States WHERE State = StateName AND StateId = ". $_GET['state'] . " ORDER BY Name LIMIT 20");
-                              while ($row=$result->fetch()) {
-                                  echo '<li><a href=?state=' . $_GET['state'] . '&universityid=' . $row['UniversityID'] . '>' . $row['Name'] . '</a></li>';
-                              }
-                         }
-                           */
-                           
-                         $universities = $uniDb->getAll("Name", "20");
-                         foreach ($universities as $row) {
-                             echo '<li><a href=?universityid=' . $row['UniversityID'] . '>' . $row['Name'] . '</a></li>';
+                             $universities = $uniDb->joinTwoTables($_GET['state']);
+                            if (empty($universities)) {
+                                echo 'Filter returned 0 results.';
+                            } else {
+                                foreach ($universities as $row) {
+                                      echo '<li><a href=?state=' . $_GET['state'] . '&universityid=' . $row['UniversityID'] . '>' . $row['Name'] . '</a></li>';
+                                }
+                            }
                          }
 
                          ?>            
@@ -119,9 +110,10 @@ $statesDb = new StatesGateway($connection);
                     </ul>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
-              
+              </div> <!-- mdl grid-->
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--6-col card-lesson mdl-card  mdl-shadow--2dp">
+            <div class="mdl-cell mdl-cell--9-col">
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                       <h2 class="mdl-card__title-text">University Details</h2>
@@ -143,22 +135,27 @@ $statesDb = new StatesGateway($connection);
                         }
                         */
                         
-                        $uniDetails = $uniDb->getByKey($_GET['universityid']);
-                        
-                        echo '<h3>' . $uniDetails['Name'] . '</h3>';
-                        echo $uniDetails['Address'] . '<br>';
-                        echo $uniDetails['City']. ', ' . $uniDetails['State'] . ' ' . $uniDetails['Zip'] . '<br>';
-                        echo $uniDetails['Website'] . '<br>';
-                        echo $uniDetails['Latitude'] . ', ' . $uniDetails['Longitude'];
-                        
+                        if (!isset($_GET['universityid'])) {
+                            echo 'No university selected. Please select university.';
+                        } else {
+                            $uniDetails = $uniDb->getByKey($_GET['universityid']);
+                                if (empty($uniDetails)) {
+                                    echo 'Could not retrieve data. Please try again.';
+                                } else {
+                                    echo '<h3>' . $uniDetails['Name'] . '</h3>';
+                                    echo $uniDetails['Address'] . '<br>';
+                                    echo $uniDetails['City']. ', ' . $uniDetails['State'] . ' ' . $uniDetails['Zip'] . '<br>';
+                                    echo $uniDetails['Website'] . '<br>';
+                                    echo $uniDetails['Latitude'] . ', ' . $uniDetails['Longitude'];
+                                }
+                            }
                         ?>
                                                  
                     </div>    
-  
+              </div>
                  
               </div>  <!-- / mdl-cell + mdl-card -->   
             </div>  <!-- / mdl-grid -->    
-
         </section>
     </main>    
 </div>    <!-- / mdl-layout --> 

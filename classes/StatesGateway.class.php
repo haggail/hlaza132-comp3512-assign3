@@ -12,7 +12,15 @@ class StatesGateway extends AbstractTableGateway {
     }
     
     protected function getTableID() {
-        
+        return null;
+    }
+    
+    protected function getJoinStatement(){
+        return null;
+    }
+    
+        protected function addToWhere(){
+        return null;
     }
 }
 ?>

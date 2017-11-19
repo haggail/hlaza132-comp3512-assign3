@@ -9,6 +9,13 @@ if (isset($_GET['subid']) && isset($_GET['imprintid'])) {
     }
 }
 
+include 'includes/book-config.inc.php';
+
+$subcatDb = new SubcategoryGateway($connection);
+$imprintDb = new ImprintGateway($connection);
+$bookDb = new BookGatewayImprint($connection);
+$bookDb2 = new BookGatewaySubcat($connection);
+
 ?>
 
 
@@ -48,41 +55,10 @@ if (isset($_GET['subid']) && isset($_GET['imprintid'])) {
         <section class="page-content">
 
             <div class="mdl-grid">
-                
-                <div class="mdl-cell mdl-cell--6-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--yellow">
-                  <h2 class="mdl-card__title-text">Subcategory</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-    
-                    <ul class="demo-list-item mdl-list">
-                        <?php  
-                        $result = getDatabaseData("SELECT SubcategoryID, SubcategoryName FROM Subcategories ORDER BY SubcategoryName");
-
-                        if ($allfilter) {
-                            echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Subcategories</li>';
-                            while ($row=$result->fetch()) {
-                                echo '<li><a href=?subid=' . $row['SubcategoryID'] . '&imprintid=' . $_GET['imprintid'] . '>' . $row['SubcategoryName'] . '</a></li>';
-                            }
-                        } else {
-                            echo '<li><a href=?subid=&imprintid=>All Subcategories</li>';
-                            while ($row=$result->fetch()) {
-                                echo '<li><a href=?subid=' . $_GET['subid'] . '>' . $row['SubcategoryName'] . '</a></li>';
-                            }
-                        }
-                        
-                        
-                        
-                        
-                        ?>
-                
-                    </ul>
-                        
-                </div>
-              </div>  <!-- / mdl-cell + mdl-card -->
+            <div class="mdl-cell mdl-cell--3-col">
 
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--6-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
                 <div class="mdl-card__title mdl-color--orange">
                   <h2 class="mdl-card__title-text">Imprint</h2>
                 </div>
@@ -90,16 +66,17 @@ if (isset($_GET['subid']) && isset($_GET['imprintid'])) {
                    
                     <ul class="demo-list-item mdl-list">
                         <?php
-                        $result = getDatabaseData("SELECT ImprintID, Imprint FROM Imprints ORDER BY Imprint");
+                        
+                        $imprints = $imprintDb->getAll(null, "Imprint");
                         
                         if ($allfilter) {
                             echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=>All Imprints</li>';
-                            while ($row=$result->fetch()) {
+                            foreach ($imprints as $row) {
                                 echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=' . $row['ImprintID'] . '>' . $row['Imprint'] . '</a></li>';
                             }
                         } else {
                             echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Imprints</li>';
-                            while ($row=$result->fetch()) {
+                            foreach ($imprints as $row) {
                                 echo '<li><a href=?subid=&imprintid=' . $row['ImprintID'] . '>' . $row['Imprint'] . '</a></li>';
                             }
                         }
@@ -108,69 +85,95 @@ if (isset($_GET['subid']) && isset($_GET['imprintid'])) {
                     </ul>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
-              
+              <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--yellow">
+                  <h2 class="mdl-card__title-text">Subcategory</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+    
+                    <ul class="demo-list-item mdl-list">
+                        <?php  
+                        
+                        $subcategories = $subcatDb->getAll(null, "SubcategoryName");
+                        
+                        if ($allfilter) {
+                            echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Subcategories</li>';
+                            foreach ($subcategories as $row) {
+                                echo '<li><a href=?subid=' . $row['SubcategoryID'] . '&imprintid=' . $_GET['imprintid'] . '>' . $row['SubcategoryName'] . '</a></li>';
+                            }
+                        } else {
+                            echo '<li><a href=?subid=&imprintid=>All Subcategories</li>';
+                            foreach ($subcategories as $row) {
+                                echo '<li><a href=?subid=' . $_GET['subid'] . '>' . $row['SubcategoryName'] . '</a></li>';
+                            }
+                        }
+                        
+                        
+                        ?>
+                
+                    </ul>
+                        
+                </div>
+              </div>  <!-- / mdl-cell + mdl-card -->
+              </div> <!--mdl grid -->
+              <div class="mdl-cell mdl-cell--9-col">
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--12-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Book Details</h2>
                     </div>
-                    <div class="mdl-card__supporting-text">
+
+                    <div class="mdl-card__supporting-text overflow">
                         
+                        <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
+                            <thead>
+                                <tr>
+                                    <th>Cover</th>
+                                    <th class="mdl-data-table__cell--non-numeric">Title</th>
+                                    <th>Year</th>
+                                    <th>Subcategory</th>
+                                    <th>Imprint</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
                                     <?php
                                     
                                     if ($_GET['subid']=='') {
                                         if ($_GET['imprintid']=='') {
-                                            $result = getDatabaseData("SELECT BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID FROM Books LIMIT 20");
+                                            $books = $bookDb->getAll("BookID", null, "20");
                                         } else {
-                                            $result = getDatabaseData("SELECT BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID FROM Books WHERE ImprintID = " . $_GET['imprintid'] . " LIMIT 20");
+                                            $books = $bookDb->matchData($_GET['imprintid'], null, "20");
                                         }
                                     } else {
                                          if ($_GET['imprintid']=='') {
-                                            $result = getDatabaseData("SELECT BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID FROM Books WHERE SubcategoryID = " . $_GET['subid'] . " LIMIT 20");
+                                            $books = $bookDb2->matchData($_GET['subid'], null, "20");
+
                                         } else {
-                                            $result = getDatabaseData("SELECT BookID, ISBN10, Title, CopyrightYear, SubcategoryID, ImprintID FROM Books WHERE SubcategoryID = " . $_GET['subid'] . " AND ImprintID = " . $_GET['imprintid'] . " LIMIT 20");
+                                            $books = $bookDb2->match2Key($_GET['subid'], $_GET['imprintid']);
                                         }
                                      }
-                                    
-                                    if (!$result) {
-                                        echo 'Could not retrieve data. Please try selecting a filter or book.';
+                                    if (empty($books)) {
+                                        echo 'No books found. Please try again.';
                                     } else {
-                                        echo '<table class="mdl-data-table  mdl-shadow--2dp">';
-                                        echo '<thead>';
-                                        echo '<tr>';
-                                        echo '<th>Cover</th>';
-                                        echo '<th class="mdl-data-table__cell--non-numeric">Title</th>';
-                                        echo '<th>Year</th>';
-                                        echo '<th>Subcategory</th>';
-                                        echo '<th>Imprint</th>';
-                                        echo '</tr>';
-                                        echo '</thead>';
-                                        echo '<tbody>';
-                                        
-                                    while ($row=$result->fetch()) {
-                                        echo '<tr>';
+                                        foreach ($books as $row) {
+                                            echo '<tr>';
                                             echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></th>';
                                             echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '>' . $row['Title'] . '</a></th>';
                                             echo '<td>' . $row['CopyrightYear'] . '</th>';
-                                            echo '<td>' . $row['SubcategoryID'] . '</th>';
-                                            echo '<td>' . $row['ImprintID'] . '</th>';
+                                            echo '<td>' . $row['SubcategoryName'] . '</th>';
+                                            echo '<td>' . $row['Imprint'] . '</th>';
                                             echo '</tr>';
-                                    }
+                                        }
                                     }
                                     ?>
-
                               </tbody>
-                 
-                
                             </table>
-                        
-                    
-                                                 
                     </div>    
-  
-                 
-              </div>  <!-- / mdl-cell + mdl-card -->   
+                    </div>
+              </div>  <!-- / mdl-cell + mdl-card --> 
+              
+              
             </div>  <!-- / mdl-grid -->    
 
         </section>

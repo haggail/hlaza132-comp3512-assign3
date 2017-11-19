@@ -15,5 +15,11 @@ class EmployeeToDoGateway extends AbstractTableGateway {
     protected function getTableID(){
         return "EmployeeID";
     }
+    
+    protected function getJoinStatement(){
+        return null;
+    }
+    
+    protected function addToWhere(){}
 }
 ?>

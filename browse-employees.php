@@ -1,10 +1,18 @@
 <?php
+$noFilter = false; $nameFilter = false; $cityFilter = false; $bothFilter = false;
+
+if (isset($_GET['lastName']) && !isset($_GET['city'])) {
+    header("Location:browse-employees.php?lastName=" . $_GET['lastName'] . "&city=");
+} else if (isset($_GET['lastName']) || isset($_GET['city'])) {
+    //continue
+} else {
+    header("Location:browse-employees.php?lastName=&city=");
+}
+
 include 'includes/book-config.inc.php';
 
 $empDb = new EmployeeGateway($connection);
-
-
-
+$empMsgs = new EmployeeMsgsGateway($connection);
 $empToDoDb = new EmployeeToDoGateway($connection);
 ?>
 
@@ -15,7 +23,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
     <title>Browse Employees</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.blue_grey-orange.min.css">
@@ -27,11 +35,12 @@ $empToDoDb = new EmployeeToDoGateway($connection);
        
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     
+    <script src="js/EmployeeScripts.js"></script>
+    
 </head>
 
 <body>
-    
-<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
             mdl-layout--fixed-header">
             
     <?php include 'includes/header.inc.php'; ?>
@@ -40,39 +49,111 @@ $empToDoDb = new EmployeeToDoGateway($connection);
     
     <main class="mdl-layout__content mdl-color--grey-50">
         <section class="page-content">
-
+            
             <div class="mdl-grid">
-
-              <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--orange">
+                <!-- mdl-cell + mdl-card -->
+              <div class="mdl-cell mdl-cell--3-col">
+                    
+                    
+              <div class="mdl-cell card-lesson mdl-card mdl-shadow--2dp cardWidth" >
+                <div class="mdl-card__title mdl-color--orange" id="filter" >
+                  <h2 class="mdl-card__title-text">Show/Hide Filter</h2>
+                </div>
+                <div class="mdl-card__supporting-text" style="visibility:hidden;" id="filterList">
+                        <form action="browse-employees.php" method="get">
+                             
+                        Search by last name: <br>
+                        <input type="text" id="lastNameTextBox" name="lastName"><br><br>
+                        
+                        Search by city: <br>
+                        <select name="city">
+                            <option value="">All Cities</option>
+                            <?php
+                            $cities = $empDb->getAll("City", "City");
+                            
+                            foreach ($cities as $row) {
+                                echo '<option value="' . $row['City'] . '">' . $row['City'] . '</option>';
+                            }
+                            
+                            ?>
+                        </select><br><br>
+                        <input type="submit" value="Filter">
+                    </form>     
+                </div>
+                <script>
+                    var visible = false;
+                    var toggle = document.querySelector("#filter");
+                    toggle.addEventListener("click", function() {
+                    if (visible) {
+                        document.querySelector("#filterList").style.visibility='hidden';
+                        visible = false;
+                    } else {
+                        document.querySelector("#filterList").style.visibility='visible';
+                        visible = true;
+                    }
+                    });
+                </script>
+              </div>  <!-- / mdl-cell + mdl-card -->
+              
+              <div class="mdl-cell mdl-cell card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--yellow">
                   <h2 class="mdl-card__title-text">Employees</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
-
                          <?php  
                            /* programmatically loop though employees and display each
                               name as <li> element. */
-                             
-                              $employees = $empDb->getAll("LastName");
-                              
-                              foreach ($employees as $row) {
-                                  echo '<li><a href=?employeeid=' . $row['EmployeeID'] . '>' . $row['FirstName'] . ' ' . $row['LastName'] . '</a></li>';
-                              }
+                                
+                                  if ($_GET['lastName'] == '' && $_GET['city'] == '') {
+                                      $employees=$empDb->getAll(null, "LastName");
+                                      $noFilter = true;
+                                  } else if ($_GET['lastName'] != '' && $_GET['city'] == '') {
+                                      $employees=$empDb->matchData($_GET['lastName'], "LastName");
+                                      $nameFilter = true;
+                                  } else if ($_GET['lastName'] == '' && $_GET['city'] != '') {
+                                      $employees=$empDb->matchData2($_GET['city'], "City");
+                                      $cityFilter = true;
+                                  } else if ($_GET['lastName'] != '' && $_GET['city'] != '') {
+                                      $employees=$empDb->match2Key($_GET['lastName'], $_GET['city'], null, "LastName");
+                                      $bothFilter = true;
+                                  }
+                                  
+                                  if (empty($employees)) {
+                                      echo 'Filter returned 0 results.';
+                                  } else {
+                                    if ($noFilter) {
+                                        foreach ($employees as $row) {
+                                            echo '<li><a href=?employeeid=' . $row['EmployeeID'] . '&lastName=&city=>' . $row['FirstName'] . ' ' . $row['LastName'] . '</a></li>';
+                                        }
+                                    } else if ($nameFilter) {
+                                        foreach ($employees as $row) {
+                                            echo '<li><a href=?employeeid=' . $row['EmployeeID'] . '&lastName=' . $row['LastName'] . '&city=>' . $row['FirstName'] . ' ' . $row['LastName'] . '</a></li>';
+                                        }
+                                    } else if ($cityFilter) {
+                                        foreach ($employees as $row) {
+                                            echo '<li><a href=?employeeid=' . $row['EmployeeID'] . '&lastName=&city=' . $row['City'] . '>' . $row['FirstName'] . ' ' . $row['LastName'] . '</a></li>';
+                                        }
+                                    } else if ($bothFilter) {
+                                        foreach ($employees as $row) {
+                                            echo '<li><a href=?employeeid=' . $row['EmployeeID'] . '&lastName=' . $row['LastName'] . '&city=' . $row['City'] . '>' . $row['FirstName'] . ' ' . $row['LastName'] . '</a></li>';
+                                        }
+                                    }
+                                  }
                          ?>            
 
                     </ul>
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
-              
+              </div> <!-- mdl cell -->
+            <div class="mdl-cell mdl-cell--9-col">
               <!-- mdl-cell + mdl-card -->
-              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp">
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Employee Details</h2>
                     </div>
-                    <div class="mdl-card__supporting-text">
+                    <div class="mdl-card__supporting-text overflow">
                         <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
                           <div class="mdl-tabs__tab-bar">
                               <a href="#address-panel" class="mdl-tabs__tab is-active">Address</a>
@@ -89,13 +170,17 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                  echo 'No employee selected. Please select employee.';
                              } else {
                                  $employees = $empDb->getByKey($_GET['employeeid']);
-
-                                 echo '<h3>' . $employees['FirstName'] . ' ' . $employees['LastName'] . '</h3>';
-                                 echo $employees['Address'] . '<br>';
-                                 echo $employees['City']. ', ' . $employees['Region'] . '<br>';
-                                 echo $employees['Country']. ', ' . $employees['Postal'] . '<br>';
-                                 echo $employees['Email'];
-                             } 
+                             
+                                 if (empty($employees)) {
+                                     echo 'Could not retrieve data. Please try again.';
+                                 } else {
+                                     echo '<h3>' . $employees['FirstName'] . ' ' . $employees['LastName'] . '</h3>';
+                                     echo $employees['Address'] . '<br>';
+                                     echo $employees['City']. ', ' . $employees['Region'] . '<br>';
+                                     echo $employees['Country']. ', ' . $employees['Postal'] . '<br>';
+                                     echo $employees['Email'];
+                                 } 
+                             }
                            ?>
                            
          
@@ -108,13 +193,13 @@ $empToDoDb = new EmployeeToDoGateway($connection);
 
                                ?>                                  
                             
-                                <table class="mdl-data-table  mdl-shadow--2dp">
+                                <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
                                   <thead>
                                     <tr>
-                                      <th class="mdl-data-table__cell--non-numeric">Date</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Status</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Priority</th>
-                                      <th class="mdl-data-table__cell--non-numeric">Content</th>
+                                      <th>Date</th>
+                                      <th>Status</th>
+                                      <th>Priority</th>
+                                      <th>Content</th>
                                     </tr>
                                   </thead>
                                   
@@ -128,70 +213,20 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                     if (!isset($_GET['employeeid'])) {
                                         echo 'No employee selected. Please select employee.';
                                     } else {
-                                        $toDo = $empToDoDb->matchData($_GET['employeeid']);
-                                        
-                                        //testing - delete later
-                                        
-                                        /*
-                                        
-                                        This works but it's weird and would require if statements for each conditional key
-                                        
-                                        foreach($toDo as $x => $x_val){
-                                            echo "Key=" . $x . ", Value=" . $x_val;
-                                             echo "<br>";
+                                        $toDo = $empToDoDb->matchData($_GET['employeeid'], "DateBy");
+                                        if (empty($toDo)) {
+                                            echo 'Could not retrieve data. Please try again.';
+                                        } else {
+                                            foreach ($toDo as $row){
+                                            echo '<tr>';
+                                            echo '<td>' . $row['DateBy'] . '</td>';
+                                            echo '<td>' . $row['Status'] . '</td>';
+                                            echo '<td>' . $row['Priority'] . '</td>';
+                                            echo '<td>' . $row['Description'] . '</td>';
+                                            echo '</tr>';
+                                            }
                                         }
-                                        Key=ToDoID, Value=21
-                                        Key=0, Value=21
-                                        Key=EmployeeID, Value=32
-                                        Key=1, Value=32
-                                        Key=Status, Value=pending
-                                        Key=2, Value=pending
-                                        Key=Priority, Value=medium
-                                        Key=3, Value=medium
-                                        Key=DateBy, Value=2017-02-16 00:00:00
-                                        Key=4, Value=2017-02-16 00:00:00
-                                        Key=Description, Value=Duis mattis egestas metus.
-                                        Key=5, Value=Duis mattis egestas metus
-                                    
-
-                                            //works                         
-                                        echo $_GET['employeeid'] . "<br>";
-                                        
-                                        echo $toDo['ToDoID'] . "<br>";
-                                        echo $toDo['EmployeeID'] . "<br>";
-                                        echo $toDo['DateBy'] . "<br>"; 
-                                        echo $toDo['Status'] . "<br>";
-                                        echo $toDo['Priority'] . "<br>"; 
-                                        echo $toDo['Description'] . "<br>"; 
-                                   */
-                                    echo "<br>";
-                                    foreach($toDo as $x => $x_val){
-                                            echo "Key=" . $x . ", Value=" . $x_val;
-                                             echo "<br>";
                                     }
-                                   
-                                        //works, but only displays the first of the $toDo's
-                                        echo "<br> size of array: " . sizeof($toDo);
-                                    for($i=0;$i<sizeof($toDo);$i++){
-                                        echo '<tr>';
-                                        echo '<td>' . $toDo['DateBy'] . '</td>';
-                                        echo '<td>' . $toDo['Status'] . '</td>';
-                                        echo '<td>' . $toDo['Priority'] . '</td>';
-                                        echo '<td>' . $toDo['Description'] . '</td>';
-                                        echo '</tr>';
-                                    }
-                                        
-                                   /*     
-                                        foreach ($toDo as $row){
-                                        echo '<tr>';
-                                        echo '<td>' . $row['DateBy'] . '</td>';
-                                        echo '<td>' . $row['Status'] . '</td>';
-                                        echo '<td>' . $row['Priority'] . '</td>';
-                                        echo '<td>' . $row['Description'] . '</td>';
-                                        echo '</tr>';
-                                        }*/
-                                        
-                                }
                                     
                                     ?>
                             
@@ -208,7 +243,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                     if none, display message to that effect */
                                ?>  
                               
-                              <table class="mdl-data-table  mdl-shadow--2dp">
+                              <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
                                   <thead>
                                     <tr>
                                       <th class="mdl-data-table__cell--non-numeric">Date</th>
@@ -224,19 +259,20 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                     if (!isset($_GET['employeeid'])) {
                                         echo 'No employee selected. Please select employee.';
                                     } else {
-                                        $employees = getToDoSelectStatement($_GET['employeeid']);
-                                    
-                                        
-                                    foreach ($toDo as $row) {
-                                        echo '<tr>';
-                                        echo '<td>' . $row['MessageDate'] . '</td>';
-                                        echo '<td>' . $row['Category'] . '</td>';
-                                        echo '<td>' . $row['FirstName'] . " " . $row['FirstName'] . '</td>';
-                                        echo '<td>' . $row['Content'] . '</td>';
-                                        echo '</tr>';
+                                        $employees = $empMsgs->matchData($_GET['employeeid'], "MessageDate");
+                                        if (empty($employees)) {
+                                                echo 'Could not retrieve data. Please try again.';
+                                            } else {
+                                                foreach ($employees as $row) {
+                                                    echo '<tr>';
+                                                    echo '<td>' . $row['MessageDate'] . '</td>';
+                                                    echo '<td>' . $row['Category'] . '</td>';
+                                                    echo '<td>' . $row['FirstName'] . " " . $row['LastName'] . '</td>';
+                                                    echo '<td>' . $row['Content'] . '</td>';
+                                                    echo '</tr>';
+                                                }
+                                            }
                                     }
-                                    }
-                                    
                                     ?>
                             
                                   </tbody>
@@ -244,14 +280,10 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                               
                           </div>
                           
-                          
+                          </div>
                         </div>                         
                     </div>    
-  
-                 
-              </div>  <!-- / mdl-cell + mdl-card -->   
-            </div>  <!-- / mdl-grid -->    
-
+            </div>
         </section>
     </main>    
 </div>    <!-- / mdl-layout --> 

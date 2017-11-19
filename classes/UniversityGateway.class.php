@@ -12,7 +12,15 @@ class UniversityGateway extends AbstractTableGateway {
     }
     
     protected function getTableID() {
-        
+        return "StateId";
+    }
+    
+    protected function getJoinStatement(){
+        return " JOIN States ";
+    }
+
+    protected function addToWhere(){
+        return " AND State = StateName ORDER BY Name LIMIT 20";
     }
 }
 ?>

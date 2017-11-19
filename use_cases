@@ -1,15 +1,35 @@
-1. About Us
-2. Single Book
-3. Login
-4. Logout
-5. Browse Employees
-6. Simple Search
-7. program design
-8. navigation
+1. Assignment 1 functionality: Recheck A1 requirements
+2. Class based infrastructure: Done, clean up functions if possible
+3. Navigation
+    - User profile link: Done
+    - Logout on header: Done
+    - Analytics link: Done
+4. About us: Update what each of us did, Github link
+5. Single Book
+    - University name links: Done
+    - Imprint/Subcategory links: Done
+    - Larger image of book when clicked: Done
+6. Login
+7. Logout
+8. Browse Employees
+    - Show/hide filter: Done
+    - Filter functionality: Done
+9. Employee search on header: Done
+10. Git/Github
+
+To do:
+- Error checking
+    - Incorrect query strings from manually typing should be fixed
+- Clean up old/bad code
+    -Probably don't need EmployeeScripts.js; haven't deleted it yet just in case, but doesn't look like any of our pages use this file.
+- Make it look better
+    - it looks way better
+- Probably a bit late for GitHub, but we should try to get that set up for Assignment 3.
 
 
-For Assignment 3 we will need to also add; so get started on if time
+For Assignment 3 we will need to also add the following; so get started on if time
 -Analytics
 -Browse Universities
 
-User Profile only needs to be done in groups of 4
+User Profile only needs to be done in groups of 4, so DISREGARD
+

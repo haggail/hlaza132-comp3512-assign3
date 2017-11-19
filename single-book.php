@@ -5,6 +5,13 @@ if (isset($_GET['isbn10'])) {
     $nobook = true;
 }
 
+$badQuery=false;
+
+include 'includes/book-config.inc.php';
+
+$single = new SingleBookGateway($connection);
+$singleA = new SingleBookAuthorGateway($connection);
+$singleB = new SingleBookUniversityGateway($connection);
 ?>
 
 
@@ -32,20 +39,23 @@ if (isset($_GET['isbn10'])) {
 </head>
 
 <body>
-    
+
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
-            mdl-layout--fixed-header">
+            mdl-layout--fixed-header" id="body">
             
     <?php include 'includes/header.inc.php'; ?>
     <?php include 'includes/left-nav.inc.php'; ?>
     <?php include 'includes/functions.inc.php'; ?>
     
-    <main class="mdl-layout__content mdl-color--grey-50">
+    
+    
+    <main class="mdl-layout__content mdl-color--grey-50" >
         <section class="page-content">
 
             <div class="mdl-grid">
-              
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
+                          <div class="mdl-cell mdl-cell--8-col">
+
+              <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Book Details</h2>
@@ -53,37 +63,35 @@ if (isset($_GET['isbn10'])) {
                     <div class="mdl-card__supporting-text">
                         
                         <?php
-                        $result = getDatabaseData('SELECT BookID, ISBN10, ISBN13, Title, CopyrightYear, SubcategoryName, Imprint, Status, BindingType, TrimSize, PageCountsEditorialEst, Description 
-                        FROM Books JOIN BindingTypes USING(BindingTypeID) JOIN Statuses JOIN Subcategories USING(SubcategoryID) JOIN Imprints USING(ImprintID)
-                        WHERE ProductionStatusID = StatusID AND ISBN10= "'. $_GET['isbn10'] . '"');
-                        
-                        if (!$result) {
-                            echo 'Could not retrieve data. Please try selecting a book.';
+                        $singleBook = $single->matchAnd($_GET['isbn10']);
+                        if (empty($singleBook)) {
+                                echo '<br>Could not retrieve data. Please try again';
+                                $badQuery=true;
                         } else {
-
-                        while ($row=$result->fetch()) {
-      
-                            echo '<img src="/book-images/medium/' . $row['ISBN10'] . '.jpg"><br><br>';
-                            echo 'Title: ' . $row['Title'] . '<br><br>';
-                            echo 'Description: ' . $row['Description'] . '<br><br>';
-                            echo 'ISBN10: ' . $row['ISBN10'] . '<br><br>';
-                            echo 'ISBN13: ' . $row['ISBN13'] . '<br><br>';
-                            echo 'Copyright Year: ' .$row['CopyrightYear']. '<br><br>';
-                            echo 'Subcategory: ' .$row['SubcategoryName']. '<br><br>';
-                            echo 'Imprint: ' .$row['Imprint'] . '<br><br>';
-                            echo 'Production Status: ' . $row['Status'] . '<br><br>';
-                            echo 'Binding Type: ' . $row['BindingType'] . '<br><br>';
-                            echo 'Trim Size: ' . $row['TrimSize'] . '<br><br>';
-                            echo 'Page Count: ' . $row['PageCountsEditorialEst'] . '<br><br>';
-                        }
+                            foreach ($singleBook as $row) {
+                                echo '<img src="/book-images/medium/' . $row['ISBN10'] . '.jpg" id="book" class="centerImage"><br><br>';
+                                echo 'Title: ' . $row['Title'] . '<br><br>';
+                                echo 'Description: ' . $row['Description'] . '<br><br>';
+                                echo 'ISBN10: ' . $row['ISBN10'] . '<br><br>';
+                                echo 'ISBN13: ' . $row['ISBN13'] . '<br><br>';
+                                echo 'Copyright Year: ' .$row['CopyrightYear']. '<br><br>';
+                                echo 'Subcategory: <a href="browse-books.php?subid=' . $row['SubcategoryID'] . '&imprintid=">' . $row['SubcategoryName']. '</a><br><br>';
+                                echo 'Imprint: <a href="browse-books.php?subid=&imprintid=' . $row['ImprintID'] . '">' . $row['Imprint'] . '</a><br><br>';
+                                echo 'Production Status: ' . $row['Status'] . '<br><br>';
+                                echo 'Binding Type: ' . $row['BindingType'] . '<br><br>';
+                                echo 'Trim Size: ' . $row['TrimSize'] . '<br><br>';
+                                echo 'Page Count: ' . $row['PageCountsEditorialEst'] . '<br><br>';
+                                
+                                $image = $row['ISBN10'];
+                            }
                         }
                         ?>
-
                     </div>    
-  
+  </div>
                  
               </div>  
-              
+            <div class="mdl-cell mdl-cell--3-col">
+
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
                 <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Authors</h2>
@@ -92,16 +100,19 @@ if (isset($_GET['isbn10'])) {
                     <ul class="demo-list-item mdl-list">
 
                     <?php
-                    $result = getDatabaseData('SELECT FirstName, LastName 
-                    FROM Books JOIN BookAuthors JOIN Authors
-                    WHERE Books.BookID = BookAuthors.BookId AND BookAuthors.AuthorId = Authors.AuthorID AND ISBN10 = "'. $_GET['isbn10'] . '" ORDER BY BookAuthors.Order');
-                    
-                    if (!$result) {
-                        echo 'Could not retrieve data. Please try selecting a book.';
+
+                    if ($badQuery) {
+                        echo 'Could not retrieve data. Please try again';
                     } else {
-                    while ($row=$result->fetch()) {
-                        echo '<li>' . $row['FirstName'] . ' ' . $row['LastName'] . '</li>';
-                    }
+                        $result = $singleA->joinTwoTables($_GET['isbn10']);
+                        
+                        if (!$result) {
+                            echo 'Could not retrieve data. Please try selecting a book.';
+                        } else {
+                        foreach($result as $row) {
+                            echo '<li>' . $row['FirstName'] . ' ' . $row['LastName'] . '</li>';
+                            }
+                        }
                     }
                     ?>
                     
@@ -119,28 +130,52 @@ if (isset($_GET['isbn10'])) {
                     <ul class="demo-list-item mdl-list">
 
                     <?php
-                    $result = getDatabaseData('SELECT Name 
-                    FROM Books JOIN AdoptionBooks USING (BookID) JOIN Adoptions USING (AdoptionID) JOIN Universities USING (UniversityID)
-                    WHERE ISBN10 = "'. $_GET['isbn10'] . '"');
-
-                    if (!$result) {
-                        echo 'Could not retrieve data. Please try selecting a book.';
+                    if ($badQuery) {
+                        echo 'Could not retrieve data. Please try again';
                     } else {
-                    while ($row=$result->fetch()) {
-                        echo '<li>' . $row['Name'] . '</li>';
-                    }
+                        $result = $singleB->joinTwoTables($_GET['isbn10']);
+                        
+                        if (!$result) {
+                            echo 'Could not retrieve data. Please try selecting a book.';
+                        } else {
+                            foreach($result as $row){
+                                echo '<li><a href="browse-universities.php?universityid=' . $row['UniversityID'] . '">' . $row['Name'] . '</a></li>';
+                            }
+                        }
                     }
                     ?>
                     
                     </ul>
                 </div>
               </div>  
-              
+              </div>
             </div>  <!-- / mdl-grid -->    
 
         </section>
     </main>    
-</div>    <!-- / mdl-layout --> 
-          
+ 
+</div> <!-- / mdl-layout --> 
+<div id="largeImg" class="centered">
+    <?php
+        echo '<img src="book-images/large/' . $image . '.jpg">'
+    ?>
+</div>
+<script>
+    var image = document.querySelector("#book");
+    image.addEventListener("click", function () {
+        document.querySelector("#body").style.opacity="0.5";
+        document.querySelector("body").style.backgroundColor="black";
+        document.querySelector("#largeImg").style.zIndex="1";
+
+    });
+    
+    var toggleHide=document.querySelector("#largeImg");
+    toggleHide.addEventListener("click", function() {
+        document.querySelector("#body").style.opacity="1";
+        document.querySelector("body").style.backgroundColor="";
+        document.querySelector("#largeImg").style.zIndex="0";
+    })
+
+</script>
 </body>
 </html>
