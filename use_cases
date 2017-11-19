@@ -16,15 +16,15 @@
     - Filter functionality: Done
 9. Employee search on header: Done
 10. Git/Github
+    - I think I got it working
 
 To do:
 - Error checking
     - Incorrect query strings from manually typing should be fixed
 - Clean up old/bad code
-    -Probably don't need EmployeeScripts.js; haven't deleted it yet just in case, but doesn't look like any of our pages use this file.
+    -Probably don't need EmployeeScripts.js; haven't deleted it yet just in case, but it doesn't look like any of our pages use this file.
 - Make it look better
-    - it looks way better
-- Probably a bit late for GitHub, but we should try to get that set up for Assignment 3.
+    - It looks way better
 
 
 For Assignment 3 we will need to also add the following; so get started on if time
