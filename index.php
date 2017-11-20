@@ -45,85 +45,76 @@ header("Location:login.php?prevurl=index.php");
             <div class="mdl-grid">
                 <div class="mdl-layout-spacer"></div>
                 <div class="mdl-cell mdl-cell--4-col">
-                    <a href="browse-universities.php">
-                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                        <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
-                            <div class="mdl-card__title mdl-card--expand mdl-color--yellow">
-                                <h3>Browse Universities</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                <a href="browse-books.php">
-                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">                        
-                        <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
-                            <div class="mdl-card__title mdl-card--expand mdl-color--orange">
-                                <h3>Browse Books</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-           </div>
-           
-            <div class="mdl-cell mdl-cell--4-col">
-                <a href="browse-employees.php">
-                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                        <div class="mdl-card mdl-shadow--2dp cardWidth">
-                            <div class="mdl-card__title mdl-card--expand mdl-color--orange">
-                                <h3>Browse Employees</h3>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-                    <a href="profile.php">
-                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
-                                <div class="mdl-card__title mdl-card--expand mdl-color--yellow">
-                                    <h3>User Profile</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-            </div>   
-                <div class="mdl-cell mdl-cell--4-col">
-                <!--    
-                    <a href="aboutus.php">
-                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
-                                <div class="mdl-card__title mdl-card--expand mdl-color--orange">
-                                    <h3>About Us</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                -->
-                <a href="aboutus.php">
-                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth">
+                    
+                <a href="browse-universities.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/about.png" alt="" />
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth"> 
-                                <h3>Analytics</h3>
+                            <img src="/images/universities.jpg" class="thumbnails" alt="" />
+                            <div class="fadeIn">
+                                <div class="text">Browse Universities</div>
                             </div>
                         </figure>
                     </div>
                     </a>
-                <!--    
-                    <a href="analytics.php">
-                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
-                                <div class="mdl-card__title mdl-card--expand mdl-color--deep-purple mdl-color-text--white">
-                                    <h3>Analytics</h3>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                -->
-                    <a href="analytics.php">
-                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth">
+            
+            <a href="browse-books.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/analytics.png" alt="" />
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth"> 
-                                <h3>Analytics</h3>
+                            <img src="/images/books.jpg" class="thumbnails" alt="" />
+                            <div class="fadeIn">
+                                <div class="text">Browse Books</div>
+                            </div>
+                        </figure>
+                    </div>
+                    </a>
+            
+                
+           </div>
+           
+            <div class="mdl-cell mdl-cell--4-col">
+                
+                <a href="browse-employees.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
+                        <figure class="mdl-card__media">
+                            <img src="/images/employees.jpg" class="thumbnails" alt="" />
+                            <div class="fadeIn">
+                                <div class="text">Browse Employees</div>
+                            </div>
+                        </figure>
+                    </div>
+                    </a>
+                
+                <a href="profile.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
+                        <figure class="mdl-card__media">
+                            <img src="/images/profile.png" class="thumbnails" alt="" />
+                            <div class="fadeIn">
+                                <div class="text">User Profile</div>
+                            </div>
+                        </figure>
+                    </div>
+                    </a>
+                
+            </div>   
+                <div class="mdl-cell mdl-cell--4-col">
+
+                <a href="aboutus.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
+                        <figure class="mdl-card__media">
+                            <img src="/images/about.jpg" class="thumbnails" alt="" />
+                            <div class="fadeIn">
+                                <div class="text">About Us</div>
+                            </div>
+                        </figure>
+                    </div>
+                    </a>
+
+                    <a href="analytics.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
+                        <figure class="mdl-card__media">
+                            <img src="/images/analytics.png" class="thumbnails" alt="" />
+                            <div class="fadeIn">
+                                <div class="text">Analytics</div>
                             </div>
                         </figure>
                     </div>

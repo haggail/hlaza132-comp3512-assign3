@@ -67,6 +67,21 @@ if (!$check) {
                         <li>Book Images</li>
                         <li>Liberal use of w3schools & stackoverflow</li>
                         <li>Randy Connolly</li>
+                        <li>----------------------------------------------------------------------------------------------------</li>
+                        <li>Profile image retrieved from: 
+                            <a href="http://2.bp.blogspot.com/-vD7Uq2VksXs/U8SyF0X0feI/AAAAAAAAAzo/3Ca1stPBhJk/s1600/Linux+Hacker+Wallpaper+HD.png">Click Here</a></li>
+                        <li>About Us image retrieved from:
+                            <a href="http://www.guoguiyan.com/data/out/65/69974454-epic-wallpapers.jpg">Click Here</a></li>
+                        <li>Browse Books image retrieved from: 
+                            <a href="http://www.nmgncp.com/data/out/114/4536685-epic-wallpaper-and-screensavers.jpg">Click Here</a></li>
+                        <li>Browse Universities image retrieved from:  
+                            <a href="http://cdn.theoccultmuseum.com/wp-content/uploads/2016/06/7-Hauntingly-Beautiful-Abandoned-Castles-Around-The-World.jpg">Click Here</a></li>
+                        <li>Analytics image retried from:  
+                            <a href="http://insight.venturebeat.com/sites/default/files/marketing-analytics.png">Click Here</a></li>
+                        <li>Browse Employees image retried from: 
+                           <a href="http://cdn.cnn.com/cnnnext/dam/assets/170822235920-08-trump-phoenix-0822-exlarge-169.jpg">Click Here</a></li>
+                        <li>Beer On the Moon image retried from: Brandons phone.</li>   
+                            
                     </ul>
                 </div>
               </div>  
@@ -91,29 +106,29 @@ if (!$check) {
                             <li>Login/Logout</li>
                             <li>Browse Employee Filter</li>
                             <li>Header Employee Search</li>
-
+                            <li>CSS improvements</li>
                           </ul>
                         </div>
                         
-                        <div class="mdl-tabs__panel is-active" id="brandon-panel">
-                          <ul>
+                        <div class="mdl-tabs__panel" id="brandon-panel">
+                          <ul class="demo-list-item mdl-list">
                             <li>Assignment 1 Functionality</li>
                             <li>Class-based Infrastructure</li>
                             <li>Login/Logout</li>
                             <li>Left Navigation</li>
-                            <li>Analytics Easter Egg</li>
-                            <li>mdl color pallet improvement</li>
+                            <li>Analytics/Profile Easter Egg</li>
+                            <li>MDL Color Palette Improvement</li>
+                            <li>Index images</li>
                           </ul>
                         </div>
                         
-                        <div class="mdl-tabs__panel is-active" id="robert-panel">
-                          <ul>
+                        <div class="mdl-tabs__panel" id="robert-panel">
+                          <ul class="demo-list-item mdl-list">
                             <li>Assignment 1 Functionality</li>
                             <li>Class-based Infrastructure</li>
                             <li>Browse Employee Filter</li>
                           </ul>
                         </div>
-
                     </div>
             </div>  
             </div>
