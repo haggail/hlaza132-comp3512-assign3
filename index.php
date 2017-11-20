@@ -5,6 +5,7 @@ include 'includes/functions.inc.php';
 
 $check = checkSession();
 
+// redirects to login if session state variables do not exist
 if (!$check) {
 header("Location:login.php?prevurl=index.php");
 }
@@ -41,57 +42,98 @@ header("Location:login.php?prevurl=index.php");
 
     <main class="mdl-layout__content mdl-color--grey-50">
         <section class="page-content">
-            <table>
-                <tr>
-                    <td>
-                        <a href="browse-universities.php">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp">
+            <div class="mdl-grid">
+                <div class="mdl-layout-spacer"></div>
+                <div class="mdl-cell mdl-cell--4-col">
+                    <a href="browse-universities.php">
+                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                        <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
+                            <div class="mdl-card__title mdl-card--expand mdl-color--yellow">
+                                <h3>Browse Universities</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <a href="browse-books.php">
+                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">                        
+                        <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
+                            <div class="mdl-card__title mdl-card--expand mdl-color--orange">
+                                <h3>Browse Books</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+           </div>
+           
+            <div class="mdl-cell mdl-cell--4-col">
+                <a href="browse-employees.php">
+                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                        <div class="mdl-card mdl-shadow--2dp cardWidth">
+                            <div class="mdl-card__title mdl-card--expand mdl-color--orange">
+                                <h3>Browse Employees</h3>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                    <a href="profile.php">
+                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
                                 <div class="mdl-card__title mdl-card--expand mdl-color--yellow">
-                                    <h3>Browse Universities</h3>
+                                    <h3>User Profile</h3>
                                 </div>
                             </div>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="browse-books.php">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp">
+                        </div>
+                    </a>
+            </div>   
+                <div class="mdl-cell mdl-cell--4-col">
+                <!--    
+                    <a href="aboutus.php">
+                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
                                 <div class="mdl-card__title mdl-card--expand mdl-color--orange">
-                                    <h3>Browse Books</h3>
-                                </div>
-                            </div>
-                        </a>
-                    </td>
-                    <td>
-                        <a href="browse-employees.php">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp">
-                                <div class="mdl-card__title mdl-card--expand mdl-color--deep-purple mdl-color-text--white">
-                                    <h3>Browse Employees</h3>
-                                </div>
-                            </div>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <a href="aboutus.php">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp">
-                                <div class="mdl-card__title mdl-card--expand mdl-color--yellow">
                                     <h3>About Us</h3>
                                 </div>
                             </div>
-                        </a>
-                    </td> 
-                    <td>
-                        <a href="analytics.php">
-                            <div class="dashboard-card mdl-card mdl-shadow--2dp">
-                                <div class="mdl-card__title mdl-card--expand mdl-color--orange">
+                        </div>
+                    </a>
+                -->
+                <a href="aboutus.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth">
+                        <figure class="mdl-card__media">
+                            <img src="/images/about.png" alt="" />
+                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth"> 
+                                <h3>Analytics</h3>
+                            </div>
+                        </figure>
+                    </div>
+                    </a>
+                <!--    
+                    <a href="analytics.php">
+                    <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth">
+                                <div class="mdl-card__title mdl-card--expand mdl-color--deep-purple mdl-color-text--white">
                                     <h3>Analytics</h3>
                                 </div>
                             </div>
-                        </a>
-                    </td>
-                </tr>
-            </table>
+                        </div>
+                    </a>
+                -->
+                    <a href="analytics.php">
+                    <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth">
+                        <figure class="mdl-card__media">
+                            <img src="/images/analytics.png" alt="" />
+                            <div class="dashboard-card mdl-card mdl-shadow--2dp cardWidth"> 
+                                <h3>Analytics</h3>
+                            </div>
+                        </figure>
+                    </div>
+                    </a>
+             
+
+                    
+                </div>
+                <div class="mdl-layout-spacer"></div>
+           </div>
         </section>
     </main>    
 </div>    <!-- / mdl-layout --> 

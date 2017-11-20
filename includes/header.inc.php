@@ -20,6 +20,7 @@
  <div class="mdl-tooltip" for="tt4">Logout</div>
  
  <script>
+ // clicking the logout button will redirect to a page that removes all session state variables
  $("#tt4").click(function() {
     window.location.replace("session_destroyer.php");
  });
@@ -31,7 +32,8 @@
          <div class="mdl-tooltip" for="tt5">Search Employees</div> 
         
       </div>
-    </div>
+    </div> 
+    <!-- employee search form-->
         <div id="searchBox" class="searchBtn">
             <form action="/browse-employees.php?city=&" method="get">
             <div class="mdl-textfield mdl-js-textfield">

@@ -3,6 +3,7 @@ include 'includes/functions.inc.php';
 session_start();
 $check = checkSession();
 
+// redirects to login if session state variables do not exist
 if (!$check) {
     header("Location:login.php?prevurl=browse-universities.php");
 }
@@ -60,14 +61,15 @@ $statesDb = new StatesGateway($connection);
         <section class="page-content">
 
             <div class="mdl-grid">
-                
+                <!-- state filter card-->
             <div class="mdl-cell mdl-cell--3-col">
                 <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--orange">
+                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Filter by State</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
 
+                    <!-- list all states -->
                     <form action="browse-universities.php" method="get">
                         <select name="state">
                             <option value="nofilter"> Remove Filter </option>
@@ -84,9 +86,9 @@ $statesDb = new StatesGateway($connection);
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
 
-              <!-- mdl-cell + mdl-card -->
+              <!-- university list card -->
               <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--yellow">
+                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -94,7 +96,7 @@ $statesDb = new StatesGateway($connection);
                     <ul class="demo-list-item mdl-list">
 
                          <?php
-                         
+                        //checks filters and uses the correct sql statement
                          if (!$filter) {
                             $universities = $uniDb->getAll(null, "Name", "20");
                             foreach ($universities as $row) {
@@ -117,30 +119,18 @@ $statesDb = new StatesGateway($connection);
                 </div>
               </div>  <!-- / mdl-cell + mdl-card -->
               </div> <!-- mdl grid-->
-              <!-- mdl-cell + mdl-card -->
+              <!-- university details card -->
             <div class="mdl-cell mdl-cell--9-col">
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">University Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
                         
                         <?php
-                       /* $result = getDatabaseData("SELECT Name, Address, City, State, Zip, Website, Longitude, Latitude FROM Universities WHERE UniversityID = " . $_GET['universityid']);
-
-                        if (!$result) {
-                            echo 'Could not retrieve data. Please try selecting a university.';
-                        } else {
-                             $row = $result ->fetch();
-                             echo '<h3>' . $row['Name'] . '</h3>';
-                             echo $row['Address'] . '<br>';
-                             echo $row['City']. ', ' . $row['State'] . ' ' . $row['Zip'] . '<br>';
-                             echo $row['Website'] . '<br>';
-                             echo $row['Latitude'] . ', ' . $row['Longitude'];
-                        }
-                        */
-                        
+                        // displays uni details
+                        // if no data found, display message
                         if (!isset($_GET['universityid'])) {
                             echo 'No university selected. Please select university.';
                         } else {

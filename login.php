@@ -9,6 +9,9 @@ $badUser=false;$badPass=false;
 
 $check = checkSession();
 
+// if session state variables exist, redirect to index.php
+// if neither username or password are posted, continue with code
+// otherwise, attempt login
 if ($check) {
     header("Location:index.php");
 } else if (!isset($_POST['username']) || !isset($_POST['password'])) {
@@ -18,13 +21,16 @@ if ($check) {
     
     $userCheck=$userLogDb->getByKey($_POST['username']);
     
+    //check if username exists
     if (empty($userCheck)) {
     $badUser=true;
     } else {
+        //check if password matches username
         $passCheck=$userLogDb->matchData(md5($_POST['password'] . $userCheck['Salt']));
         if (empty($passCheck)) {
             $badPass=true;
         } else {
+            //if username and password are good, save session state variables
             $userDb=new UsersGateway($connection);
             
             $userCred=$userDb->matchData2($userCheck['UserID'], null, "1");
@@ -38,6 +44,8 @@ if ($check) {
                 $_SESSION["Email"] = $row["Email"]; 
             }
             
+            // redirects to previous page if user was redirected
+            // otherwise redirects to index.php
             if (isset($_GET['prevurl'])) {
                 header("Location:" . $_GET['prevurl']);
             } else {
@@ -79,7 +87,7 @@ if ($check) {
 
                 <!-- mdl-cell + mdl-card -->
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp centered" >
-                <div class="mdl-card__title mdl-color--blue-grey mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                     <div class="mdl-layout-spacer"></div>
                     <h2 class="mdl-card__title-text ">Welcome!</h2>
                     <div class="mdl-layout-spacer"></div>
@@ -114,7 +122,7 @@ if ($check) {
                         }
                         ?>
                         <br>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Login</button>
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Login</button>
                         
                     </form>
                 </div>

@@ -5,24 +5,27 @@ include 'includes/functions.inc.php';
 
 $check = checkSession();
 
+// redirects to login if session state variables do not exist
 if (!$check) {
     header("Location:login.php?prevurl=browse-employees.php");
 }
 
-
 $noFilter = false; $nameFilter = false; $cityFilter = false; $bothFilter = false;
 
+// if searching employees through the header search, redirects
+// to page with added filter
 if (isset($_GET['lastName']) && !isset($_GET['city'])) {
     header("Location:browse-employees.php?lastName=" . $_GET['lastName'] . "&city=");
 } else if (isset($_GET['lastName']) || isset($_GET['city'])) {
-    //continue
+    //if both filters are set, do nothing
+    //otherwise redirect to page with no filters added
 } else {
     header("Location:browse-employees.php?lastName=&city=");
 }
 
-
 include 'includes/book-config.inc.php';
 
+// gateway connections
 $empDb = new EmployeeGateway($connection);
 $empMsgs = new EmployeeMsgsGateway($connection);
 $empToDoDb = new EmployeeToDoGateway($connection);
@@ -47,8 +50,6 @@ $empToDoDb = new EmployeeToDoGateway($connection);
        
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     
-    <!--<script src="js/EmployeeScripts.js"></script>-->
-    
 </head>
 
 <body>
@@ -62,12 +63,12 @@ $empToDoDb = new EmployeeToDoGateway($connection);
         <section class="page-content">
             
             <div class="mdl-grid">
-                <!-- mdl-cell + mdl-card -->
+                <!-- show/hide filter card -->
               <div class="mdl-cell mdl-cell--3-col">
                     
                     
               <div class="mdl-cell card-lesson mdl-card mdl-shadow--2dp cardWidth" >
-                <div class="mdl-card__title mdl-color--orange" id="filter" >
+                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white" id="filter" >
                   <h2 class="mdl-card__title-text">Show/Hide Filter</h2>
                 </div>
                 <div class="mdl-card__supporting-text" style="visibility:hidden;" id="filterList">
@@ -92,6 +93,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                     </form>     
                 </div>
                 <script>
+                // click event for filter: shows/hides filter
                     var visible = false;
                     var toggle = document.querySelector("#filter");
                     toggle.addEventListener("click", function() {
@@ -106,16 +108,15 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                 </script>
               </div>  <!-- / mdl-cell + mdl-card -->
               
+              <!-- employees card-->
               <div class="mdl-cell mdl-cell card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--yellow">
+                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Employees</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
                          <?php  
-                           /* programmatically loop though employees and display each
-                              name as <li> element. */
-                                
+                                //checks filters and uses the correct sql statement
                                   if ($_GET['lastName'] == '' && $_GET['city'] == '') {
                                       $employees=$empDb->getAll(null, "LastName");
                                       $noFilter = true;
@@ -129,7 +130,9 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                       $employees=$empDb->match2Key($_GET['lastName'], $_GET['city'], null, "LastName");
                                       $bothFilter = true;
                                   }
-                                  
+
+                                // if no employees found, display message
+                                // otherwise display employee names depending on filters
                                   if (empty($employees)) {
                                       echo 'Filter returned 0 results.';
                                   } else {
@@ -158,10 +161,10 @@ $empToDoDb = new EmployeeToDoGateway($connection);
               </div>  <!-- / mdl-cell + mdl-card -->
               </div> <!-- mdl cell -->
             <div class="mdl-cell mdl-cell--9-col">
-              <!-- mdl-cell + mdl-card -->
+              <!--employee details card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Employee Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text overflow">
@@ -197,12 +200,6 @@ $empToDoDb = new EmployeeToDoGateway($connection);
          
                           </div>
                           <div class="mdl-tabs__panel" id="todo-panel">
-                              
-                               <?php                       
-                                 /* retrieve for selected employee;
-                                    if none, display message to that effect */
-
-                               ?>                                  
                             
                                 <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
                                   <thead>
@@ -217,9 +214,6 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                   <tbody>
                                    
                                     <?php /*  display TODOs  */ 
-                                    //$result = getDatabaseData("select Status, Priority, DateBy, Description from EmployeeToDo where EmployeeID=" . $_GET['employeeid'] . " order by DateBy");
-                                    
-                                    
                                     
                                     if (!isset($_GET['employeeid'])) {
                                         echo 'No employee selected. Please select employee.';
@@ -248,11 +242,6 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                           </div>
                           
                           <div class="mdl-tabs__panel" id="messages-panel">
-                              
-                               <?php                       
-                                 /* retrieve for selected employee;
-                                    if none, display message to that effect */
-                               ?>  
                               
                               <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
                                   <thead>

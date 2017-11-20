@@ -40,9 +40,8 @@ if (!$check) {
         <section class="page-content">
 
             <div class="mdl-grid">
-
-              <div class="mdl-layout-spacer"></div>
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
+            <div class="mdl-cell mdl-cell--4-col">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
                 <div class="mdl-card__title mdl-color--red-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Disclaimer</h2>
                 </div>
@@ -53,41 +52,73 @@ if (!$check) {
             </div>  
             </div>
               
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--orange">
-                  <h2 class="mdl-card__title-text">About Us</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                    <ul class="demo-list-item mdl-list">
-                        <li>Names: </li>
-                        <li>Haggai Lazaro</li>
-                        <li>Brandon Lazurko</li>
-                        <li>Robert Rosica</li>
-                        <br>
-                        <li>Course: COMP 3512</li>
-                        <br>
-                        <li>Current Date: <?php echo date("M d, Y"); ?></li>
-                        <br>
-                        <li>Github: </li>
-                        <li>https://github.com/haggail/hlaza132-comp3512-assign2</li>
-
-                    </ul>
-                </div>
-              </div>  
-              
-              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+              <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Resources</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
+                        <li>Course: COMP 3512</li>
+                        <li>Current Date: <?php echo date("M d, Y"); ?></li>
+                        <li>Github: </li>
+                        <li>https://github.com/haggail/hlaza132-comp3512-assign2</li>
+                        <li>----------------------------------------------------------------------------------------------------</li>
                         <li>Material Design Lite</li>
                         <li>Book Images</li>
+                        <li>Liberal use of w3schools & stackoverflow</li>
+                        <li>Randy Connolly</li>
                     </ul>
+                </div>
+              </div>  
+              </div>
+              <div class="mdl-cell mdl-cell--8-col">
+              <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
+                  <h2 class="mdl-card__title-text">About Us</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+                          <div class="mdl-tabs__tab-bar">
+                              <a href="#haggai-panel" class="mdl-tabs__tab is-active">Haggai Lazaro</a>
+                              <a href="#brandon-panel" class="mdl-tabs__tab">Brandon Lazurko</a>
+                              <a href="#robert-panel" class="mdl-tabs__tab">Robert Rosica</a>
+                          </div>
+                        <div class="mdl-tabs__panel is-active" id="haggai-panel">
+                          <ul class="demo-list-item mdl-list">
+                            <li>Assignment 1 Functionality</li>
+                            <li>Class-based Infrastructure</li>
+                            <li>Single Book</li>
+                            <li>Login/Logout</li>
+                            <li>Browse Employee Filter</li>
+                            <li>Header Employee Search</li>
+
+                          </ul>
+                        </div>
+                        
+                        <div class="mdl-tabs__panel is-active" id="brandon-panel">
+                          <ul>
+                            <li>Assignment 1 Functionality</li>
+                            <li>Class-based Infrastructure</li>
+                            <li>Login/Logout</li>
+                            <li>Left Navigation</li>
+                            <li>Analytics Easter Egg</li>
+                            <li>mdl color pallet improvement</li>
+                          </ul>
+                        </div>
+                        
+                        <div class="mdl-tabs__panel is-active" id="robert-panel">
+                          <ul>
+                            <li>Assignment 1 Functionality</li>
+                            <li>Class-based Infrastructure</li>
+                            <li>Browse Employee Filter</li>
+                          </ul>
+                        </div>
+
+                    </div>
             </div>  
             </div>
             
-            <div class="mdl-layout-spacer"></div>
+            </div>
             </div>
         </section>
     </main>    

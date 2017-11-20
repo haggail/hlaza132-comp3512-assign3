@@ -3,7 +3,9 @@ header h1.mdl-layout-title {
     color: white;
 }
 header h1 span {
-    color: #ff6e40;
+    /*color: #ff6e40; */
+    color: #120aaa;
+  
 }
 
 .profile {
@@ -97,4 +99,8 @@ main header h4 {
 
 .logout {
   color: white;
+}
+
+.mdl-card__media {
+  margin:0;
 }

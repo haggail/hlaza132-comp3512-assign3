@@ -3,25 +3,25 @@ include 'includes/functions.inc.php';
 session_start();
 $check = checkSession();
 
+// redirects to login if session state variables do not exist
 if (!$check) {
     header("Location:login.php?prevurl=browse-books.php");
 }
 
+// if no filters set, redirects to the same page with query strings set to nothing
 if (!isset($_GET['subid']) && !isset($_GET['imprintid'])) {
         header("Location:browse-books.php?subid=&imprintid=");
 }
 
 include 'includes/book-config.inc.php';
 
+//gateway connections
 $subcatDb = new SubcategoryGateway($connection);
 $imprintDb = new ImprintGateway($connection);
 $bookDb = new BookGatewayImprint($connection);
 $bookDb2 = new BookGatewaySubcat($connection);
 
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -58,9 +58,9 @@ $bookDb2 = new BookGatewaySubcat($connection);
             <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--3-col">
 
-              <!-- mdl-cell + mdl-card -->
+              <!-- imprints card -->
               <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--orange">
+                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Imprint</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -68,6 +68,8 @@ $bookDb2 = new BookGatewaySubcat($connection);
                     <ul class="demo-list-item mdl-list">
                         
                         <?php
+                        
+                        //prints all imprints
                         $imprints = $imprintDb->getAll(null, "Imprint");
                         
                         echo '<li><a href=?subid=' . $_GET['subid'] . '&imprintid=>All Imprints</li>';
@@ -78,15 +80,17 @@ $bookDb2 = new BookGatewaySubcat($connection);
                 
                     </ul>
                 </div>
-              </div>  <!-- / mdl-cell + mdl-card -->
+              </div>  <!-- subcategory card -->
               <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--yellow">
+                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Subcategory</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
     
                     <ul class="demo-list-item mdl-list">
-                        <?php  
+                        <?php
+                        
+                        //prints all subcategories
                         $subcategories = $subcatDb->getAll(null, "SubcategoryName");
                         
                         echo '<li><a href=?subid=&imprintid=' . $_GET['imprintid'] . '>All Subcategories</li>';
@@ -98,13 +102,13 @@ $bookDb2 = new BookGatewaySubcat($connection);
                     </ul>
                         
                 </div>
-              </div>  <!-- / mdl-cell + mdl-card -->
-              </div> <!--mdl grid -->
+              </div> 
+              </div>
               <div class="mdl-cell mdl-cell--9-col">
-              <!-- mdl-cell + mdl-card -->
+              <!-- book details card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Book Details</h2>
                     </div>
 
@@ -122,7 +126,7 @@ $bookDb2 = new BookGatewaySubcat($connection);
                                     </thead>
                                     <tbody>
                                     <?php
-                                    
+                                    //checks filters and uses the correct sql statement
                                     if ($_GET['subid']=='') {
                                         if ($_GET['imprintid']=='') {
                                             $books = $bookDb->getAll("BookID", null, "20");
@@ -137,9 +141,12 @@ $bookDb2 = new BookGatewaySubcat($connection);
                                             $books = $bookDb2->match2Key($_GET['subid'], $_GET['imprintid']);
                                         }
                                      }
+                                     
+                                    //if no books found, display message to that effect
                                     if (empty($books)) {
                                         echo 'No books found. Please try again.';
                                     } else {
+                                        //display book details
                                         foreach ($books as $row) {
                                             echo '<tr>';
                                             echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></th>';

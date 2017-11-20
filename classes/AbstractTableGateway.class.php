@@ -22,7 +22,7 @@ abstract class AbstractTableGateway {
     
         //to add an AND to a where statement
     protected abstract function addToWhere();
-    
+
     public function getAll($group=null, $sortFields=null, $limit=null) {
         $sql = $this->getSelectStatement();
         
@@ -42,6 +42,7 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll();
     }
     
+    //sql using "JOIN" functionality in statements
     public function joinTwoTables($key) {
         $sql = $this->getSelectStatement();
         $sql .= $this->getJoinStatement();
@@ -54,12 +55,14 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll();
     }
     
+    //sql grabbing a statement based on primary key
     public function getByKey($key) {
         $sql = $this->getSelectStatement() . ' WHERE ' . $this->getPrimaryKeyName() . '=:key';
         $statement = DatabaseHelper::runQuery($this->connection, $sql, array(':key'=> $key));
         return $statement->fetch();
     }
     
+    //sql grabbing a statement based on a passed key to match with id's that aren't the primary key
     public function matchData($param, $sortFields=null, $limit=null){
         $sql = $this->getSelectStatement() . ' WHERE ' . $this->getTableID() . '=:ID';
         
@@ -76,7 +79,7 @@ abstract class AbstractTableGateway {
         /*return $statement->fetch(); --> original
         for later use, remember fetchAll may be the problem compared to fetch(), here's to ~5hours of debugging later.... fml */
     }
-            
+            //just another way to match 
     public function matchData2($param, $sortFields=null, $limit=null, $group=null) {
         $sql = $this->getSelectStatement() . ' WHERE ' . $this->addToWhere() . '=:ID';
         
@@ -96,6 +99,7 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll(); 
     }
     
+    //matching 2 keys from different tables
     public function match2Key($key1, $key2, $limit=null, $sortFields=null) {
         $sql = $this->getSelectStatement();
         
@@ -114,6 +118,7 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll();
     }
     
+    //matches with an "and" statement
     public function matchAnd($key) {
         $sql = $this->getSelectStatement();
         

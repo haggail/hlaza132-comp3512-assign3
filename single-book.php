@@ -3,10 +3,12 @@ include 'includes/functions.inc.php';
 session_start();
 $check = checkSession();
 
+// redirects to login if session state variables do not exist
 if (!$check) {
     header("Location:login.php?prevurl=single-book.php");
 }
 
+// check if query string exists
 if (isset($_GET['isbn10'])) {
     $nobook = false;
 } else {
@@ -17,6 +19,7 @@ $badQuery=false;
 
 include 'includes/book-config.inc.php';
 
+//gateway connections
 $single = new SingleBookGateway($connection);
 $singleA = new SingleBookAuthorGateway($connection);
 $singleB = new SingleBookUniversityGateway($connection);
@@ -60,16 +63,19 @@ $singleB = new SingleBookUniversityGateway($connection);
         <section class="page-content">
 
             <div class="mdl-grid">
-                          <div class="mdl-cell mdl-cell--8-col">
+            <!-- book details card -->
+            <div class="mdl-cell mdl-cell--8-col">
 
               <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Book Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
                         
                         <?php
+                        //display book details
+                        //if book not found, display message
                         $singleBook = $single->matchAnd($_GET['isbn10']);
                         if (empty($singleBook)) {
                                 echo '<br>Could not retrieve data. Please try again';
@@ -98,16 +104,18 @@ $singleB = new SingleBookUniversityGateway($connection);
                  
               </div>  
             <div class="mdl-cell mdl-cell--4-col">
-
+            <!-- authors card -->
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--orange">
+                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Authors</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <ul class="demo-list-item mdl-list">
 
                     <?php
-
+                    // if bad query string, display message
+                    // otherwise, try sql statement
+                    // if sql is good, display authors
                     if ($badQuery) {
                         echo 'Could not retrieve data. Please try again';
                     } else {
@@ -129,7 +137,7 @@ $singleB = new SingleBookUniversityGateway($connection);
               </div> 
               
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--yellow">
+                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Adopted by Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -137,6 +145,9 @@ $singleB = new SingleBookUniversityGateway($connection);
                     <ul class="demo-list-item mdl-list">
 
                     <?php
+                    // if bad query string, display message
+                    // otherwise, try sql statement
+                    // if sql is good, display universities who adopted the book                
                     if ($badQuery) {
                         echo 'Could not retrieve data. Please try again';
                     } else {
@@ -162,12 +173,14 @@ $singleB = new SingleBookUniversityGateway($connection);
     </main>    
  
 </div> <!-- / mdl-layout --> 
+<!-- hidden div that contains large image-->
 <div id="largeImg" class="centered">
     <?php
         echo '<img src="book-images/large/' . $image . '.jpg">'
     ?>
 </div>
 <script>
+//click event for small book image unhides the large image and dims screen
     var image = document.querySelector("#book");
     image.addEventListener("click", function () {
         document.querySelector("#body").style.opacity="0.5";
@@ -175,7 +188,7 @@ $singleB = new SingleBookUniversityGateway($connection);
         document.querySelector("#largeImg").style.zIndex="1";
 
     });
-    
+//click event for large book image hides the large image and brightens screen
     var toggleHide=document.querySelector("#largeImg");
     toggleHide.addEventListener("click", function() {
         document.querySelector("#body").style.opacity="1";
