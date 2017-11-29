@@ -70,17 +70,31 @@ if (!$check) {
                         <li>----------------------------------------------------------------------------------------------------</li>
                         <li>Profile image retrieved from: 
                             <a href="http://2.bp.blogspot.com/-vD7Uq2VksXs/U8SyF0X0feI/AAAAAAAAAzo/3Ca1stPBhJk/s1600/Linux+Hacker+Wallpaper+HD.png">Click Here</a></li>
+                            <!-- https://steamcommunity.com/sharedfiles/filedetails/?id=1188604145 -->
+                            
                         <li>About Us image retrieved from:
                             <a href="http://www.guoguiyan.com/data/out/65/69974454-epic-wallpapers.jpg">Click Here</a></li>
+                            <!-- http://wallpaper.pickywallpapers.com/1920x1080/superheroes-christmas.jpg -->
+                        
                         <li>Browse Books image retrieved from: 
                             <a href="http://www.nmgncp.com/data/out/114/4536685-epic-wallpaper-and-screensavers.jpg">Click Here</a></li>
+                            <!-- https://pokemon.aminoapps.com/page/blog/merry-christmas-in-advance/Pjhm_uNZnRgrzEPmjp3oD8QR2lan0d -->
+                            
                         <li>Browse Universities image retrieved from:  
                             <a href="http://cdn.theoccultmuseum.com/wp-content/uploads/2016/06/7-Hauntingly-Beautiful-Abandoned-Castles-Around-The-World.jpg">Click Here</a></li>
-                        <li>Analytics image retried from:  
+                            <!-- https://vignette2.wikia.nocookie.net/epicrapbattlesofhistory/images/0/0d/Santas-workshop%2C-north-pole%2C-mountains%2C-fairy-tale-151750.jpg/revision/latest?cb=20150409091908 -->
+                        
+                        <li>Analytics image retrieved from:  
                             <a href="http://insight.venturebeat.com/sites/default/files/marketing-analytics.png">Click Here</a></li>
-                        <li>Browse Employees image retried from: 
+                            <!-- https://celoxis.files.wordpress.com/2014/12/21.jpg -->
+                            
+                        <li>Browse Employees image retrieved from: 
                            <a href="http://cdn.cnn.com/cnnnext/dam/assets/170822235920-08-trump-phoenix-0822-exlarge-169.jpg">Click Here</a></li>
-                        <li>Beer On the Moon image retried from: Brandons phone.</li>   
+                           <!-- https://www.hdwallpapers.in/xmas_santa_minions-wallpapers.html -->
+                           
+                        <li>Profile picture image retrieved from:
+                          <a href="">Click Here</a></li>
+                          <!-- https://images2.alphacoders.com/804/804156.jpg -->
                             
                     </ul>
                 </div>

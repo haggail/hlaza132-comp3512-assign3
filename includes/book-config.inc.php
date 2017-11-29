@@ -3,7 +3,7 @@
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
-define('DBCONNECTION', "mysql:dbname=book");
+define('DBCONNECTION', "mysql:dbname=book;charset=utf8mb4");
 define('DBUSER', "hlazaro");
 define('DBPASS', "");
 

@@ -143,10 +143,11 @@ $statesDb = new StatesGateway($connection);
                                     echo $uniDetails['City']. ', ' . $uniDetails['State'] . ' ' . $uniDetails['Zip'] . '<br>';
                                     echo $uniDetails['Website'] . '<br>';
                                     echo $uniDetails['Latitude'] . ', ' . $uniDetails['Longitude'];
+
                                 }
                             }
                         ?>
-                                                 
+                        <div id="map">aksjdbkjasdb</div>                     
                     </div>    
               </div>
                  
@@ -157,4 +158,20 @@ $statesDb = new StatesGateway($connection);
 </div>    <!-- / mdl-layout --> 
           
 </body>
+<script>
+    function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+</script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDidr97X5H7U_U-SOqpEyhbAmPvX4gFYIs&callback=initMap">
+</script>
 </html>

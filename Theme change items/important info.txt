@@ -1,0 +1,40 @@
+music for background
+https://www.youtube.com/watch?v=pWBjl-jPcVM
+
+snow falling gifs
+https://i.pinimg.com/originals/f0/ef/f5/f0eff53af7a9b5f40ebaa0576d8940a9.gif
+https://media.giphy.com/media/MIiJ2fJ7l36jS/giphy.gif
+http://www.netanimations.net/animated-snowfalling-on-christmas-tree.gif
+
+
+profile picture
+https://images2.alphacoders.com/804/804156.jpg
+
+profile
+https://steamcommunity.com/sharedfiles/filedetails/?id=1188604145
+
+employees:
+https://www.hdwallpapers.in/xmas_santa_minions-wallpapers.html
+
+book:
+https://pokemon.aminoapps.com/page/blog/merry-christmas-in-advance/Pjhm_uNZnRgrzEPmjp3oD8QR2lan0d
+
+
+For audio
+    <audio autoplay hidden>
+     <source src="link/to/file/file.mp3" type="audio/mpeg">
+    </audio>
+    
+CSS for background
+background-image: url('source.gif');
+background-size: cover;
+
+or
+body {
+    background-image:url('folder/image.gif');
+    background-size:100%;
+    background-repeat: repeat-y;
+    background-attachment: fixed;
+    height:100%;
+    width:100%;
+}
