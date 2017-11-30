@@ -42,19 +42,10 @@ if($check){
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp centered" >
                 <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
                     <div class="mdl-layout-spacer"></div>
-                    <h2 class="mdl-card__title-text ">Nice to see you joining!</h2>
+                    <h2 class="mdl-card__title-text ">Please enter your information below</h2>
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-grid mdl-cell--8-col">
-                <?php
-                /*
-                if (!isset($_GET['prevurl'])) {
-                    echo '<form action="login.php" method="post" id="mainForm">';
-                } else {
-                    echo '<form action="login.php?prevurl=' . $_GET['prevurl'] . '" method="post" id="mainForm">';
-                }
-                */
-                ?>
                         <!--focus event: hide the error message -->
                         
                         <!-- class="required hilightable" also needs js for valid pattern-->
@@ -97,7 +88,7 @@ if($check){
                               */
                               ?>
                             </select>
-                            <label class="mdl-selectfield__label" for="country">Please Select A Country</label>
+                            <label class="mdl-selectfield__label" for="country">Country</label>
                         </div>
                         
                         <!-- class="hilightable" -->
@@ -111,7 +102,7 @@ if($check){
                               */
                               ?>
                             </select>
-                            <label class="mdl-selectfield__label" for="region">Please Select A Region</label>
+                            <label class="mdl-selectfield__label" for="region">Region</label>
                         </div>
                         <!-- May need to change to a select if we have a way of getting all cities in a region-->
                         <!-- class="required hilightable"-->
@@ -155,4 +146,5 @@ if($check){
        $("#error").css("visibility", "hidden");
     });
 </script>
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 </html>

@@ -68,7 +68,7 @@ $singleB = new SingleBookUniversityGateway($connection);
 
               <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Book Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
@@ -106,7 +106,7 @@ $singleB = new SingleBookUniversityGateway($connection);
             <div class="mdl-cell mdl-cell--4-col">
             <!-- authors card -->
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Authors</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -137,7 +137,7 @@ $singleB = new SingleBookUniversityGateway($connection);
               </div> 
               
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Adopted by Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -198,4 +198,5 @@ $singleB = new SingleBookUniversityGateway($connection);
 
 </script>
 </body>
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 </html>

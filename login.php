@@ -123,7 +123,7 @@ if ($check) {
                         ?>
                         <br>
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Login</button>
-                        <a href="register.php"><p>Register Here</p></a>
+                        <a href="register.php"><p>New User? Register Here!</p></a>
                     </form>
                 </div>
 
@@ -131,11 +131,7 @@ if ($check) {
 
         </section>
     </main>
-    <!-- background music
-    <audio src="Nothing To See Here/Siberian Orchestra - Wizards In Winter.mp3">
-        <p>If you are reading this, it is because your browser does not support the audio element. </p>
-        <embed src="Nothing To See Here/Siberian Orchestra - Wizards In Winter.mp3" width="180" height="90" hidden="true" />
-    </audio> -->
+
 </div>    <!-- / mdl-layout --> 
     
 </body>
@@ -144,4 +140,6 @@ if ($check) {
        $("#error").css("visibility", "hidden");
     });
 </script>
+<!-- Nothing to see here!-->
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 </html>

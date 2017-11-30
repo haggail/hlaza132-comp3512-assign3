@@ -1,6 +1,6 @@
   <div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--blue-grey-50">
        <div class="profile">
-           <img src="images/Beer On the Moon.jpg" class="avatar">
+           <img src="images/profile_picture.jpg" class="avatar">
            <!-- If session state variables are missing, display message to that effect -->
            <h4> <!--User First/Last name -->
                <?php

@@ -57,14 +57,14 @@ $statesDb = new StatesGateway($connection);
     <?php include 'includes/header.inc.php'; ?>
     <?php include 'includes/left-nav.inc.php'; ?>
 
-    <main class="mdl-layout__content mdl-color--grey-50">
+    <main class="mdl-layout__content mdl-color--grey-50"> <!-- The grey-50 is what changes the background-->
         <section class="page-content">
 
             <div class="mdl-grid">
                 <!-- state filter card-->
             <div class="mdl-cell mdl-cell--3-col">
                 <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Filter by State</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -88,7 +88,7 @@ $statesDb = new StatesGateway($connection);
 
               <!-- university list card -->
               <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -123,7 +123,7 @@ $statesDb = new StatesGateway($connection);
             <div class="mdl-cell mdl-cell--9-col">
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">University Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
@@ -142,12 +142,23 @@ $statesDb = new StatesGateway($connection);
                                     echo $uniDetails['Address'] . '<br>';
                                     echo $uniDetails['City']. ', ' . $uniDetails['State'] . ' ' . $uniDetails['Zip'] . '<br>';
                                     echo $uniDetails['Website'] . '<br>';
-                                    echo $uniDetails['Latitude'] . ', ' . $uniDetails['Longitude'];
 
+                                    $lat = $uniDetails['Latitude'];
+                                    $long = $uniDetails['Longitude'];
+                                    
+                                    echo '<br><script>
+                                          window.addEventListener("load", function () {    
+                                          var lat = ' . $lat . '; 
+                                          var long = ' . $long . ';
+                                          initMap(lat, long);
+                                          });
+                                          </script>';
+                                
+                                    echo "<div id=\"map\"></div>";
                                 }
                             }
                         ?>
-                        <div id="map">aksjdbkjasdb</div>                     
+                                             
                     </div>    
               </div>
                  
@@ -159,19 +170,20 @@ $statesDb = new StatesGateway($connection);
           
 </body>
 <script>
-    function initMap() {
-        var uluru = {lat: -25.363, lng: 131.044};
+    function initMap(latitude, longitude) {
+        var location = {lat: latitude, lng: longitude};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
-          center: uluru
+          zoom: 14,
+          center: location
         });
         var marker = new google.maps.Marker({
-          position: uluru,
+          position: location,
           map: map
         });
       }
 </script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDidr97X5H7U_U-SOqpEyhbAmPvX4gFYIs&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDidr97X5H7U_U-SOqpEyhbAmPvX4gFYIs">
 </script>
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 </html>

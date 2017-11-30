@@ -49,7 +49,7 @@ header("Location:login.php?prevurl=index.php");
                 <a href="browse-universities.php">
                     <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/universities.jpg" class="thumbnails" alt="" />
+                            <img src="/images/universities.png" class="thumbnails" alt="" />
                             <div class="fadeIn">
                                 <div class="text">Browse Universities</div>
                             </div>
@@ -60,7 +60,7 @@ header("Location:login.php?prevurl=index.php");
             <a href="browse-books.php">
                     <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/books.jpg" class="thumbnails" alt="" />
+                            <img src="/images/books.png" class="thumbnails" alt="" />
                             <div class="fadeIn">
                                 <div class="text">Browse Books</div>
                             </div>
@@ -76,7 +76,7 @@ header("Location:login.php?prevurl=index.php");
                 <a href="browse-employees.php">
                     <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/employees.jpg" class="thumbnails" alt="" />
+                            <img src="/images/Employees.jpg" class="thumbnails" alt="" />
                             <div class="fadeIn">
                                 <div class="text">Browse Employees</div>
                             </div>
@@ -101,7 +101,7 @@ header("Location:login.php?prevurl=index.php");
                 <a href="aboutus.php">
                     <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/about.jpg" class="thumbnails" alt="" />
+                            <img src="/images/aboutus.jpg" class="thumbnails" alt="" />
                             <div class="fadeIn">
                                 <div class="text">About Us</div>
                             </div>
@@ -112,7 +112,7 @@ header("Location:login.php?prevurl=index.php");
                     <a href="analytics.php">
                     <div class="mdl-card mdl-cell mdl-cell--4-col card-lesson mdl-card mdl-shadow--d2p cardWidth thumbContain">
                         <figure class="mdl-card__media">
-                            <img src="/images/analytics.png" class="thumbnails" alt="" />
+                            <img src="/images/analytics.jpg" class="thumbnails" alt="" />
                             <div class="fadeIn">
                                 <div class="text">Analytics</div>
                             </div>
@@ -130,4 +130,5 @@ header("Location:login.php?prevurl=index.php");
 </div>    <!-- / mdl-layout --> 
           
 </body>
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 </html>

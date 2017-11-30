@@ -4,7 +4,8 @@ header h1.mdl-layout-title {
 }
 header h1 span {
     /*color: #ff6e40; */
-    color: #120aaa;
+    /*color: #120aaa; */
+    color: #9b0000;
   
 }
 
@@ -134,8 +135,8 @@ main header h4 {
 }
 
 #map {
-   width: 100%;
-   height: 250px;
+   width: 500px;
+   height: 300px;
    background-color: grey;
  }
  
@@ -147,3 +148,8 @@ main header h4 {
     box-shadow: 0 0 5px #FF5252;
     border-color: #FF1744;    
 }
+
+main { 
+  background:  url(https://media.giphy.com/media/MIiJ2fJ7l36jS/giphy.gif) no-repeat center center fixed !important; 
+  background-size: cover !important;
+} 

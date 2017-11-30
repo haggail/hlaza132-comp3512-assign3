@@ -42,7 +42,7 @@ if (!$check) {
             <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--4-col">
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Disclaimer</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -53,7 +53,7 @@ if (!$check) {
             </div>
               
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Resources</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -61,7 +61,7 @@ if (!$check) {
                         <li>Course: COMP 3512</li>
                         <li>Current Date: <?php echo date("M d, Y"); ?></li>
                         <li>Github: </li>
-                        <li>https://github.com/haggail/hlaza132-comp3512-assign2</li>
+                        <li>https://github.com/haggail/hlaza132-comp3512-assign3</li>
                         <li>----------------------------------------------------------------------------------------------------</li>
                         <li>Material Design Lite</li>
                         <li>Book Images</li>
@@ -69,32 +69,31 @@ if (!$check) {
                         <li>Randy Connolly</li>
                         <li>----------------------------------------------------------------------------------------------------</li>
                         <li>Profile image retrieved from: 
-                            <a href="http://2.bp.blogspot.com/-vD7Uq2VksXs/U8SyF0X0feI/AAAAAAAAAzo/3Ca1stPBhJk/s1600/Linux+Hacker+Wallpaper+HD.png">Click Here</a></li>
-                            <!-- https://steamcommunity.com/sharedfiles/filedetails/?id=1188604145 -->
-                            
+                            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1188604145">Click Here</a></li>
+
                         <li>About Us image retrieved from:
-                            <a href="http://www.guoguiyan.com/data/out/65/69974454-epic-wallpapers.jpg">Click Here</a></li>
-                            <!-- http://wallpaper.pickywallpapers.com/1920x1080/superheroes-christmas.jpg -->
+                            <a href="http://wallpaper.pickywallpapers.com/1920x1080/superheroes-christmas.jpg">Click Here</a></li>
                         
                         <li>Browse Books image retrieved from: 
-                            <a href="http://www.nmgncp.com/data/out/114/4536685-epic-wallpaper-and-screensavers.jpg">Click Here</a></li>
-                            <!-- https://pokemon.aminoapps.com/page/blog/merry-christmas-in-advance/Pjhm_uNZnRgrzEPmjp3oD8QR2lan0d -->
+                            <a href="https://pokemon.aminoapps.com/page/blog/merry-christmas-in-advance/Pjhm_uNZnRgrzEPmjp3oD8QR2lan0d">Click Here</a></li>
                             
                         <li>Browse Universities image retrieved from:  
-                            <a href="http://cdn.theoccultmuseum.com/wp-content/uploads/2016/06/7-Hauntingly-Beautiful-Abandoned-Castles-Around-The-World.jpg">Click Here</a></li>
-                            <!-- https://vignette2.wikia.nocookie.net/epicrapbattlesofhistory/images/0/0d/Santas-workshop%2C-north-pole%2C-mountains%2C-fairy-tale-151750.jpg/revision/latest?cb=20150409091908 -->
+                            <a href="https://vignette2.wikia.nocookie.net/epicrapbattlesofhistory/images/0/0d/Santas-workshop%2C-north-pole%2C-mountains%2C-fairy-tale-151750.jpg/revision/latest?cb=20150409091908">Click Here</a></li>
                         
                         <li>Analytics image retrieved from:  
-                            <a href="http://insight.venturebeat.com/sites/default/files/marketing-analytics.png">Click Here</a></li>
-                            <!-- https://celoxis.files.wordpress.com/2014/12/21.jpg -->
-                            
+                            <a href="https://celoxis.files.wordpress.com/2014/12/21.jpg">Click Here</a></li>
+
                         <li>Browse Employees image retrieved from: 
-                           <a href="http://cdn.cnn.com/cnnnext/dam/assets/170822235920-08-trump-phoenix-0822-exlarge-169.jpg">Click Here</a></li>
-                           <!-- https://www.hdwallpapers.in/xmas_santa_minions-wallpapers.html -->
-                           
+                           <a href="https://www.hdwallpapers.in/xmas_santa_minions-wallpapers.html">Click Here</a></li>
+                                          
                         <li>Profile picture image retrieved from:
-                          <a href="">Click Here</a></li>
-                          <!-- https://images2.alphacoders.com/804/804156.jpg -->
+                          <a href="https://images2.alphacoders.com/804/804156.jpg">Click Here</a></li>
+                          
+                        <li>Background gif retrieved from:
+                          <a href="https://media.giphy.com/media/MIiJ2fJ7l36jS/giphy.gif">Click Here</a></li>
+                          
+                        <li>Background music retrieved from: 
+                          <a href="https://www.youtube.com/watch?v=pWBjl-jPcVM">Click Here</a></li>
                             
                     </ul>
                 </div>
@@ -102,7 +101,7 @@ if (!$check) {
               </div>
               <div class="mdl-cell mdl-cell--8-col">
               <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">About Us</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -114,33 +113,21 @@ if (!$check) {
                           </div>
                         <div class="mdl-tabs__panel is-active" id="haggai-panel">
                           <ul class="demo-list-item mdl-list">
-                            <li>Assignment 1 Functionality</li>
-                            <li>Class-based Infrastructure</li>
-                            <li>Single Book</li>
-                            <li>Login/Logout</li>
-                            <li>Browse Employee Filter</li>
-                            <li>Header Employee Search</li>
-                            <li>CSS improvements</li>
+                            <li>Mapping</li>
                           </ul>
                         </div>
                         
                         <div class="mdl-tabs__panel" id="brandon-panel">
                           <ul class="demo-list-item mdl-list">
-                            <li>Assignment 1 Functionality</li>
-                            <li>Class-based Infrastructure</li>
-                            <li>Login/Logout</li>
-                            <li>Left Navigation</li>
-                            <li>Analytics/Profile Easter Egg</li>
-                            <li>MDL Color Palette Improvement</li>
-                            <li>Index images</li>
+                            <li>Registering</li>
+                            <li>Theme Change (colour pallet, background, music)</li>
+                            <li>Referencing</li>
                           </ul>
                         </div>
                         
                         <div class="mdl-tabs__panel" id="robert-panel">
                           <ul class="demo-list-item mdl-list">
-                            <li>Assignment 1 Functionality</li>
-                            <li>Class-based Infrastructure</li>
-                            <li>Browse Employee Filter</li>
+                            <li>More Gateways</li>
                           </ul>
                         </div>
                     </div>
@@ -154,4 +141,5 @@ if (!$check) {
 </div>    
           
 </body>
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 </html>
