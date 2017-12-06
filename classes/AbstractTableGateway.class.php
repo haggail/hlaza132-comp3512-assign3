@@ -1,28 +1,30 @@
 <?php
+/* this class is the basic structure of all of our gateway classes */
 abstract class AbstractTableGateway {
     protected $connection;
     
     public function __construct($connect) {
-        if (is_null($connect))
+        if (is_null($connect)) //if the connection is null, throw an exception and set it
         throw new Exception ("Connection is null");
         $this->connection = $connect;
     }
     
-        //create the select statement for tables
+        //creates the select statement for tables
     protected abstract function getSelectStatement();
     
-        //create a join statement for the tables
+        //creates a join statement for the tables
     protected abstract function getJoinStatement();
     
-        //get primary table key
+        //gets the primary table key
     protected abstract function getPrimaryKeyName();
     
-        //for matching tables with another tables key
+        //this is used for matching tables with another table's key
     protected abstract function getTableID();
     
-        //to add an AND to a where statement
+        //adds an AND to the WHERE statement
     protected abstract function addToWhere();
 
+    //gets all of the entries from the relevant database 
     public function getAll($group=null, $sortFields=null, $limit=null) {
         $sql = $this->getSelectStatement();
         
@@ -79,7 +81,8 @@ abstract class AbstractTableGateway {
         /*return $statement->fetch(); --> original
         for later use, remember fetchAll may be the problem compared to fetch(), here's to ~5hours of debugging later.... fml */
     }
-            //just another way to match 
+    
+    //just another way to match 
     public function matchData2($param, $sortFields=null, $limit=null, $group=null) {
         $sql = $this->getSelectStatement() . ' WHERE ' . $this->addToWhere() . '=:ID';
         
@@ -99,7 +102,7 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll(); 
     }
     
-    //matching 2 keys from different tables
+    //matches 2 keys from different tables
     public function match2Key($key1, $key2, $limit=null, $sortFields=null) {
         $sql = $this->getSelectStatement();
         
@@ -118,7 +121,7 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll();
     }
     
-    //matches with an "and" statement
+    //used for matches with an AND statement
     public function matchAnd($key) {
         $sql = $this->getSelectStatement();
         

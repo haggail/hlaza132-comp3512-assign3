@@ -57,7 +57,7 @@ $statesDb = new StatesGateway($connection);
     <?php include 'includes/header.inc.php'; ?>
     <?php include 'includes/left-nav.inc.php'; ?>
 
-    <main class="mdl-layout__content mdl-color--grey-50"> <!-- The grey-50 is what changes the background-->
+    <main class="mdl-layout__content mdl-color--grey-50"> <!-- The grey-50 is what changes the background -->
         <section class="page-content">
 
             <div class="mdl-grid">
@@ -69,7 +69,7 @@ $statesDb = new StatesGateway($connection);
                 </div>
                 <div class="mdl-card__supporting-text">
 
-                    <!-- list all states -->
+                    <!-- drop-down list with all states -->
                     <form action="browse-universities.php" method="get">
                         <select name="state">
                             <option value="nofilter"> Remove Filter </option>
@@ -96,7 +96,7 @@ $statesDb = new StatesGateway($connection);
                     <ul class="demo-list-item mdl-list">
 
                          <?php
-                        //checks filters and uses the correct sql statement
+                        //checks filters and uses the appropriate sql statement to generate list
                          if (!$filter) {
                             $universities = $uniDb->getAll(null, "Name", "20");
                             foreach ($universities as $row) {

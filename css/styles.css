@@ -153,3 +153,7 @@ main {
   background:  url(https://media.giphy.com/media/MIiJ2fJ7l36jS/giphy.gif) no-repeat center center fixed !important; 
   background-size: cover !important;
 } 
+
+a {
+  color: #22581d;
+}

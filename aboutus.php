@@ -122,6 +122,7 @@ if (!$check) {
                             <li>Registering</li>
                             <li>Theme Change (colour pallet, background, music)</li>
                             <li>Referencing</li>
+                            <li>Graphical filler for profile.php</li>
                           </ul>
                         </div>
                         

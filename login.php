@@ -9,9 +9,9 @@ $badUser=false;$badPass=false;
 
 $check = checkSession();
 
-// if session state variables exist, redirect to index.php
-// if neither username or password are posted, continue with code
-// otherwise, attempt login
+/* if a session state variables exists, redirect to index.php
+if neither username nor password are posted, continue with code
+otherwise, attempt login */
 if ($check) {
     header("Location:index.php");
 } else if (!isset($_POST['username']) || !isset($_POST['password'])) {
@@ -44,7 +44,7 @@ if ($check) {
                 $_SESSION["Email"] = $row["Email"]; 
             }
             
-            // redirects to previous page if user was redirected
+            // redirects to the previous page if user was redirected
             // otherwise redirects to index.php
             if (isset($_GET['prevurl'])) {
                 header("Location:" . $_GET['prevurl']);
@@ -123,7 +123,7 @@ if ($check) {
                         ?>
                         <br>
                         <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Login</button>
-                        <a href="register.php"><p>New User? Register Here!</p></a>
+                        <a href="register.php"><p>New user? Register here!</p></a>
                     </form>
                 </div>
 

@@ -1,5 +1,5 @@
 1. A2 Functionality
-2. Browse Universities - Haggai COMPLETE!!!
+2. Browse Universities - Haggai - COMPLETE!!!
     - Google Maps instead of longitude/latitude values
 3. Register
     - Add new entry to Users and UsersLogin tables
@@ -14,11 +14,11 @@
         - total number of unique countries the site had visitors from
         - total number of employee to-dos in June 2017
         - total number of employee messages in June 2017.
-            - Must be formatted as a series of four horizontal boxes each containing relevant icons, the number, and a label describing said.
+            - Must be formatted as a series of four horizontal boxes each containing relevant icons, the number, and a label describing said number.
             - Values must be calculated from the database and not hard-coded.
             
             
-Most importantly, theme update!!!! -Brandon
+Most importantly, theme update!!!! -Brandon - Done Bitches
 
 Username: phil.hughes@gmail.com
 Pass: abcd1234
