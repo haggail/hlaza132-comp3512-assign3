@@ -22,3 +22,11 @@ Most importantly, theme update!!!! -Brandon - Done Bitches
 
 Username: phil.hughes@gmail.com
 Pass: abcd1234
+
+
+
+addition to register
+
+On the server-side, you will have to first check to make sure that the UserName doesn’t 
+already exist in the table before saving any data. If it does already exist, then display 
+register form with its data and display a suitable error message to user within the form

@@ -1,5 +1,11 @@
 <?php
+include 'includes/functions.inc.php';
+session_start();
+$check = checkSession();
 
+if (!$check) {
+    header("Location:login.php?prevurl=profile.php");
+}
 ?>
 
 <!DOCTYPE html>

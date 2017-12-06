@@ -1,19 +1,33 @@
 <?php
 include 'includes/book-config.inc.php';
 include 'includes/functions.inc.php';
+$salt = md5(microtime());
 session_start();
 $check = checkSession();
 
+
 if($check){
+     header("Location:index.php");
+}else if(isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])){
+    //manditory : LastName Email City Country Password
+    //not manditory: FirstName PhoneNumber Address Region Postal
+    $pass = md5($_POST["Password"] . $salt);
+    $Date = date(("D M d, Y, g:i a"));
     
 }
+
+
+
+$userNames=new RegisterUserNameCheckGateway($connection);
+$allUserNames = $userNames->getAll();
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <title>Login</title>
+    <title>Register</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
@@ -46,41 +60,42 @@ if($check){
                     <div class="mdl-layout-spacer"></div>
                 </div>
                 <div class="mdl-grid mdl-cell--8-col">
-                        <!--focus event: hide the error message -->
+                <form action="register.php" method="post" id="registerForm">
+
                         
                         <!-- class="required hilightable" also needs js for valid pattern-->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="Email" name="Email"/>
-                            <label class="mdl-textfield__label" for="Email">Email</label>
+                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                            <input class="mdl-textfield__input required hilightable" type="text" id="Email" name="Email"/>
+                            <label class="mdl-textfield__label required hilightable" for="Email">Email</label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="FirstName" name="FirstName"/>
-                            <label class="mdl-textfield__label" for="FirstName">First Name</label>
+                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                            <input class="mdl-textfield__input hilightable" type="text" id="FirstName" name="FirstName"/>
+                            <label class="mdl-textfield__label hilightable" for="FirstName">First Name</label>
                         </div>
                         
                         <!-- class="required hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="LastName" name="LastName"/>
-                            <label class="mdl-textfield__label" for="LastName">Last Name</label>
+                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                            <input class="mdl-textfield__input required hilightable" type="text" id="LastName" name="LastName"/>
+                            <label class="mdl-textfield__label required hilightable" for="LastName">Last Name</label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="PhoneNumber" name="Phone Number"/>
-                            <label class="mdl-textfield__label" for="PhoneNumber">Phone number +1 (123) 123-1234</label>
+                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                            <input class="mdl-textfield__input hilightable" type="text" id="PhoneNumber" name="Phone Number"/>
+                            <label class="mdl-textfield__label hilightable" for="PhoneNumber">Phone number +1 (123) 123-1234</label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="Address" name="Address"/>
-                            <label class="mdl-textfield__label" for="Address">Address</label>
+                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                            <input class="mdl-textfield__input hilightable" type="text" id="Address" name="Address"/>
+                            <label class="mdl-textfield__label hilightable" for="Address">Address</label>
                         </div>
                         
                         <!-- class="required hilightable" -->
-                        <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                            <select class="mdl-selectfield__select" id="country" name="country">
+                        <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label required hilightable">
+                            <select class="mdl-selectfield__select required hilightable" id="Country" name="Country">
                               <option value=""></option>
                               <?php //needs better formatting
                               /*
@@ -88,12 +103,12 @@ if($check){
                               */
                               ?>
                             </select>
-                            <label class="mdl-selectfield__label" for="country">Country</label>
+                            <label class="mdl-selectfield__label" for="Country">Country</label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                            <select class="mdl-selectfield__select" id="region" name="region">
+                        <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label hilightable">
+                            <select class="mdl-selectfield__select hilightable" id="Region" name="Region">
                               <option value=""></option>
                               <?php 
                               //use js possibly to update this field based on country above, and the state it's linked to for region
@@ -102,31 +117,31 @@ if($check){
                               */
                               ?>
                             </select>
-                            <label class="mdl-selectfield__label" for="region">Region</label>
+                            <label class="mdl-selectfield__label hilightable" for="Region">Region</label>
                         </div>
                         <!-- May need to change to a select if we have a way of getting all cities in a region-->
                         <!-- class="required hilightable"-->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="City" name="City"/>
-                            <label class="mdl-textfield__label" for="City">City</label>
+                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                            <input class="mdl-textfield__input required hilightable" type="text" id="City" name="City"/>
+                            <label class="mdl-textfield__label required hilightable" for="City">City</label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="text" id="Postal" name="Postal"/>
-                            <label class="mdl-textfield__label" for="Postal">Postal Code</label>
+                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                            <input class="mdl-textfield__input hilightable" type="text" id="Postal" name="Postal"/>
+                            <label class="mdl-textfield__label hilightable" for="Postal">Postal Code</label>
                         </div>
                         
                         <!-- class="required hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="password" id="password" name="password"/>
-                            <label class="mdl-textfield__label" for="password">Password</label>
+                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                            <input class="mdl-textfield__input required hilightable" type="Password" id="Password" name="Password"/>
+                            <label class="mdl-textfield__label required hilightable" for="Password">Password</label>
                         </div>
                         
                         <!-- class="required hilightable" probably should also check if passwords match-->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input" type="password" id="password2" name="password2"/>
-                            <label class="mdl-textfield__label" for="password2">Re-Enter Password</label>
+                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                            <input class="mdl-textfield__input required hilightable" type="Password" id="Password2" name="Password2"/>
+                            <label class="mdl-textfield__label required hilightable" for="Password2">Re-Enter Password</label>
                         </div>
                         
                         <br>
@@ -141,10 +156,7 @@ if($check){
 </div>    <!-- / mdl-layout --> 
     
 </body>
-<script>
-     $("form input").on("input", function() {
-       $("#error").css("visibility", "hidden");
-    });
-</script>
+
 <embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
+
 </html>

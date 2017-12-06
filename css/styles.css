@@ -141,10 +141,10 @@ main header h4 {
  }
  
 .highlight {
-    background-color: #FFE0B2;
+    background-color: #3385ff;
 }    
 .error {
-    background: #FFCDD2 url(error.png) no-repeat 98% center;
+    background: #FFCDD2 url(images/error.png) no-repeat 98% center;
     box-shadow: 0 0 5px #FF5252;
     border-color: #FF1744;    
 }

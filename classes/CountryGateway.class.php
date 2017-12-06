@@ -12,7 +12,7 @@ class CountryGateway extends AbstractTableGateway /*implements JsonSerializable*
     }
     
     protected function getTableID() {
-        return null;
+        return "CountryName";
     }
     
     protected function getJoinStatement(){

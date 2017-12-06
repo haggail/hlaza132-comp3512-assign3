@@ -55,7 +55,7 @@
                     click = false;
                 } else {
                     $("#searchBox").css("display", "inline");
-                    click = true
+                    click = true;
                 }
             });
     </script>

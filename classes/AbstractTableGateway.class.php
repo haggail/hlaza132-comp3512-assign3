@@ -131,6 +131,11 @@ abstract class AbstractTableGateway {
         return $statement->fetchAll();
     }
 
+    //add user to database
+    public function registerUser($lname, $city, $country, $email, $pass, $salt, $FName=null, $PNumber=null, $Address=null, $Region=null, $Postal=null){
+        
+        
+    }
 
 }
 ?>

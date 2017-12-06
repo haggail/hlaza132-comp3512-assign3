@@ -147,10 +147,12 @@ $statesDb = new StatesGateway($connection);
                                     $long = $uniDetails['Longitude'];
                                     
                                     echo '<br><script>
-                                          window.addEventListener("load", function () {    
-                                          var lat = ' . $lat . '; 
-                                          var long = ' . $long . ';
-                                          initMap(lat, long);
+                                          $(document).ready(function() {
+                                              window.addEventListener("load", function () {    
+                                              var lat = ' . $lat . '; 
+                                              var long = ' . $long . ';
+                                              initMap(lat, long);
+                                              });
                                           });
                                           </script>';
                                 
