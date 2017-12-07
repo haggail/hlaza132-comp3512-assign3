@@ -76,8 +76,8 @@ main header h4 {
 
 .centerImage {
   display: block;
-  margin-left: auto;
-  margin-right: auto;
+  margin: auto;
+
 }
 .searchBtn {
   display:none;
@@ -141,12 +141,13 @@ main header h4 {
  }
  
 .highlight {
-    background-color: #3385ff;
+    background-color: #99b3ff;
+    border-color: #99b3ff;
 }    
 .error {
-    background: #FFCDD2 url(images/error.png) no-repeat 98% center;
+    background: #FFCDD2;
     box-shadow: 0 0 5px #FF5252;
-    border-color: #FF1744;    
+    border-color: #FF1744 url(images/error.png) no-repeat 98% center;    
 }
 
 main { 
@@ -156,4 +157,8 @@ main {
 
 a {
   color: #22581d;
+}
+
+.material-icons.md-48 {
+  font-size: 48px;
 }

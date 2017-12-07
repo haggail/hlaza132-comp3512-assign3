@@ -1,3 +1,4 @@
+//straight from my javascript lab 2 --Brandon
 function setBackground(e) {
     if (e.type == "focus"){ 
         e.target.classList.add("highlight");
@@ -11,8 +12,6 @@ function setBackground(e) {
         }
     }
 }
-
-
 
 
 window.addEventListener("load", function() {

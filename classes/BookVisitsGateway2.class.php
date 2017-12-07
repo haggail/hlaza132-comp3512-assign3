@@ -1,14 +1,14 @@
 <?php
-class BookVisitsGateway extends AbstractTableGateway /*implements JsonSerializable*/ {
+class BookVisitsGateway2 extends AbstractTableGateway /*implements JsonSerializable*/ {
     public function __construct($connect) {
         parent::__construct($connect);
     }
     protected function getSelectStatement() {
-        return "SELECT CountryName, CountryCode, COUNT(*) AS Count FROM BookVisits JOIN Countries USING(CountryCode) GROUP BY CountryCode ORDER BY Count LIMIT 15";
+        return "SELECT VisitID, BookID, DateViewed, IpAddress, CountryCode FROM BookVisits";
     }
     
     protected function getPrimaryKeyName() {
-        return "CountryCode";
+        return "VisitID";
     }
     
     protected function getTableID() {
