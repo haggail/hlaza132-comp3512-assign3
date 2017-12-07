@@ -49,10 +49,10 @@ $bookVisitDb = new BookVisitsGateway($connection);
         <section class="page-content">
 
             <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--3-col">
+            <div class="mdl-cell mdl-cell--2-col">
 
               <!-- imprints card -->
-              <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
+              <div class="mdl-cell mdl-cell--top mdl-cell--2-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
                 <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Most Visited Countries</h2>
                 </div>
@@ -72,63 +72,45 @@ $bookVisitDb = new BookVisitsGateway($connection);
                     <div id="countryDetails"></div>
                 </div>
               </div>  <!-- subcategory card -->
-              <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--blue-900 mdl-color-text--white">
-                  <h2 class="mdl-card__title-text">Analytical Stuff</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-    
-                    <ul class="demo-list-item mdl-list">
-                        <!--add stuff here-->
-                    </ul>
-                        
-                </div>
-              </div> 
-              </div>
-              <div class="mdl-cell mdl-cell--12-col">
-              <!-- book details card -->
-              <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
-                      <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
+             </div>  <!-- / mdl-cell + mdl-card --> 
+          </div>
+          <div class="mdl-grid">
+            <div class="mdl-cell mdl-cell--3-col">
+                    
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--red-A700 cardWidth thumbContain">
+                      <i class="material-icons" role="presentation">person_outline</i>
+                        <div class="text">Number of Visits</div>
                     </div>
 
-                    <div class="mdl-card__supporting-text overflow">
-                        <!--add stuff here-->
-                    </div>    
-              </div>
-              <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-
-                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
-                      <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
+           </div>
+          
+           <div class="mdl-cell mdl-cell--3-col">
+                    
+                    <div class="mdl-card mdl-cell mdl-cell-3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--green cardWidth thumbContain">
+                      <i class="material-icons" role="presentation">location_on</i>
+                        <div class="text">Visited by x Countries</div>
                     </div>
 
-                    <div class="mdl-card__supporting-text overflow">
-                        <!--add stuff here-->
-                    </div>    
-              </div>
-              <div class="mdl-cardmdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-
-                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
-                      <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
+           </div>
+           <div class="mdl-cell mdl-cell--3-col">
+                    
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--yellow cardWidth thumbContain">
+                      <i class="material-icons" role="presentation">event_available</i>
+                        <div class="text">Number of Employee To-Dos in June 2017</div>
                     </div>
 
-                    <div class="mdl-card__supporting-text overflow">
-                        <!--add stuff here-->
-                    </div>    
-              </div>
-              <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-
-                    <div class="mdl-card__title mdl-color--deep-purple-900 mdl-color-text--white">
-                      <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
+           </div>
+           <div class="mdl-cell mdl-cell--3-col">
+                    
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue cardWidth thumbContain">
+                      <i class="material-icons" role="presentation">mail</i>
+                        <div class="text">Number of Employee Messages in June 2017</div>
                     </div>
 
-                    <div class="mdl-card__supporting-text overflow">
-                        <!--add stuff here-->
-                    </div>    
-              </div>
-              </div>  <!-- / mdl-cell + mdl-card --> 
-              
+           </div>
+
+
             </div>  <!-- / mdl-grid -->    
 
         </section>

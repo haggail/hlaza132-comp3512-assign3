@@ -23,4 +23,16 @@ class RegisterUserNameCheckGateway extends AbstractTableGateway {
         return null;
     }
 }
+/*
+Users table
+-----------
+UserID | FirstName | LastName | Address | City | Region | Country | Postal | Phone | Email | Privacy?
+
+UsersLogin
+----------
+UserID | UserName (email) | Password | Salt | State | DateJoined | DateLastModified
+*/
+
+
+
 ?>

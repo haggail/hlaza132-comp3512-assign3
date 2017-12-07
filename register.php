@@ -5,21 +5,38 @@ $salt = md5(microtime());
 session_start();
 $check = checkSession();
 
+$registering=new RegisterUserNameCheckGateway($connection);
+$exists = false;
+
 
 if($check){
      header("Location:index.php");
-}else if(isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])){
+}else if(isset($_POST["Email"])){
+    //testing if username is the same as 1 in database
+    $allUserNames = $registering->getAll();
+    foreach($allUserNames as $checker){
+            if($checker == $_POST["Email"]){
+            $exists = true;
+            break;
+        }
+    }
+}
+
+if(!$exists && isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])){
     //manditory : LastName Email City Country Password
     //not manditory: FirstName PhoneNumber Address Region Postal
+    
+    //creating security
     $pass = md5($_POST["Password"] . $salt);
     $Date = date(("D M d, Y, g:i a"));
     
+    //adding everything to database
+    $param = $registering->registerUser($_POST["LastName"], $_POST["City"], $_POST["Country"], $_POST["Email"], $pass, $salt, $Date, $_POST["FirstName"], $_POST["PhoneNumber"], $_POST["Address"], $_POST["Region"], $_POST["Postal"]);
 }
 
 
 
-$userNames=new RegisterUserNameCheckGateway($connection);
-$allUserNames = $userNames->getAll();
+
 
 ?>
 
@@ -64,33 +81,61 @@ $allUserNames = $userNames->getAll();
 
                         
                         <!-- class="required hilightable" also needs js for valid pattern-->
-                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="text" id="Email" name="Email"/>
-                            <label class="mdl-textfield__label required hilightable" for="Email">Email</label>
+                            <label class="mdl-textfield__label" for="Email">
+                                <?php 
+                                    if($exists){
+                                        echo "Email already used!";
+                                    }else{
+                                        echo "Email*";
+                                    }
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input hilightable" type="text" id="FirstName" name="FirstName"/>
-                            <label class="mdl-textfield__label hilightable" for="FirstName">First Name</label>
+                            <label class="mdl-textfield__label " for="FirstName">
+                                <?php
+                                    if(isset($_POST["FirstName"])){echo $_POST["First Name"];}
+                                    else {echo "First Name";}
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="required hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="text" id="LastName" name="LastName"/>
-                            <label class="mdl-textfield__label required hilightable" for="LastName">Last Name</label>
+                            <label class="mdl-textfield__label" for="LastName">
+                                <?php
+                                    if(isset($_POST["LastName"])){echo $_POST["LastName"];}
+                                    else {echo "Last Name*";}
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input hilightable" type="text" id="PhoneNumber" name="Phone Number"/>
-                            <label class="mdl-textfield__label hilightable" for="PhoneNumber">Phone number +1 (123) 123-1234</label>
+                            <label class="mdl-textfield__label" for="PhoneNumber">
+                                <?php
+                                    if(isset($_POST["PhoneNumber"])){echo $_POST["PhoneNumber"];}
+                                    else {echo "Phone number +1 (123) 123-1234";}
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input hilightable" type="text" id="Address" name="Address"/>
-                            <label class="mdl-textfield__label hilightable" for="Address">Address</label>
+                            <label class="mdl-textfield__label" for="Address">
+                                <?php
+                                    if(isset($_POST["Address"])){echo $_POST["Address"];}
+                                    else {echo "Address";}
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="required hilightable" -->
@@ -121,31 +166,49 @@ $allUserNames = $userNames->getAll();
                         </div>
                         <!-- May need to change to a select if we have a way of getting all cities in a region-->
                         <!-- class="required hilightable"-->
-                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="text" id="City" name="City"/>
-                            <label class="mdl-textfield__label required hilightable" for="City">City</label>
+                            <label class="mdl-textfield__label" for="City">City</label>
                         </div>
                         
                         <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input hilightable" type="text" id="Postal" name="Postal"/>
-                            <label class="mdl-textfield__label hilightable" for="Postal">Postal Code</label>
+                            <label class="mdl-textfield__label" for="Postal">
+                                <?php
+                                    if(isset($_POST["Postal"])){echo $_POST["Postal"];}
+                                    else {echo "Postal Code";}
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="required hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="Password" id="Password" name="Password"/>
-                            <label class="mdl-textfield__label required hilightable" for="Password">Password</label>
+                            <label class="mdl-textfield__label" for="Password">Password
+                                <?php
+                                    if(isset($_POST["Password"])){echo $_POST["Password"];}
+                                    else {echo "Password*";}
+                                ?>
+                            </label>
                         </div>
                         
                         <!-- class="required hilightable" probably should also check if passwords match-->
-                        <div class="mdl-textfield mdl-js-textfield required hilightable">
+                        <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="Password" id="Password2" name="Password2"/>
-                            <label class="mdl-textfield__label required hilightable" for="Password2">Re-Enter Password</label>
+                            <label class="mdl-textfield__label" for="Password2">
+                                <?php
+                                    if(isset($_POST["Password2"])){echo $_POST["Password2"];}
+                                    else {echo "Re-Enter Password*";}
+                                ?>
+                            </label>
                         </div>
                         
                         <br>
-                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Register</button>
+                        <div class="buttons">
+                            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Register</button>
+                            <!-- <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Clear Data</button> -->
+                        </div>
                     </form>
                 </div>
 

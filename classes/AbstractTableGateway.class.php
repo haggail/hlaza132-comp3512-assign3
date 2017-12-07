@@ -132,8 +132,8 @@ abstract class AbstractTableGateway {
     }
 
     //add user to database
-    public function registerUser($lname, $city, $country, $email, $pass, $salt, $FName=null, $PNumber=null, $Address=null, $Region=null, $Postal=null){
-        
+    public function registerUser($lname, $city, $country, $email, $pass, $salt, $Date, $FName, $PNumber, $Address, $Region, $Postal){
+        //to avoid having to make another class, I'm using a different function that would have otherwise returned null 
         
     }
 
