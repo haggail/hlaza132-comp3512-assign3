@@ -1,0 +1,35 @@
+1. A2 Functionality
+2. Browse Universities - Haggai - COMPLETE!!!
+    - Google Maps instead of longitude/latitude values
+3. Register
+    - Add new entry to Users and UsersLogin tables
+    -brandon, yes! I mean shit!
+4. Analytics JSON Web Services
+    -Create JSON web services for each requirement in Step 5.
+5. Analytics (MUST DO STEP 4 FIRST).
+    - Top 15 countries visited (requires BookVisits database). COMPLETE!!!
+    - Top 10 adopted books. COMPLETE!!!
+    - List/table displaying:
+        - Count of the total visits in June
+        - Total number of unique countries the site had visitors from
+        - Total number of employee to-dos in June 2017
+        - Total number of employee messages in June 2017.
+            - Must be formatted as a series of four horizontal boxes each containing relevant icons, the number, and a label describing said number.
+            - Values must be calculated from the database and not hard-coded.
+            
+            
+Most importantly, theme update!!!! -Brandon - Done Bitches
+
+Username: phil.hughes@gmail.com
+Pass: abcd1234
+
+
+
+addition to register
+
+On the server-side, you will have to first check to make sure that the UserName doesn’t 
+already exist in the table before saving any data. If it does already exist, then display 
+register form with its data and display a suitable error message to user within the form
+
+
+****MUSIC SHOWS ON DIMMED SINGLE BOOK***8

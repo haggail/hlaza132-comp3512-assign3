@@ -37,7 +37,7 @@
         <div id="searchBox" class="searchBtn">
             <form action="/browse-employees.php?city=&" method="get">
             <div class="mdl-textfield mdl-js-textfield">
-                <input class="mdl-textfield__input" type="text" name="lastName" id="search" style="color: black"/>
+                <input class="mdl-textfield__input" type="text" name="lastName" id="search" style="color: black; background-color: white"/>
                 <label class="mdl-textfield__label" for="search">Search Employees...</label>
             </div>
                   <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" type="submit">

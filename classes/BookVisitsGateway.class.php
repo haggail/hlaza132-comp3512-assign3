@@ -4,7 +4,7 @@ class BookVisitsGateway extends AbstractTableGateway /*implements JsonSerializab
         parent::__construct($connect);
     }
     protected function getSelectStatement() {
-        return "SELECT CountryName, CountryCode, COUNT(*) AS Count FROM BookVisits JOIN Countries USING(CountryCode) GROUP BY CountryCode ORDER BY Count LIMIT 15";
+        return "SELECT CountryName, CountryCode, COUNT(*) AS Count FROM BookVisits JOIN Countries USING(CountryCode) GROUP BY CountryCode ORDER BY Count DESC LIMIT 15";
     }
     
     protected function getPrimaryKeyName() {

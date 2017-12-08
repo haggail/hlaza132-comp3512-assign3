@@ -4,7 +4,8 @@ class BookVisitsGateway2 extends AbstractTableGateway /*implements JsonSerializa
         parent::__construct($connect);
     }
     protected function getSelectStatement() {
-        return "SELECT VisitID, BookID, DateViewed, IpAddress, CountryCode FROM BookVisits";
+        return "SELECT VisitID, BookID, DateViewed, IpAddress, CountryCode, COUNT(VisitID) as Visits FROM BookVisits WHERE DateViewed LIKE '06/__/2017' GROUP BY CountryCode";
+        //SELECT VisitID, BookID, DateViewed, IpAddress, CountryCode, count(CountryCode) as Countries FROM BookVisits
     }
     
     protected function getPrimaryKeyName() {

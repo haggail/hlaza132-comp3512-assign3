@@ -22,9 +22,10 @@ class BookGatewayImprint extends AbstractTableGateway /*implements JsonSerializa
     protected function addToWhere(){
         return null;
     }
-    
+    /*
     protected function getJSONObj() {
         return "{}";
     }
+    */
 }
 ?>

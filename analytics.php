@@ -17,6 +17,11 @@ $countryDb = new CountryGateway($connection);
 
 $bookVisitDb = new BookVisitsGateway($connection);
 $bookVisitDb2 = new BookVisitsGateway2($connection);
+$adoptions = new AdoptionBooksGateway($connection);
+
+$toDo = new AnalyticsEmployeeToDoGateway($connection);
+$messages = new AnalyticsEmployeeMsgsGateway($connection);
+
 ?>
 
 <!DOCTYPE html>
@@ -49,10 +54,10 @@ $bookVisitDb2 = new BookVisitsGateway2($connection);
         <section class="page-content">
 
             <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--2-col">
+            <div class="mdl-cell mdl-cell--4-col">
 
               <!-- imprints card -->
-              <div class="mdl-cell mdl-cell--top mdl-cell--2-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
+              <div class="mdl-cell mdl-cell--top mdl-cell--4-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
                 <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Most Visited Countries</h2>
                 </div>
@@ -76,41 +81,63 @@ $bookVisitDb2 = new BookVisitsGateway2($connection);
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--red-A700 cardWidth thumbContain">
+                        <div class="text">Number of Visits in June: 
                         <?php
-                        $visits = $bookVisitDb2->getAll();
-                        $visitCount = 0;
-                        foreach ($visits as $row) {
-                            $june = "06";
-                            $compare = substr_compare($row['DateViewed'], $june, 0, 1);
-                            
-                            if ($compare = 0) {
-                              $visitCount++;
-                              echo "blah";
+                            $visits = $bookVisitDb2->getAll();
+                            $visitCount = 0;
+                            foreach ($visits as $row) {
+                                $visitCount += $row['Visits'];
                             }
-                        }
-                        
-                        echo '<div class="text">Number of Visits: ' . $visitCount . '</div>';
+                            echo $visitCount;
                         ?>
-
+                        </div>
                     </div>
 
            </div>
           
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell-3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--green cardWidth thumbContain">
-                        <div class="text">Visited by X Countries</div>
+                        <div class="text">Visited by 
+                        <?php
+                        $sumCountries = $bookVisitDb2->getAll();
+                        $countries = 0;
+                        foreach($sumCountries as $row) {
+                            $countries++;
+                        }
+                        echo $countries;
+                        ?>
+                        
+                        Countries</div>
                     </div>
 
            </div>
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--grey cardWidth thumbContain">
-                        <div class="text">Employee To-dos: June 2017</div>
+                        <div class="text">Employee To-dos June 2017: 
+                        <?php
+                        $toDoCount = $toDo->getAll();
+                        
+                        foreach ($toDoCount as $row) {
+                            echo $row['ToDoCount'];
+                        }
+                        
+                        ?>
+                        </div>
                     </div>
 
            </div>
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue cardWidth thumbContain">
-                        <div class="text">Employee Messages: June 2017</div>
+                        <div class="text">Employee Messages June 2017: 
+                        <?php
+                        $messageCount = $messages->getAll();
+                        
+                        foreach ($messageCount as $row) {
+                            echo $row['MessageCount'];
+                        }
+                        
+                        ?>
+                        </div>
                     </div>
 
            </div>
@@ -119,59 +146,37 @@ $bookVisitDb2 = new BookVisitsGateway2($connection);
             </div>  <!-- / mdl-grid -->
             
             <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--9-col">
+            <div class="mdl-cell mdl-cell--8-col">
               <!-- book details card -->
-              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+              <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
                     </div>
 
                     <div class="mdl-card__supporting-text overflow">
-                        
+                                        <div class="mdl-layout-spacer"></div>
+
                         <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
                             <thead>
                                 <tr>
                                     <th>Cover</th>
-                                    <th class="mdl-data-table__cell--non-numeric">Title</th>
-                                    <th>Year</th>
-                                    <th>Subcategory</th>
-                                    <th>Imprint</th>
+                                    <th>Title</th>
+                                    <th>Quantity</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    //checks filters and uses the correct sql statement
-                                    if ($_GET['subid']=='') {
-                                        if ($_GET['imprintid']=='') {
-                                            $books = $bookDb->getAll("BookID", null, "20");
-                                        } else {
-                                            $books = $bookDb->matchData($_GET['imprintid'], null, "20");
-                                        }
-                                    } else {
-                                         if ($_GET['imprintid']=='') {
-                                            $books = $bookDb2->matchData($_GET['subid'], null, "20");
-
-                                        } else {
-                                            $books = $bookDb2->match2Key($_GET['subid'], $_GET['imprintid']);
-                                        }
-                                     }
-                                     
-                                    //if no books found, display message to that effect
-                                    if (empty($books)) {
-                                        echo 'No books found. Please try again.';
-                                    } else {
-                                        //display book details
-                                        foreach ($books as $row) {
-                                            echo '<tr>';
-                                            echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></th>';
-                                            echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '>' . $row['Title'] . '</a></th>';
-                                            echo '<td>' . $row['CopyrightYear'] . '</th>';
-                                            echo '<td>' . $row['SubcategoryName'] . '</th>';
-                                            echo '<td>' . $row['Imprint'] . '</th>';
-                                            echo '</tr>';
-                                        }
+                                    $topBooks=$adoptions->getAll();
+                                        
+                                    foreach ($topBooks as $row) {
+                                        echo '<tr>';
+                                        echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></th>';
+                                        echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '>' . $row['Title'] . '</a></th>';
+                                        echo '<td>' . $row['TopAdopted'] . '</th>';
+                                        echo '</tr>';
                                     }
+                                    
                                     ?>
                               </tbody>
                             </table>

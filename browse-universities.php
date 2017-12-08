@@ -69,7 +69,7 @@ $statesDb = new StatesGateway($connection);
                 </div>
                 <div class="mdl-card__supporting-text">
 
-                    <!-- drop-down list with all states -->
+                    <!-- drop-down list of US states -->
                     <form action="browse-universities.php" method="get">
                         <select name="state">
                             <option value="nofilter"> Remove Filter </option>
@@ -96,7 +96,7 @@ $statesDb = new StatesGateway($connection);
                     <ul class="demo-list-item mdl-list">
 
                          <?php
-                        //checks filters and uses the appropriate sql statement to generate list
+                        //check filters and use the appropriate sql statement to generate list of universities
                          if (!$filter) {
                             $universities = $uniDb->getAll(null, "Name", "20");
                             foreach ($universities as $row) {

@@ -2,6 +2,9 @@
 include 'includes/book-config.inc.php';
 include 'includes/functions.inc.php';
 $salt = md5(microtime());
+
+$badUser=false;
+
 session_start();
 $check = checkSession();
 
@@ -11,7 +14,13 @@ $registering=new RegisterUserNameCheckGateway($connection);
 
 if($check){
      header("Location:index.php");
-}else if(isset($_POST["Email"])){
+}else if(!isset($_POST["LastName"]) || !isset($_POST["City"]) || !isset($_POST["Country"]) || !isset($_POST["Email"]) || !isset($_POST["Password"])){
+    //continue if parameters not set
+}else /* ( && isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])) */ {
+    //manditory : LastName Email City Country Password
+    //not manditory: FirstName PhoneNumber Address Region Postal
+    
+    if(empty()){
     //testing if username is the same as 1 in database
     $allUserNames = $registering->getAll();
     
@@ -23,11 +32,7 @@ if($check){
         }
     }
 }
-
-
-if(!$_POST['exist'] && isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])){
-    //manditory : LastName Email City Country Password
-    //not manditory: FirstName PhoneNumber Address Region Postal
+*/
     
     //creating security
     $pass = md5($_POST["Password"] . $salt);
@@ -37,7 +42,20 @@ if(!$_POST['exist'] && isset($_POST["LastName"]) && isset($_POST["City"]) && iss
     $param = $registering->registerUser($_POST["LastName"], $_POST["City"], $_POST["Country"], $_POST["Email"], $pass, $salt, $Date, $_POST["FirstName"], $_POST["PhoneNumber"], $_POST["Address"], $_POST["Region"], $_POST["Postal"]);
 }
 
-
+/*
+else if(isset($_POST["Email"])){
+    //testing if username is the same as 1 in database
+    $allUserNames = $registering->getAll();
+    
+    foreach($allUserNames as $checker){
+            if($checker == $_POST["Email"]){
+            $_POST['exist'] = true;
+            header("Location:register.php");
+            break;
+        }
+    }
+}
+*/
 
 
 $countries = new CountryGateway($connection);
@@ -200,8 +218,11 @@ $countries = new CountryGateway($connection);
                         $(document).ready(function(){
                             $("form").submit(function(e){
                                 if ($("#Password").val() != $("#Password2").val()){
-                                e.preventDefault();
-                                }else{}
+                                e.preventDefault(); //prevent the user from registering.
+                                //may also want to display some kind of error emssage.
+                                } else{
+                                    //should redirect to index.php as a new user.
+                                }
                             });
                             
                             $(".pass").on("input", function() {
@@ -221,6 +242,13 @@ $countries = new CountryGateway($connection);
     </main>    
 </div>    <!-- / mdl-layout --> 
     <!-- <script>
+   
+    //this will hopefully make sure that the email address is in the proper syntax
+    function isValidEmailAddress(emailAddress) {
+        var pattern = /^([a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+(\.[a-z\d!#$%&'*+\-\/=?^_`{|}~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+)*|"((([ \t]*\r\n)?[ \t]+)?([\x01-\x08\x0b\x0c\x0e-\x1f\x7f\x21\x23-\x5b\x5d-\x7e\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|\\[\x01-\x09\x0b\x0c\x0d-\x7f\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))*(([ \t]*\r\n)?[ \t]+)?")@(([a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\d\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.)+([a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]|[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF][a-z\d\-._~\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]*[a-z\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])\.?$/i;
+        return pattern.test(emailAddress);
+    };
+    
     /* $(document).ready(function(){
             $("highlightable").focus(function(){$(this).css("border-color", "#99b3ff");});
             $("highlightable").blur(function(){$(this).css("border-color", "#ffffff");});
