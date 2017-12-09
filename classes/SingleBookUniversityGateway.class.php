@@ -6,8 +6,6 @@ class SingleBookUniversityGateway extends AbstractTableGateway {
     protected function getSelectStatement() {
         return "SELECT Name, UniversityID FROM Books"; 
     }
-    //SELECT Name FROM Books JOIN AdoptionBooks USING (BookID) JOIN Adoptions USING (AdoptionID) JOIN Universities USING (UniversityID)
-    // WHERE ISBN10 = "'. $_GET['isbn10'] . '"'
     
     protected function getPrimaryKeyName() {
         return "BookID";

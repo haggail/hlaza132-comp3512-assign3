@@ -94,6 +94,7 @@ if ($check) {
                 </div>
                 <div class="mdl-grid mdl-cell--8-col">
                 <?php
+                //gets/sets the previous url for things
                 if (!isset($_GET['prevurl'])) {
                     echo '<form action="login.php" method="post" id="mainForm">';
                 } else {
@@ -107,6 +108,7 @@ if ($check) {
                             <label class="mdl-textfield__label" for="username">Username</label>
                         </div>
                         <?php
+                        //error message for incorrect username
                         if ($badUser) {
                             echo '<div id="error" style="color: red">Incorrect Username</div>';
                         }
@@ -117,6 +119,7 @@ if ($check) {
                             <label class="mdl-textfield__label" for="password">Password</label>
                         </div>
                         <?php
+                        //error message for incorrect password
                         if ($badPass) {
                             echo '<div id="error" style="color: red">Incorrect Password</div>';
                         }
@@ -136,6 +139,7 @@ if ($check) {
     
 </body>
 <script>
+    //hides error messages
      $("form input").on("input", function() {
        $("#error").remove();
     });

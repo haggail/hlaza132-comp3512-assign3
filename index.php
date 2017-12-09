@@ -43,6 +43,8 @@ header("Location:login.php?prevurl=index.php");
     <main class="mdl-layout__content mdl-color--grey-50">
         <section class="page-content">
             <div class="mdl-grid">
+                
+            <!-- dashboard cards -->
                 <div class="mdl-layout-spacer"></div>
                 <div class="mdl-cell mdl-cell--4-col">
                     

@@ -11,14 +11,12 @@ $badUser2=false;
 session_start();
 $check = checkSession();
 
-//format in the same way login.php is
-
+//if session variables are set, redirect to index.php
 if($check){
      header("Location:index.php");
 }else if(!isset($_POST["LastName"]) || !isset($_POST["City"]) || !isset($_POST["Country"]) || !isset($_POST["Email"]) || !isset($_POST["Password"])){
-    //continue if any of the manditory parameters not set
-    //manditory : LastName Email City Country Password
-    //not manditory: FirstName PhoneNumber Address Region Postal
+    //continue if any of the mandatory parameters not set
+
 }else {
     //checks if the user already exists
     $userLogDb=new UsersLoginGateway($connection);
@@ -36,7 +34,7 @@ if($check){
         $registering=new RegisterUserNameCheckGateway($connection);
         $check = $registering->registerUser($_POST["LastName"], $_POST["City"], $_POST["Country"], $_POST["Email"], $pass, $salt, $Date, $_POST["FirstName"], $_POST["PhoneNumber"], $_POST["Address"], $_POST["Region"], $_POST["Postal"]);
 
-            //if everythin updates, login and redirect to index
+            //if everythin updates, save session variables, login, and redirect to index
             $userLogDb=new UsersLoginGateway($connection);
             $userCheck=$userLogDb->getByKey($_POST['Email']);
             if($check) {    
@@ -78,6 +76,7 @@ $countries = new CountryGateway($connection);
        
     <script src="https://code.getmdl.io/1.1.3/material.min.js"></script>
     
+    <!-- The script for highlighting fields, comes from javascript lab -->
     <script src="js/registerErrors.js"></script>
 
 </head>
@@ -101,7 +100,7 @@ $countries = new CountryGateway($connection);
                 <form action="register.php" method="post" id="registerForm">
 
                         
-                        <!-- class="required hilightable" also needs js for valid pattern-->
+                        <!-- email text field-->
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="text" id="Email" name="Email"/>
                             <label class='mdl-textfield__label' for='Email'>Email*</label>
@@ -115,7 +114,7 @@ $countries = new CountryGateway($connection);
                             
                         </div>
                          
-                        <!-- class="hilightable" -->
+                        <!-- first name text field -->
                         <br>
                         <div class="mdl-textfield mdl-js-textfield">
                             <?php
@@ -128,7 +127,7 @@ $countries = new CountryGateway($connection);
                             ?>
                         </div>
                         
-                        <!-- class="required hilightable" -->
+                        <!-- last name text field -->
                         <div class="mdl-textfield mdl-js-textfield">
                             <?php
                                 if(isset($_POST['LastName']) && !empty($_POST['LastName'])){
@@ -140,7 +139,7 @@ $countries = new CountryGateway($connection);
                             ?>
                         </div>
                         
-                        <!-- class="hilightable" -->
+                        <!--phone number text field-->
                         <div class="mdl-textfield mdl-js-textfield">
                             <?php
                             //if form was filled in and submitted, it'll keep the info in an incorrect email was used
@@ -153,7 +152,7 @@ $countries = new CountryGateway($connection);
                             ?>
                         </div>
                         
-                        <!-- class="hilightable" -->
+                        <!-- address text field -->
                         <div class="mdl-textfield mdl-js-textfield">
                             <?php
                             //if form was filled in and submitted, it'll keep the info in an incorrect email was used
@@ -166,7 +165,7 @@ $countries = new CountryGateway($connection);
                             ?>
                         </div>
                         
-                        <!-- class="hilightable" -->
+                        <!-- region dropdown list -->
                         <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label hilightable">
                             <label class="mdl-selectfield__label hilightable" for="Region">Region</label><br>
                             <select class="mdl-selectfield__select hilightable" id="Region" name="Region">
@@ -196,7 +195,7 @@ $countries = new CountryGateway($connection);
                         </div>
                         <br>
                         
-                        <!-- class="required hilightable" -->
+                        <!-- country dropdown list -->
                         <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                             <label class="mdl-selectfield__label" for="Country">Country*</label><br>
                             <select class="mdl-selectfield__select required hilightable" id="Country" name="Country">
@@ -207,7 +206,8 @@ $countries = new CountryGateway($connection);
                                 foreach($popCountries as $row){
                                     echo '<option value=' . $row['CountryCode'] . '>' . $row['CountryName'] . '</option>'; 
                                 }
-                                
+                                //echos out javascript to leave the option filled in when user hits submit
+                                //in the case that there's an error with the username
                                 if(isset($_POST['Country'])){
                                   echo '<script>';
                                   echo 'var country = "' . $_POST['Country'] . '";';
@@ -222,8 +222,7 @@ $countries = new CountryGateway($connection);
                             </select>
                         </div>
                         
-                        <!-- May need to change to a select if we have a way of getting all cities in a region-->
-                        <!-- class="required hilightable"-->
+                        <!-- city text field-->
                         <div class="mdl-textfield mdl-js-textfield">
                             <?php
                             //if form was filled in and submitted, it'll keep the info in an incorrect email was used
@@ -236,7 +235,7 @@ $countries = new CountryGateway($connection);
                             ?>
                         </div>
                         
-                        <!-- class="hilightable" -->
+                        <!-- postal code text field -->
                         <div class="mdl-textfield mdl-js-textfield">
                             <?php
                             //if form was filled in and submitted, it'll keep the info in an incorrect email was used
@@ -249,14 +248,14 @@ $countries = new CountryGateway($connection);
                             ?>
                         </div>
                         
-                        <!-- class="required hilightable" -->
+                        <!-- Password text field -->
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable pass" type="Password" id="Password" name="Password"/>
                             <label class="mdl-textfield__label" for="Password">Password*</label>
                         </div>
                         
                             
-                        <!-- class="required hilightable" should also check if passwords match-->
+                        <!-- re-entered password field -->
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable pass" type="Password" id="Password2" name="Password2"/>
                             <label class="mdl-textfield__label" for="Password2">Re-Enter Password*</label>
@@ -269,7 +268,6 @@ $countries = new CountryGateway($connection);
                         <div class="buttons">
                             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Register</button>
                             <span>&emsp;&emsp; *Required Fields &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<a href="login.php">Or Return to Login</a></span>
-                            <!-- <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--blue-700 mdl-color-text--white">Clear Data</button> -->
                         </div>
                     </form>
                     <script>
@@ -278,8 +276,6 @@ $countries = new CountryGateway($connection);
                                 if ($("#Password").val() != $("#Password2").val()){
                                 e.preventDefault(); //if the password and reentered password don't match, prevent the user from registering.
                                 //works with function below
-                                } else{
-                                    //should redirect to index.php as a new user via the php at start of page
                                 }
                             });
                             
@@ -291,6 +287,7 @@ $countries = new CountryGateway($connection);
                                 }
                             });
                             
+                            //removes error message on input
                             $("#Email").on("input", function() {
                                 $("#error").remove();
                             });

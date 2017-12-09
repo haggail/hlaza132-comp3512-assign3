@@ -1,5 +1,5 @@
 <?php
-class BookGatewayImprint extends AbstractTableGateway /*implements JsonSerializable*/ {
+class BookGatewayImprint extends AbstractTableGateway {
     public function __construct($connect) {
         parent::__construct($connect);
     }
@@ -22,10 +22,5 @@ class BookGatewayImprint extends AbstractTableGateway /*implements JsonSerializa
     protected function addToWhere(){
         return null;
     }
-    /*
-    protected function getJSONObj() {
-        return "{}";
-    }
-    */
 }
 ?>

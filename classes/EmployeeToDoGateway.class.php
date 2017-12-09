@@ -20,6 +20,8 @@ class EmployeeToDoGateway extends AbstractTableGateway {
         return null;
     }
     
-    protected function addToWhere(){}
+    protected function addToWhere(){
+        return null;
+    }
 }
 ?>

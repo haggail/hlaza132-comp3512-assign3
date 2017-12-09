@@ -1,4 +1,5 @@
 <?php
+//web services for country visits
 include 'includes/book-config.inc.php';
 
 header('Content-Type:application/json');

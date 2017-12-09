@@ -4,7 +4,6 @@
            <!-- If session state variables are missing, display message to that effect -->
            <h4> <!--User First/Last name -->
                <?php
-               
                     if(isset($_SESSION["FirstName"]) && isset($_SESSION["LastName"])){
                         echo $_SESSION["FirstName"] . " " . $_SESSION["LastName"];
                     }else{

@@ -1,5 +1,5 @@
 <?php
-class CountryGateway extends AbstractTableGateway /*implements JsonSerializable*/ {
+class CountryGateway extends AbstractTableGateway {
     public function __construct($connect) {
         parent::__construct($connect);
     }
@@ -22,9 +22,5 @@ class CountryGateway extends AbstractTableGateway /*implements JsonSerializable*
     protected function addToWhere(){
         return null;
     }
-    /*
-    protected function jsonSerialize() {
-        return "{'ID':\"CountryCode\", 'Name':\"CountryName\"}";
-    }*/
 }
 ?>

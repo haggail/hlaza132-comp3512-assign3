@@ -1,5 +1,5 @@
 <?php
-class AdoptionBooksGateway extends AbstractTableGateway /*implements JsonSerializable*/ {
+class AdoptionBooksGateway extends AbstractTableGateway {
     public function __construct($connect) {
         parent::__construct($connect);
     }
@@ -22,9 +22,5 @@ class AdoptionBooksGateway extends AbstractTableGateway /*implements JsonSeriali
     protected function addToWhere(){
         return null;
     }
-    /*
-    protected function jsonSerialize() {
-        return "{'ID':\"AdoptionDetailID\", 'Book':\"BookID\", 'Quantity':\"Quantity\"}";
-    }*/
 }
 ?>

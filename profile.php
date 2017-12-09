@@ -1,4 +1,7 @@
 <?php
+//making this page look decent so it's not a white page..... 
+//contains some of the "default" functionality as the rest of the pages
+
 include 'includes/functions.inc.php';
 session_start();
 $check = checkSession();

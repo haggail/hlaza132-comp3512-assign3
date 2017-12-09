@@ -1,4 +1,5 @@
 <?php
+//web services for top adopted books
 include 'includes/book-config.inc.php';
 
 header('Content-Type:application/json');

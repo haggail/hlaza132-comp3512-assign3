@@ -23,16 +23,4 @@ class RegisterUserNameCheckGateway extends AbstractTableGateway {
         return "INSERT INTO UsersLogin (UserName, Password, Salt, State, DateJoined, DateLastModified) VALUES ";
     }
 }
-/*
-Users table
------------
-UserID | FirstName | LastName | Address | City | Region | Country | Postal | Phone | Email | Privacy?
-
-UsersLogin
-----------
-UserID | UserName (email) | Password | Salt | State | DateJoined | DateLastModified
-*/
-
-
-
 ?>

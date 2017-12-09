@@ -7,7 +7,7 @@ $check = checkSession();
 if (!$check) {
     header("Location:login.php?prevurl=browse-universities.php");
 }
-
+//checks filters
 if (isset($_GET['state'])) {
     if ($_GET['state'] == 'nofilter') {
         $filter = false;
@@ -146,6 +146,7 @@ $statesDb = new StatesGateway($connection);
                                     $lat = $uniDetails['Latitude'];
                                     $long = $uniDetails['Longitude'];
                                     
+                                    //generates map based on latitude/longitude
                                     echo '<br><script>
                                           $(document).ready(function() {
                                               window.addEventListener("load", function () {    
@@ -172,6 +173,7 @@ $statesDb = new StatesGateway($connection);
           
 </body>
 <script>
+    //function to generate map
     function initMap(latitude, longitude) {
         var location = {lat: latitude, lng: longitude};
         var map = new google.maps.Map(document.getElementById('map'), {

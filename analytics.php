@@ -56,6 +56,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
           </div>
           
           <div class="mdl-grid">
+              <!-- Number of visits card-->
             <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue-300 cardWidth thumbContain" id="visitTop">
                         <div class="mdl-card__media mdl-color--blue-300" id="visitImage"><img src="/images/ic_home_white_48dp_2x.png" class="centerImage"></div>
@@ -64,7 +65,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                     </div>
 
            </div>
-          
+              <!-- Number of countries visited card-->
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell-3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue-500 cardWidth thumbContain" id="countryTop">
                         <div class="mdl-card__media mdl-color--blue-500" id="countryImage"><img src="/images/ic_room_white_48dp_2x.png" class="centerImage"></div>
@@ -73,6 +74,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                     </div>
 
            </div>
+           <!-- to do card-->
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue-700 cardWidth thumbContain" id="toDoTop">
                         <div class="mdl-card__media mdl-color--blue-700" id="toDoImage"><img src="/images/ic_work_white_48dp_2x.png" class="centerImage"></div>
@@ -81,6 +83,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                     </div>
 
            </div>
+              <!-- Number of messages card-->
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue-900 cardWidth thumbContain" id="messageTop">
                         <div class="mdl-card__media mdl-color--blue-900" id="messageImage"><img src="/images/ic_message_white_48dp_2x.png" class="centerImage"></div>
@@ -96,7 +99,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
             <div class="mdl-grid">
 
             <div class="mdl-cell mdl-cell--9-col">
-              <!-- book details card -->
+              <!-- top 10 adopted books card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--blue-A200 mdl-color-text--white">
@@ -122,7 +125,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
 
             <div class="mdl-cell mdl-cell--3-col">
 
-              <!-- imprints card -->
+              <!-- most visited countries card -->
               <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
                 <div class="mdl-card__title mdl-color--blue-A400 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Most Visited Countries</h2>
@@ -134,7 +137,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                     <br><br>
                     <div id="countryDetails"></div>
                 </div>
-              </div>  <!-- subcategory card -->
+              </div>
 
              </div>  <!-- / mdl-cell + mdl-card --> 
 
@@ -143,9 +146,11 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
     </main>
     </div>
 </body>
+<!-- Best Bit in the assignment -->
 <embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 <script>
 $(document).ready(function () {
+    //populates most visited country list
      $.get("service-topCountries.php")
         .done(function(data) {
             for (var i = 0; i < data.length; i++) {
@@ -155,7 +160,7 @@ $(document).ready(function () {
         .fail(function() {
             $("#country").append('<option> error </option>');
     });
-    
+    //populates visits, countries, to dos, messages cards
     $.get("service-totals.php")
         .done(function(data) {
             $("#visits").append("Number of Visits: " + data.Visits);
@@ -170,7 +175,7 @@ $(document).ready(function () {
             $("#toDos").append("Error retrieving data");
             $("#messages").append("Error retrieving data");
     });
-    
+    //populates the 10 top adopted books
     $.get("service-topAdoptedBooks.php")
         .done(function(data) {
             for (var i = 0; i < data.length; i++) {
@@ -181,11 +186,11 @@ $(document).ready(function () {
             $("#topTable").append('Error retrieving data');
     });
     
+    //displays selected country and number of visits when country is selected
     $("#country").on("change", function() {
         if ($("#country").val() == "none") {
             $("#countryDetails").html("");
         } else {
-            
         $.get("service-countryVisits.php")
         .done(function(data) {
             for (var i = 0; i < data.length; i++) {
@@ -201,7 +206,7 @@ $(document).ready(function () {
         
         }
     });
-
+    //animates the hover of the small cards
     function animateCard(card, image, text) {
         $(card).hover(function() {
             $(image).animate({opacity: '0'}, 200);
@@ -217,10 +222,6 @@ $(document).ready(function () {
     animateCard("#countryTop", "#countryImage", "#countryCount");
     animateCard("#toDoTop", "#toDoImage", "#toDos");
     animateCard("#messageTop", "#messageImage", "#messages");
-
-
-    
-    
 });
 </script>
 </html>

@@ -19,6 +19,8 @@ class AnalyticsEmployeeToDoGateway extends AbstractTableGateway {
     protected function getJoinStatement(){
         return null;
     }
-    protected function addToWhere(){}
+    protected function addToWhere(){
+        return null;
+    }
 }
 ?>

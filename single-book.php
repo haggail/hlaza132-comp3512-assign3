@@ -100,7 +100,7 @@ $singleB = new SingleBookUniversityGateway($connection);
                         }
                         ?>
                     </div>    
-  </div>
+              </div>
                  
               </div>  
             <div class="mdl-cell mdl-cell--4-col">
