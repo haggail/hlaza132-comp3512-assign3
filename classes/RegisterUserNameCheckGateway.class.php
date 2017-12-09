@@ -16,11 +16,11 @@ class RegisterUserNameCheckGateway extends AbstractTableGateway {
     }
     
     protected function getJoinStatement(){
-        return "INSERT INTO Users (FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email, Privacy) VALUES ";
+        return "INSERT INTO Users (UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email, Privacy) VALUES ";
     }
     
     protected function addToWhere(){
-        return "INSERT INTO UsersLogin (UserName, Password, Salt, State, DateJoined, DateLastModified) VALUES ";
+        return "INSERT INTO UsersLogin (UserID, UserName, Password, Salt, State, DateJoined, DateLastModified) VALUES ";
     }
 }
 /*

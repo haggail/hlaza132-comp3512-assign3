@@ -38,7 +38,7 @@ if ($check) {
             foreach ($userCred as $row) {
                 $expiryTime = time()+60*60;
 
-                $_SESSION["FirstName"] = $row["UserID"];
+                $_SESSION["User"] = $row["UserID"];
                 $_SESSION["FirstName"] = $row["FirstName"]; 
                 $_SESSION["LastName"] = $row["LastName"]; 
                 $_SESSION["Email"] = $row["Email"]; 

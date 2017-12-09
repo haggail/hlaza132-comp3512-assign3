@@ -114,7 +114,7 @@ $bookDb2 = new BookGatewaySubcat($connection);
 
                     <div class="mdl-card__supporting-text overflow">
                         
-                        <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
+                        <table class="mdl-data-table  mdl-shadow--2dp alignLeft" style="margin: auto;">
                             <thead>
                                 <tr>
                                     <th>Cover</th>

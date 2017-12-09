@@ -156,9 +156,9 @@ main {
 } 
 
 a {
-  color: #22581d;
+  color: #5d9ddc;
 }
 
-.material-icons.md-48 {
-  font-size: 48px;
+analytics_thumbnails {
+  max-height:100%;
 }

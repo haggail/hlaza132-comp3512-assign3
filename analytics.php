@@ -52,71 +52,65 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
         <section class="page-content">
 
             <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--4-col">
-
-              <!-- imprints card -->
-              <div class="mdl-cell mdl-cell--top mdl-cell--4-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
-                  <h2 class="mdl-card__title-text">Most Visited Countries</h2>
-                </div>
-                <div class="mdl-card__supporting-text">
-                   <select id="country">
-                        <option value="none">Select a Country</option>
-                    </select>
-                    <div id="countryDetails"></div>
-                </div>
-              </div>  <!-- subcategory card -->
-
-             </div>  <!-- / mdl-cell + mdl-card --> 
+            
           </div>
+          
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--3-col">
-                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--red-A700 cardWidth thumbContain">
-                        <div class="text" id="visits"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--red-A700 cardWidth thumbContain" id="visitTop">
+                        <div class="mdl-card__media mdl-color--red-A700" id="visitImage"><img src="/images/ic_home_white_48dp_2x.png" class="centerImage"></div>
+
+                        <div class="text" id="visits" style="opacity:0; text-align: center;"></div>
                     </div>
 
            </div>
           
            <div class="mdl-cell mdl-cell--3-col">
-                    <div class="mdl-card mdl-cell mdl-cell-3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--green cardWidth thumbContain">
-                        <div class="text" id="countryCount"></div>
+                    <div class="mdl-card mdl-cell mdl-cell-3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--green cardWidth thumbContain" id="countryTop">
+                        <div class="mdl-card__media mdl-color--green" id="countryImage"><img src="/images/ic_room_white_48dp_2x.png" class="centerImage"></div>
+                        
+                        <div class="text" id="countryCount" style="opacity:0; text-align: center;"></div>
                     </div>
 
            </div>
            <div class="mdl-cell mdl-cell--3-col">
-                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--grey cardWidth thumbContain">
-                        <div class="text" id="toDos"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--grey cardWidth thumbContain" id="toDoTop">
+                        <div class="mdl-card__media mdl-color--grey" id="toDoImage"><img src="/images/ic_work_white_48dp_2x.png" class="centerImage"></div>
+
+                        <div class="text" id="toDos" style="opacity:0; text-align: center;"></div>
                     </div>
 
            </div>
            <div class="mdl-cell mdl-cell--3-col">
-                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue cardWidth thumbContain">
-                        <div class="text" id="messages"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue cardWidth thumbContain" id="messageTop">
+                        <div class="mdl-card__media mdl-color--blue" id="messageImage"><img src="/images/ic_message_white_48dp_2x.png" class="centerImage"></div>
+                        
+                        <div class="text" id="messages" style="opacity:0; text-align: center;"></div>
                     </div>
 
            </div>
 
 
             </div>  <!-- / mdl-grid -->
-            
+
             <div class="mdl-grid">
-            <div class="mdl-cell mdl-cell--8-col">
+
+            <div class="mdl-cell mdl-cell--9-col">
               <!-- book details card -->
-              <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
+              <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
                     <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
                     </div>
 
                     <div class="mdl-card__supporting-text overflow">
-                                        <div class="mdl-layout-spacer"></div>
 
-                        <table class="mdl-data-table  mdl-shadow--2dp alignLeft">
+                        <table class="mdl-data-table  mdl-shadow--2dp alignLeft" style="margin: auto;">
                             <thead>
                                 <tr>
                                     <th>Cover</th>
                                     <th>Title</th>
-                                    <th>Quantity</th>
+                                    <th>Number of Adoptions</th>
                                 </tr>
                                 </thead>
                                     <tbody id="topTable">
@@ -125,6 +119,25 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                     </div>    
                     </div>
               </div>  <!-- / mdl-cell + mdl-card --> 
+
+            <div class="mdl-cell mdl-cell--3-col">
+
+              <!-- imprints card -->
+              <div class="mdl-cell mdl-cell--top mdl-cell--3-col card-lesson mdl-card mdl-shadow--2dp cardWidth">
+                <div class="mdl-card__title mdl-color--indigo-900 mdl-color-text--white">
+                  <h2 class="mdl-card__title-text">Most Visited Countries</h2>
+                </div>
+                <div class="mdl-card__supporting-text">
+                   <select id="country">
+                        <option value="none">Select a Country</option>
+                    </select>
+                    <br><br>
+                    <div id="countryDetails"></div>
+                </div>
+              </div>  <!-- subcategory card -->
+
+             </div>  <!-- / mdl-cell + mdl-card --> 
+
           </div>
         </section>
     </main>
@@ -145,10 +158,10 @@ $(document).ready(function () {
     
     $.get("service-totals.php")
         .done(function(data) {
-            $("#visits").append("Visits: " + data.Visits);
-            $("#countryCount").append("Countries: " + data.CountryCount);
-            $("#toDos").append("To Dos: " + data.ToDoCount);
-            $("#messages").append("Messages: " + data.MessageCount);
+            $("#visits").append("Number of Visits: " + data.Visits);
+            $("#countryCount").append("Visited by " + data.CountryCount + " Countries");
+            $("#toDos").append("Number of Employee To Dos: " + data.ToDoCount);
+            $("#messages").append("Number of Employee Messages: " + data.MessageCount);
 
         })
         .fail(function() {
@@ -188,6 +201,24 @@ $(document).ready(function () {
         
         }
     });
+    
+    function animateCard(card, image, text) {
+        $(card).hover(function() {
+            $(image).animate({opacity: '0'}, 200);
+            $(text).animate({opacity: '1'}, 200);
+        }, 
+        function() {
+            $(image).animate({opacity: '1'}, 200);
+            $(text).animate({opacity: '0'}, 200);
+        });
+    }
+    
+    animateCard("#visitTop", "#visitImage", "#visits");
+    animateCard("#countryTop", "#countryImage", "#countryCount");
+    animateCard("#toDoTop", "#toDoImage", "#toDos");
+    animateCard("#messageTop", "#messageImage", "#messages");
+
+
     
     
 });

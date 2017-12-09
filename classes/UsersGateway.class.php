@@ -4,7 +4,7 @@ class UsersGateway extends AbstractTableGateway {
         parent::__construct($connect);
     }
     protected function getSelectStatement() {
-        return "SELECT FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email, Privacy FROM Users JOIN UsersLogin";
+        return "SELECT Users.UserID, FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email, Privacy FROM Users JOIN UsersLogin";
     }
     
     protected function getPrimaryKeyName() {
