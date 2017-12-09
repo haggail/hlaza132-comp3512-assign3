@@ -201,7 +201,7 @@ $(document).ready(function () {
         
         }
     });
-    
+
     function animateCard(card, image, text) {
         $(card).hover(function() {
             $(image).animate({opacity: '0'}, 200);

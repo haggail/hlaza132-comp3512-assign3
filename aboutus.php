@@ -65,6 +65,7 @@ if (!$check) {
                         <hr>
                         <li>Material Design Lite</li>
                         <li>Book Images</li>
+                        <li>Material Design Icons</li>
                         <li>Liberal use of w3schools & stackoverflow for debugging purposes</li>
                         <li>Randy Connolly</li>
                         <hr>
@@ -138,8 +139,9 @@ if (!$check) {
                         
                         <div class="mdl-tabs__panel" id="robert-panel">
                           <ul class="demo-list-item mdl-list">
-                            <li>Some Commenting, I think....</li>
-                            <li><a href="">GitHub Account</a></li>
+                            <li>Web Services.</li>
+                            <li>Documentation</li>
+                            <li><a href="https://github.com/piegineerforce">GitHub Account</a></li>
                           </ul>
                         </div>
                     </div>
