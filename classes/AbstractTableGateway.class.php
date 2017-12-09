@@ -130,6 +130,41 @@ abstract class AbstractTableGateway {
         $statement = DatabaseHelper::runQuery($this->connection, $sql, array(':key'=> $key));
         return $statement->fetchAll();
     }
+    
+    //similar to match data, except for the wild cards. aka adding in "like" statements
+    public function matchWildcard($param, $sortFields=null, $limit=null) {
+        $sql = $this->getSelectStatement() . ' WHERE ' . $this->getTableID() . ' LIKE :ID';
+        
+        if (! is_null($sortFields)) {
+            $sql.= ' ORDER BY ' . $sortFields;
+        }
+        
+        if (! is_null($limit)) {
+            $sql.= ' LIMIT ' . $limit;
+        }
+        
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, array(':ID'=>$param . '%'));
+        return $statement->fetchAll(); 
+    }
+    //similar to match2key but for wildcards. aka adding in "like" statements
+    public function matchWildcard2($key1, $key2, $limit=null, $sortFields=null) {
+        $sql = $this->getSelectStatement();
+        
+        $sql.= ' WHERE ' . $this->getTableID() . ' LIKE :key';
+        $sql.= ' AND ' . $this->addToWhere() . '=:key2';
+        
+        if (! is_null($sortFields)) {
+            $sql.= ' ORDER BY ' . $sortFields;
+        }        
+        
+        if (! is_null($limit)) {
+            $sql.= ' LIMIT ' . $limit;
+        }
+
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, array(':key'=> $key1 . '%', ':key2' => $key2));
+        return $statement->fetchAll();
+    }
+    
 
     //add user to database
     public function registerUser($lname, $city, $country, $email, $pass, $salt, $Date, $FName, $PNumber, $Address, $Region, $Postal){

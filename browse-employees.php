@@ -121,13 +121,13 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                                       $employees=$empDb->getAll(null, "LastName");
                                       $noFilter = true;
                                   } else if ($_GET['lastName'] != '' && $_GET['city'] == '') {
-                                      $employees=$empDb->matchData($_GET['lastName'], "LastName");
+                                      $employees=$empDb->matchWildcard($_GET['lastName'], "LastName");
                                       $nameFilter = true;
                                   } else if ($_GET['lastName'] == '' && $_GET['city'] != '') {
                                       $employees=$empDb->matchData2($_GET['city'], "City");
                                       $cityFilter = true;
                                   } else if ($_GET['lastName'] != '' && $_GET['city'] != '') {
-                                      $employees=$empDb->match2Key($_GET['lastName'], $_GET['city'], null, "LastName");
+                                      $employees=$empDb->matchWildcard2($_GET['lastName'], $_GET['city'], null, "LastName");
                                       $bothFilter = true;
                                   }
 

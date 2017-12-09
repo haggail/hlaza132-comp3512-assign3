@@ -42,7 +42,7 @@ if (!$check) {
             <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--4-col">
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Disclaimer</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -60,14 +60,14 @@ if (!$check) {
                     <ul class="demo-list-item mdl-list">
                         <li>Course: COMP 3512</li>
                         <li>Current Date: <?php echo date("M d, Y"); ?></li>
-                        <li>Github: </li>
-                        <li>https://github.com/haggail/hlaza132-comp3512-assign3</li>
-                        <li>----------------------------------------------------------------------------------------------------</li>
+                        <li><a href="https://github.com/haggail/hlaza132-comp3512-assign3">Github Where Assignment is Located</A></li>
+
+                        <hr>
                         <li>Material Design Lite</li>
                         <li>Book Images</li>
-                        <li>Liberal use of w3schools & stackoverflow</li>
+                        <li>Liberal use of w3schools & stackoverflow for debugging purposes</li>
                         <li>Randy Connolly</li>
-                        <li>----------------------------------------------------------------------------------------------------</li>
+                        <hr>
                         <li>Profile image retrieved from: 
                             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=1188604145">Click Here</a></li>
 
@@ -113,22 +113,33 @@ if (!$check) {
                           </div>
                         <div class="mdl-tabs__panel is-active" id="haggai-panel">
                           <ul class="demo-list-item mdl-list">
+                            <li>Assignment 2 Functionality Updates</li>
                             <li>Mapping</li>
+                            <li>Registering</li>
+                            <li>Web Services</li>
+                            <li>Debugging</li>
+                            <li>Pushing to Github</li>
+                            <li><a href="https://github.com/haggail">GitHub Account</a></li>
                           </ul>
                         </div>
                         
                         <div class="mdl-tabs__panel" id="brandon-panel">
                           <ul class="demo-list-item mdl-list">
+                            <li>Assignment 2 Functonality Updates</li>
                             <li>Registering</li>
-                            <li>Theme Change (colour pallet, background, music)</li>
+                            <li>Theme Change (colour pallet, background, music, etc)</li>
                             <li>Referencing</li>
-                            <li>Graphical filler for profile.php</li>
+                            <li>About Us</li>
+                            <li>Debugging</li>
+                            <li>Providing great music</li>
+                            <li><a href="https://github.com/blazu">GitHub Account</a></li>
                           </ul>
                         </div>
                         
                         <div class="mdl-tabs__panel" id="robert-panel">
                           <ul class="demo-list-item mdl-list">
-                            <li>More Gateways</li>
+                            <li>Some Commenting, I think....</li>
+                            <li><a href="">GitHub Account</a></li>
                           </ul>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ include 'includes/functions.inc.php';
 $salt = md5(microtime());
 
 $badUser=false;
+$badUser2=false;
 
 session_start();
 $check = checkSession();
@@ -16,15 +17,17 @@ if($check){
      header("Location:index.php");
 }else if(!isset($_POST["LastName"]) || !isset($_POST["City"]) || !isset($_POST["Country"]) || !isset($_POST["Email"]) || !isset($_POST["Password"])){
     //continue if any of the manditory parameters not set
-}else /* ( && isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])) */ {
     //manditory : LastName Email City Country Password
     //not manditory: FirstName PhoneNumber Address Region Postal
-    
+}else {
+    //checks if the user already exists
     $userLogDb=new UsersLoginGateway($connection);
     $userCheck=$userLogDb->getByKey($_POST['Email']);
     if(!empty($userCheck)){
-            $baduser=true;
-    }else{
+            $badUser=true;
+    } else if (!preg_match("/\w+@\w+\.\w+/i", $_POST['Email'])) { //checks for valid email format
+            $badUser2=true;
+    } else {
         //creating security and date variable
         $pass = md5($_POST["Password"] . $salt);
         $Date = date("Y-m-d H-i-s");
@@ -32,14 +35,13 @@ if($check){
         //adding everything to database
         $registering=new RegisterUserNameCheckGateway($connection);
         $check = $registering->registerUser($_POST["LastName"], $_POST["City"], $_POST["Country"], $_POST["Email"], $pass, $salt, $Date, $_POST["FirstName"], $_POST["PhoneNumber"], $_POST["Address"], $_POST["Region"], $_POST["Postal"]);
-        //if this doesn't crash
-        
+
             //if everythin updates, login and redirect to index
             $userLogDb=new UsersLoginGateway($connection);
             $userCheck=$userLogDb->getByKey($_POST['Email']);
-        if($check) {    
-            $userDb=new UsersGateway($connection);
-            $userCred=$userDb->matchData2($userCheck['UserID'], null, "1");
+            if($check) {    
+                $userDb=new UsersGateway($connection);
+                $userCred=$userDb->matchData2($userCheck['UserID'], null, "1");
             foreach ($userCred as $row) {
                 $_SESSION["User"] = $row["UserID"];
                 $_SESSION["FirstName"] = $row["FirstName"]; 
@@ -47,15 +49,9 @@ if($check){
                 $_SESSION["Email"] = $row["Email"]; 
             }
    
-            //redirect
+            //redirect after logging in and setting session variables
             header("Location:index.php");
-        }else{
-            //if fail, redirect to register
-            header("Location:register.php");
         }
-
-
-
     }
 }
 
@@ -109,65 +105,119 @@ $countries = new CountryGateway($connection);
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="text" id="Email" name="Email"/>
                             <label class='mdl-textfield__label' for='Email'>Email*</label>
-                                <?php
-                                if ($badUser) {
+                               <?php
+                                if ($badUser) { //echos error message if email used
                                     echo '<div id="error" style="color: red">Email already in use!</div>';
+                                } else if ($badUser2) { //echos error message if email format is incorrect
+                                    echo '<div id="error" style="color: red">Email format incorrect!</div>';
                                 }
                                 ?>
                             
                         </div>
-                        
+                         
                         <!-- class="hilightable" -->
+                        <br>
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input hilightable" type="text" id="FirstName" name="FirstName"/>
-                            <label class="mdl-textfield__label " for="FirstName">First Name</label>
-                        </div>
-                        
-                        <!-- class="hilightable" -->
-                        <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input hilightable" type="text" id="PhoneNumber" name="PhoneNumber"/>
-                            <label class="mdl-textfield__label" for="PhoneNumber">Phone number</label>
+                            <?php
+                                if(isset($_POST['FirstName']) && !empty($_POST['FirstName'])){
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="FirstName" name="FirstName" value="' . $_POST['FirstName'] . '"/>';
+                                } else {
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="FirstName" name="FirstName"/>';
+                                    echo '<label class="mdl-textfield__label" for="FirstName">First Name</label>';
+                                }
+                            ?>
                         </div>
                         
                         <!-- class="required hilightable" -->
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input required hilightable" type="text" id="LastName" name="LastName"/>
-                            <label class="mdl-textfield__label" for="LastName">Last Name* </label>
+                            <?php
+                                if(isset($_POST['LastName']) && !empty($_POST['LastName'])){
+                                    echo '<input class="mdl-textfield__input required hilightable" type="text" id="LastName" name="LastName" value="' . $_POST['LastName'] . '"/>';
+                                } else {
+                                    echo '<input class="mdl-textfield__input required hilightable" type="text" id="LastName" name="LastName"/>';
+                                    echo '<label class="mdl-textfield__label" for="LastName">Last Name*</label>';
+                                }
+                            ?>
                         </div>
                         
                         <!-- class="hilightable" -->
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input hilightable" type="text" id="Address" name="Address"/>
-                            <label class="mdl-textfield__label" for="Address">Address</label>
+                            <?php
+                            //if form was filled in and submitted, it'll keep the info in an incorrect email was used
+                                if(isset($_POST['PhoneNumber']) && !empty($_POST['PhoneNumber'])){
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="PhoneNumber" name="PhoneNumber" value="' . $_POST['PhoneNumber'] . '"/>';
+                                } else {
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="PhoneNumber" name="PhoneNumber"/>';
+                                    echo '<label class="mdl-textfield__label" for="PhoneNumber">Phone number</label>';
+                                }
+                            ?>
+                        </div>
+                        
+                        <!-- class="hilightable" -->
+                        <div class="mdl-textfield mdl-js-textfield">
+                            <?php
+                            //if form was filled in and submitted, it'll keep the info in an incorrect email was used
+                                if(isset($_POST['Address']) && !empty($_POST['Address'])){
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="Address" name="Address" value="' . $_POST['Address'] . '"/>';
+                                }else{
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="Address" name="Address"/>';
+                                    echo '<label class="mdl-textfield__label" for="Address">Address</label>';
+                                }
+                            ?>
                         </div>
                         
                         <!-- class="hilightable" -->
                         <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label hilightable">
                             <label class="mdl-selectfield__label hilightable" for="Region">Region</label><br>
                             <select class="mdl-selectfield__select hilightable" id="Region" name="Region">
-                              <option value="">Select a Region</option>
+                                <option value="">Select a Region</option>
+
                               <?php 
                                 $popRegions = $countries->getAll("Continent", "Continent", null);
-                                
                                 foreach ($popRegions as $row) {
                                     echo '<option value=' . $row['Continent'] . '>' . $row['Continent'] . '</option>';
                                 }
+                            
+                              //if form was filled in and submitted, it'll keep the info in an incorrect email was used
+                              if(isset($_POST['Region'])){
+                                
+                                  echo '<script>';
+                                  echo 'var region = "' . $_POST['Region'] . '";';
+                                  echo '$("#Region option").each(function() {';
+                                  echo 'if ($(this).val() == region) {';
+                                  echo '$(this).attr("selected","selected");';
+                                  echo '}});';
+                                  echo '</script>';
+                               
+                              }
                               ?>
+                             
                             </select>
                         </div>
                         <br>
                         
                         <!-- class="required hilightable" -->
                         <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                            <label class="mdl-selectfield__label" for="Country">Country</label><br>
+                            <label class="mdl-selectfield__label" for="Country">Country*</label><br>
                             <select class="mdl-selectfield__select required hilightable" id="Country" name="Country">
                               <option value="">Select a Country</option>
-                              <?php //needs better formatting
+                              <?php //populates dropbox
                                 $popCountries = $countries->getAll(null, "CountryName", null);
                                 
                                 foreach($popCountries as $row){
                                     echo '<option value=' . $row['CountryCode'] . '>' . $row['CountryName'] . '</option>'; 
                                 }
+                                
+                                if(isset($_POST['Country'])){
+                                  echo '<script>';
+                                  echo 'var country = "' . $_POST['Country'] . '";';
+                                  echo '$("#Country option").each(function() {';
+                                  echo 'if ($(this).val() == country) {';
+                                  echo '$(this).attr("selected","selected");';
+                                  echo '}});';
+                                  echo '</script>';                                    
+                                }
+                               
                               ?>
                             </select>
                         </div>
@@ -175,14 +225,28 @@ $countries = new CountryGateway($connection);
                         <!-- May need to change to a select if we have a way of getting all cities in a region-->
                         <!-- class="required hilightable"-->
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input required hilightable" type="text" id="City" name="City"/>
-                            <label class="mdl-textfield__label" for="City">City</label>
+                            <?php
+                            //if form was filled in and submitted, it'll keep the info in an incorrect email was used
+                                if(isset($_POST['City']) && !empty($_POST['City'])){
+                                    echo '<input class="mdl-textfield__input required hilightable" type="text" id="City" name="City" value="' . $_POST['City'] . '"/>';
+                                }else{
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="City" name="City"/>';
+                                    echo '<label class="mdl-textfield__label" for="City">City*</label>';
+                                }
+                            ?>
                         </div>
                         
                         <!-- class="hilightable" -->
                         <div class="mdl-textfield mdl-js-textfield">
-                            <input class="mdl-textfield__input hilightable" type="text" id="Postal" name="Postal"/>
-                            <label class="mdl-textfield__label" for="Postal">Postal Code</label>                          
+                            <?php
+                            //if form was filled in and submitted, it'll keep the info in an incorrect email was used
+                                if(isset($_POST['Postal']) && !empty($_POST['Postal'])){
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="Postal" name="Postal" value="' . $_POST['Postal'] . '"/>';
+                                }else{
+                                    echo '<input class="mdl-textfield__input hilightable" type="text" id="Postal" name="Postal"/>';
+                                    echo '<label class="mdl-textfield__label" for="Postal">Postal</label>';
+                                }
+                            ?>
                         </div>
                         
                         <!-- class="required hilightable" -->
@@ -192,7 +256,7 @@ $countries = new CountryGateway($connection);
                         </div>
                         
                             
-                        <!-- class="required hilightable" probably should also check if passwords match-->
+                        <!-- class="required hilightable" should also check if passwords match-->
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable pass" type="Password" id="Password2" name="Password2"/>
                             <label class="mdl-textfield__label" for="Password2">Re-Enter Password*</label>
@@ -215,7 +279,7 @@ $countries = new CountryGateway($connection);
                                 e.preventDefault(); //if the password and reentered password don't match, prevent the user from registering.
                                 //works with function below
                                 } else{
-                                    //should redirect to index.php as a new user.
+                                    //should redirect to index.php as a new user via the php at start of page
                                 }
                             });
                             
@@ -226,7 +290,12 @@ $countries = new CountryGateway($connection);
                                     $("#passMatch").html("Passwords do not match");
                                 }
                             });
+                            
+                            $("#Email").on("input", function() {
+                                $("#error").remove();
+                            });
                         });
+                        
                     </script>
                 </div>
 
@@ -235,26 +304,7 @@ $countries = new CountryGateway($connection);
         </section>
     </main>    
 </div>    <!-- / mdl-layout --> 
-    <!-- <script>
-   
-    //this regex test checks if the email address provided is in the proper syntax; credit for this code comes from here: https://stackoverflow.com/questions/2507030/email-validation-using-jquery
-    function isProperEmailSyntax(email) {
-        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-        return regex.test(email);
-    }
-    
-    $(document).ready(function(){
-            $("highlightable").focus(function(){$(this).css("border-color", "#99b3ff");});
-            $("highlightable").blur(function(){$(this).css("border-color", "#ffffff");});
-    });
-    
-    /*$(document).submit(function(){
-        $("required").focus(function(){$("required").css("border-color", "#FF1744");});
-        $("required").blur(function(){$("required").css("border-color", "#ffffff");});
-    })
-</script> -->
-    
-    
+
 </body>
 
 <embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>

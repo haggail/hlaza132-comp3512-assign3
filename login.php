@@ -137,7 +137,7 @@ if ($check) {
 </body>
 <script>
      $("form input").on("input", function() {
-       $("#error").css("visibility", "hidden");
+       $("#error").remove();
     });
 </script>
 <!-- Nothing to see here!-->

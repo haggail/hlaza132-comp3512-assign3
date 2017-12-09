@@ -68,7 +68,7 @@ $singleB = new SingleBookUniversityGateway($connection);
 
               <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Book Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text">
@@ -106,7 +106,7 @@ $singleB = new SingleBookUniversityGateway($connection);
             <div class="mdl-cell mdl-cell--4-col">
             <!-- authors card -->
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Authors</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -137,7 +137,7 @@ $singleB = new SingleBookUniversityGateway($connection);
               </div> 
               
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Adopted by Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -186,6 +186,9 @@ $singleB = new SingleBookUniversityGateway($connection);
         document.querySelector("#body").style.opacity="0.5";
         document.querySelector("body").style.backgroundColor="black";
         document.querySelector("#largeImg").style.zIndex="1";
+        
+        //hides the background audio when the book is clicked as it becomes shown by default due to the opacity
+        document.getElementById("audio").style.visibility="hidden";
 
     });
 //click event for large book image hides the large image and brightens screen
@@ -194,9 +197,12 @@ $singleB = new SingleBookUniversityGateway($connection);
         document.querySelector("#body").style.opacity="1";
         document.querySelector("body").style.backgroundColor="";
         document.querySelector("#largeImg").style.zIndex="0";
+        
+        //re-displays the background audio when the book is no longer visible
+        document.getElementById("audio").style.visibility="visible";
     })
 
 </script>
 </body>
-<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
+<embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true" id="audio"></embed>
 </html>
