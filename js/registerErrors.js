@@ -1,4 +1,4 @@
-//straight from my javascript lab 2 --Brandon
+//straight from my javascript lab 2, with slight css colour changes to fit the theme better --Brandon
 function setBackground(e) {
     if (e.type == "focus"){ 
         e.target.classList.add("highlight");

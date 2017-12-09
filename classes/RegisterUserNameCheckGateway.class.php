@@ -4,7 +4,7 @@ class RegisterUserNameCheckGateway extends AbstractTableGateway {
         parent::__construct($connect);
     }
     protected function getSelectStatement() {
-        return "Select UserName from UsersLogin";
+        return "SELECT UserID FROM Users";
     }
     
     protected function getPrimaryKeyName() {
@@ -16,11 +16,11 @@ class RegisterUserNameCheckGateway extends AbstractTableGateway {
     }
     
     protected function getJoinStatement(){
-        return null;
+        return "INSERT INTO Users (FirstName, LastName, Address, City, Region, Country, Postal, Phone, Email, Privacy) VALUES ";
     }
     
     protected function addToWhere(){
-        return null;
+        return "INSERT INTO UsersLogin (UserName, Password, Salt, State, DateJoined, DateLastModified) VALUES ";
     }
 }
 /*

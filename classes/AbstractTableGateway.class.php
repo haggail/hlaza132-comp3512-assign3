@@ -133,9 +133,35 @@ abstract class AbstractTableGateway {
 
     //add user to database
     public function registerUser($lname, $city, $country, $email, $pass, $salt, $Date, $FName, $PNumber, $Address, $Region, $Postal){
-        //to avoid having to make another class, I'm using a different function that would have otherwise returned null 
+        //creating a userid
+        /*$sql = $this->getSelectStatement();
+        $cUser = DatabaseHelper::runQuery($this->connection, $sql);
+        $cUser->fetchAll();
+        $UserID = 1;
+        foreach($cUser as $a){$UserID++;}*/
+
         
+        //inserting to userlogin
+        //$sql = $this->getJoinStatement(); 
+        //$sql .= "($FName', '$lname', '$Address', '$city', '$Region', '$country', '$Postal', '$PNumber', '$email', '1' )";
+        //$run = DatabaseHelper::runQuery($this->connection, $sql, null);
+        //$run->execute();
+        
+        //$sql = $this->getJoinStatement(); 
+        //$sql .= "(:first', ':last', ':address', ':city', ':region', ':country', ':postal', ':phone', ':email', '1' )";
+        //$run = DatabaseHelper::runQuery($this->connection, $sql, array(':first'=>$FName, ':last'=>$lname, ':address'=>$Address, ':city'=>$city, ':region'=>$Region, ':country'=>$country, ':postal'=>$Postal, ':phone'=>$PNumber, ':email'=>$email));
+        
+        //inserting into userlogin
+        //$sql = $this->addToWhere();
+        //$sql .= "($email', '$pass', '$salt', '1', '$Date', '$Date')";
+        //$run = DatabaseHelper::runQuery($this->connection, $sql, null);
+        //$run->execute();
+        
+        return "success";
+        
+        //Just realized Later on these could be turned into an array....... -Brandon
     }
 
 }
+
 ?>

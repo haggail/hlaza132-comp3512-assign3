@@ -1,6 +1,8 @@
 <?php
 include 'includes/book-config.inc.php';
 include 'includes/functions.inc.php';
+//creates a salt every time the page is loaded for slightly more security. salt will change every time there's an error in creating an account
+//similarily it won't be exactly the same as the date created.
 $salt = md5(microtime());
 
 $badUser=false;
@@ -8,54 +10,52 @@ $badUser=false;
 session_start();
 $check = checkSession();
 
-$registering=new RegisterUserNameCheckGateway($connection);
-
 //format in the same way login.php is
 
 if($check){
      header("Location:index.php");
 }else if(!isset($_POST["LastName"]) || !isset($_POST["City"]) || !isset($_POST["Country"]) || !isset($_POST["Email"]) || !isset($_POST["Password"])){
-    //continue if parameters not set
+    //continue if any of the manditory parameters not set
 }else /* ( && isset($_POST["LastName"]) && isset($_POST["City"]) && isset($_POST["Country"]) && isset($_POST["Email"]) && isset($_POST["Password"])) */ {
     //manditory : LastName Email City Country Password
     //not manditory: FirstName PhoneNumber Address Region Postal
     
-    if(empty()){
-    //testing if username is the same as 1 in database
-    $allUserNames = $registering->getAll();
-    
-    foreach($allUserNames as $checker){
-            if($checker == $_POST["Email"]){
-            $_POST['exist'] = true;
+    $userLogDb=new UsersLoginGateway($connection);
+    $userCheck=$userLogDb->getByKey($_POST['Email']);
+    if(empty($userCheck)){
+            $baduser=false;
+    }else{
+        //creating security and date variable
+        $pass = md5($_POST["Password"] . $salt);
+        $Date = date("Y-m-d H-i-s");
+        
+        //adding everything to database
+        $registering=new RegisterUserNameCheckGateway($connection);
+        $param = $registering->registerUser($_POST["LastName"], $_POST["City"], $_POST["Country"], $_POST["Email"], $pass, $salt, $Date, $_POST["FirstName"], $_POST["PhoneNumber"], $_POST["Address"], $_POST["Region"], $_POST["Postal"]);
+        //if this doesn't crash
+        if($param == "success"){
+            //if everythin updates, login and redirect to index
+            $userDb=new UsersGateway($connection);
+            $userCred=$userDb->matchData2($userCheck['UserID'], null, "1");
+            foreach ($userCred as $row) {
+                $_SESSION["FirstName"] = $row["UserID"];
+                $_SESSION["FirstName"] = $row["FirstName"]; 
+                $_SESSION["LastName"] = $row["LastName"]; 
+                $_SESSION["Email"] = $row["Email"]; 
+            }
+   
+            //redirect
+            header("Location:index.php");
+        }else{
+            //if fail, redirect to register
             header("Location:register.php");
-            break;
         }
+
+
+
     }
-}
-*/
-    
-    //creating security
-    $pass = md5($_POST["Password"] . $salt);
-    $Date = date(("D M d, Y, g:i a"));
-    
-    //adding everything to database
-    $param = $registering->registerUser($_POST["LastName"], $_POST["City"], $_POST["Country"], $_POST["Email"], $pass, $salt, $Date, $_POST["FirstName"], $_POST["PhoneNumber"], $_POST["Address"], $_POST["Region"], $_POST["Postal"]);
 }
 
-/*
-else if(isset($_POST["Email"])){
-    //testing if username is the same as 1 in database
-    $allUserNames = $registering->getAll();
-    
-    foreach($allUserNames as $checker){
-            if($checker == $_POST["Email"]){
-            $_POST['exist'] = true;
-            header("Location:register.php");
-            break;
-        }
-    }
-}
-*/
 
 
 $countries = new CountryGateway($connection);
@@ -105,15 +105,12 @@ $countries = new CountryGateway($connection);
                         <!-- class="required hilightable" also needs js for valid pattern-->
                         <div class="mdl-textfield mdl-js-textfield">
                             <input class="mdl-textfield__input required hilightable" type="text" id="Email" name="Email"/>
-                            <?php 
-                                if($_POST['exist']){
-                                    echo "<label class='mdl-textfield__label' for='Email'>Email*</label>";
-                                    echo '<div id="error" style="color: red">Incorrect Password</div>';
-                                }else{
-                                    echo "<label class='mdl-textfield__label' for='Email'>Email*</label>";
+                            <label class='mdl-textfield__label' for='Email'>Email*</label>
+                                <?php
+                                if ($badUser) {
+                                    echo '<div id="error" style="color: red">Email already in use!</div>';
                                 }
-                                
-                            ?>
+                                ?>
                             
                         </div>
                         
@@ -156,6 +153,7 @@ $countries = new CountryGateway($connection);
                             </select>
                         </div>
                         <br>
+                        
                         <!-- class="required hilightable" -->
                         <div class="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
                             <label class="mdl-selectfield__label" for="Country">Country</label><br>
@@ -218,14 +216,14 @@ $countries = new CountryGateway($connection);
                         $(document).ready(function(){
                             $("form").submit(function(e){
                                 if ($("#Password").val() != $("#Password2").val()){
-                                e.preventDefault(); //prevent the user from registering.
-                                //may also want to display some kind of error emssage.
+                                e.preventDefault(); //prevent the user from registering. if the passwords do not match
+                                //works with function below
                                 } else{
                                     //should redirect to index.php as a new user.
                                 }
                             });
                             
-                            $(".pass").on("input", function() {
+                            $(".pass").on("input", function() { //checks if passwords match, if not displays error message
                                 if ($("#Password").val() == $("#Password2").val()) {
                                     $("#passMatch").html("");
                                 } else {

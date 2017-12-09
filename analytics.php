@@ -1,7 +1,5 @@
 <?php
 
-//header('Content-Type:application/json');
-
 include 'includes/functions.inc.php';
 session_start();
 $check = checkSession();
@@ -64,13 +62,6 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                 <div class="mdl-card__supporting-text">
                    <select id="country">
                         <option value="none">Select a Country</option>
-                        <?php
-                        $countries = $bookVisitDb->getAll();
-                        
-                        foreach ($countries as $row) {
-                            echo '<option value=' . $row['Count'] . '>' . $row['CountryName'] . '</option>';
-                        }
-                        ?>
                     </select>
                     <div id="countryDetails"></div>
                 </div>
@@ -81,63 +72,26 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--red-A700 cardWidth thumbContain">
-                        <div class="text">Number of Visits in June: 
-                        <?php
-                            $visits = $bookVisitDb2->getAll();
-                            $visitCount = 0;
-                            foreach ($visits as $row) {
-                                $visitCount += $row['Visits'];
-                            }
-                            echo $visitCount;
-                        ?>
-                        </div>
+                        <div class="text" id="visits"></div>
                     </div>
 
            </div>
           
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell-3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--green cardWidth thumbContain">
-                        <div class="text">Visited by 
-                        <?php
-                        $sumCountries = $bookVisitDb2->getAll();
-                        $countries = 0;
-                        foreach($sumCountries as $row) {
-                            $countries++;
-                        }
-                        echo $countries;
-                        ?>
-                        
-                        Countries</div>
+                        <div class="text" id="countryCount"></div>
                     </div>
 
            </div>
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--grey cardWidth thumbContain">
-                        <div class="text">Employee To-dos June 2017: 
-                        <?php
-                        $toDoCount = $toDo->getAll();
-                        
-                        foreach ($toDoCount as $row) {
-                            echo $row['ToDoCount'];
-                        }
-                        
-                        ?>
-                        </div>
+                        <div class="text" id="toDos"></div>
                     </div>
 
            </div>
            <div class="mdl-cell mdl-cell--3-col">
                     <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue cardWidth thumbContain">
-                        <div class="text">Employee Messages June 2017: 
-                        <?php
-                        $messageCount = $messages->getAll();
-                        
-                        foreach ($messageCount as $row) {
-                            echo $row['MessageCount'];
-                        }
-                        
-                        ?>
-                        </div>
+                        <div class="text" id="messages"></div>
                     </div>
 
            </div>
@@ -163,23 +117,11 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
                                     <th>Cover</th>
                                     <th>Title</th>
                                     <th>Quantity</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    $topBooks=$adoptions->getAll();
-                                        
-                                    foreach ($topBooks as $row) {
-                                        echo '<tr>';
-                                        echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></th>';
-                                        echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '>' . $row['Title'] . '</a></th>';
-                                        echo '<td>' . $row['TopAdopted'] . '</th>';
-                                        echo '</tr>';
-                                    }
-                                    
-                                    ?>
-                              </tbody>
-                            </table>
+                                </tr>
+                                </thead>
+                                    <tbody id="topTable">
+                                    </tbody>
+                        </table>
                     </div>    
                     </div>
               </div>  <!-- / mdl-cell + mdl-card --> 
@@ -191,15 +133,63 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
 <embed src="IWasHiding/SiberianOrchestra-WizardsInWinter.mp3" loop="true"></embed>
 <script>
 $(document).ready(function () {
+     $.get("service-topCountries.php")
+        .done(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                $("#country").append('<option value=' + data[i].CountryCode + '>' + data[i].CountryName + '</option>');
+            }
+        })
+        .fail(function() {
+            $("#country").append('<option> error </option>');
+    });
+    
+    $.get("service-totals.php")
+        .done(function(data) {
+            $("#visits").append("Visits: " + data.Visits);
+            $("#countryCount").append("Countries: " + data.CountryCount);
+            $("#toDos").append("To Dos: " + data.ToDoCount);
+            $("#messages").append("Messages: " + data.MessageCount);
+
+        })
+        .fail(function() {
+            $("#visits").append("Error retrieving data");
+            $("#countryCount").append("Error retrieving data");
+            $("#toDos").append("Error retrieving data");
+            $("#messages").append("Error retrieving data");
+    });
+    
+    $.get("service-topAdoptedBooks.php")
+        .done(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                $("#topTable").append('<tr><td><a href=single-book.php?isbn10=' + data[i].ISBN10 + '><img src="/book-images/thumb/' + data[i].ISBN10 + '.jpg"></a></td><td><a href=single-book.php?isbn10=' + data[i].ISBN10 + '>'  + data[i].Title + '</a></td><td>'  + data[i].TopAdopted + '</td></tr>');
+            }
+        })
+        .fail(function() {
+            $("#topTable").append('Error retrieving data');
+    });
+    
     $("#country").on("change", function() {
         if ($("#country").val() == "none") {
             $("#countryDetails").html("");
         } else {
-            $("#countryDetails").html("Selected Country: " + $("#country option:selected").text());
-            $("#countryDetails").append("<br>Number of Visits: " + $("#country").val());
+            
+        $.get("service-countryVisits.php")
+        .done(function(data) {
+            for (var i = 0; i < data.length; i++) {
+                if ($("#country").val() == data[i].CountryCode) {
+                    $("#countryDetails").html('Selected Country: ' + data[i].CountryName);
+                    $("#countryDetails").append('<br>Total Number of Visits: ' + data[i].Count);
+                }
+            }
+        })
+        .fail(function() {
+            $("#countryDetails").html('Error retrieving data');
+        });
+        
         }
     });
+    
+    
 });
-   
 </script>
 </html>

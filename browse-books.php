@@ -149,11 +149,11 @@ $bookDb2 = new BookGatewaySubcat($connection);
                                         //display book details
                                         foreach ($books as $row) {
                                             echo '<tr>';
-                                            echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></th>';
-                                            echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '>' . $row['Title'] . '</a></th>';
-                                            echo '<td>' . $row['CopyrightYear'] . '</th>';
-                                            echo '<td>' . $row['SubcategoryName'] . '</th>';
-                                            echo '<td>' . $row['Imprint'] . '</th>';
+                                            echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '><img src="/book-images/thumb/' . $row['ISBN10'] . '.jpg"></a></td>';
+                                            echo '<td><a href=single-book.php?isbn10=' . $row['ISBN10'] . '>' . $row['Title'] . '</a></td>';
+                                            echo '<td>' . $row['CopyrightYear'] . '</td>';
+                                            echo '<td>' . $row['SubcategoryName'] . '</td>';
+                                            echo '<td>' . $row['Imprint'] . '</td>';
                                             echo '</tr>';
                                         }
                                     }
