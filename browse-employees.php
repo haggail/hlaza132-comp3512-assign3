@@ -68,7 +68,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
                     
                     
               <div class="mdl-cell card-lesson mdl-card mdl-shadow--2dp cardWidth" >
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white" id="filter" >
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white" id="filter" >
                   <h2 class="mdl-card__title-text">Show/Hide Filter</h2>
                 </div>
                 <div class="mdl-card__supporting-text" style="visibility:hidden;" id="filterList">
@@ -110,7 +110,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
               
               <!-- employees card-->
               <div class="mdl-cell mdl-cell card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Employees</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -164,7 +164,7 @@ $empToDoDb = new EmployeeToDoGateway($connection);
               <!--employee details card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Employee Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text overflow">

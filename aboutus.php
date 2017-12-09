@@ -42,7 +42,7 @@ if (!$check) {
             <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--4-col">
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Disclaimer</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -53,7 +53,7 @@ if (!$check) {
             </div>
               
               <div class="mdl-cell mdl-cell--4-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Resources</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -101,7 +101,7 @@ if (!$check) {
               </div>
               <div class="mdl-cell mdl-cell--8-col">
               <div class="mdl-cell mdl-cell--8-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">About Us</h2>
                 </div>
                 <div class="mdl-card__supporting-text">

@@ -31,8 +31,5 @@
         <a href="profile.php" class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">face</i> User Profile</a>
         <a href="aboutus.php" class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">settings</i> About Us</a>
         <a href="analytics.php" class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">cloud</i> Analytics</a>
-
-
-                           
     </nav>
   </div>

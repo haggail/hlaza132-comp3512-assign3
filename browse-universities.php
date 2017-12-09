@@ -64,7 +64,7 @@ $statesDb = new StatesGateway($connection);
                 <!-- state filter card-->
             <div class="mdl-cell mdl-cell--3-col">
                 <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Filter by State</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -88,7 +88,7 @@ $statesDb = new StatesGateway($connection);
 
               <!-- university list card -->
               <div class="mdl-cell mdl-cell--3-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
-                <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                   <h2 class="mdl-card__title-text">Universities</h2>
                 </div>
                 <div class="mdl-card__supporting-text">
@@ -123,7 +123,7 @@ $statesDb = new StatesGateway($connection);
             <div class="mdl-cell mdl-cell--9-col">
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">University Details</h2>
                     </div>
                     <div class="mdl-card__supporting-text">

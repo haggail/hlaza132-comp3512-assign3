@@ -57,8 +57,8 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
           
           <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--3-col">
-                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--red-A700 cardWidth thumbContain" id="visitTop">
-                        <div class="mdl-card__media mdl-color--red-A700" id="visitImage"><img src="/images/ic_home_white_48dp_2x.png" class="centerImage"></div>
+                    <div class="mdl-card mdl-cell mdl-cell--3-col card-lesson mdl-card mdl-shadow--d2p mdl-color--blue-700 cardWidth thumbContain" id="visitTop">
+                        <div class="mdl-card__media mdl-color--blue-700" id="visitImage"><img src="/images/ic_home_white_48dp_2x.png" class="centerImage"></div>
 
                         <div class="text" id="visits" style="opacity:0; text-align: center;"></div>
                     </div>
@@ -99,7 +99,7 @@ $messages = new AnalyticsEmployeeMsgsGateway($connection);
               <!-- book details card -->
               <div class="mdl-cell mdl-cell--9-col card-lesson mdl-card  mdl-shadow--2dp cardWidth">
 
-                    <div class="mdl-card__title mdl-color--red-A700 mdl-color-text--white">
+                    <div class="mdl-card__title mdl-color--blue-700 mdl-color-text--white">
                       <h2 class="mdl-card__title-text">Top 10 Adopted Books</h2>
                     </div>
 

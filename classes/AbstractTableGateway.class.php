@@ -133,41 +133,24 @@ abstract class AbstractTableGateway {
 
     //add user to database
     public function registerUser($lname, $city, $country, $email, $pass, $salt, $Date, $FName, $PNumber, $Address, $Region, $Postal){
-        //creating a userid
-        $sql = $this->getSelectStatement();
-        $cUser = DatabaseHelper::runQuery($this->connection, $sql);
-        $cUser->fetchAll();
-        $UserID = 1;
-        foreach($cUser as $a){$UserID++;}
         
+        //insert to userLogin
+        $sql = $this->addToWhere();
+        $sql .="(:email, :pass, :salt, 1, :dateJoined, :dateModified)";
+        $run = DatabaseHelper::runQuery($this->connection, $sql, array(':email'=>$email, ':pass'=>$pass, ':salt'=>$salt, ':dateJoined'=>$Date, 'dateModified'=>$Date));
         
-        //inserting to userlogin
-        /*
-        $sql = $this->getJoinStatement(); 
-        $sql .= "($FName', '$lname', '$Address', '$city', '$Region', '$country', '$Postal', '$PNumber', '$email', '1' )";
-        $run = DatabaseHelper::runQuery($this->connection, $sql, null);
-        $run->execute();
-        */
+        //getting auto-incremented ID from UserLogin to add to user so the primary keys match
+        $sql = $this->getSelectStatement() . "UserName = :email";
+        $userID = DatabaseHelper::runQuery($this->connection, $sql, array(':email'=>$email));
+        $val = $userID->fetch();
+        $ID = $val['UserID'];
         
-        //creates a prepared statement
+        //insert to user
         $sql = $this->getJoinStatement(); 
         $sql .= "(:user, :first, :last, :address, :city, :region, :country, :postal, :phone, :email, 1)";
-        $run = DatabaseHelper::runQuery($this->connection, $sql, array(':first'=>$FName, ':last'=>$lname, ':address'=>$Address, ':city'=>$city, ':region'=>$Region, ':country'=>$country, ':postal'=>$Postal, ':phone'=>$PNumber, ':email'=>$email));
+        $run = DatabaseHelper::runQuery($this->connection, $sql, array(':user'=>$ID, ':first'=>$FName, ':last'=>$lname, ':address'=>$Address, ':city'=>$city, ':region'=>$Region, ':country'=>$country, ':postal'=>$Postal, ':phone'=>$PNumber, ':email'=>$email));
         
-        $sql = $this->addToWhere();
-        $sql .="(:user, :email, :pass, :salt, 1, :dateJoined, :dateModified)";
-        $run = DatabaseHelper::runQuery($this->connection, $sql, array(':user'=>$UserID,':email'=>$email, ':pass'=>$pass, ':salt'=>$salt, ':dateJoined'=>$Date, 'dateModified'=>$Date));
-        /*
-        //inserting into userlogin
-        $sql = $this->addToWhere();
-        $sql .= "($email', '$pass', '$salt', '1', '$Date', '$Date')";
-        $run = DatabaseHelper::runQuery($this->connection, $sql, null);
-        $run->execute();
-        */
-    
-        
-        
-        
+
         return true;
         
         //Just realized Later on these could be turned into an array....... -Brandon
